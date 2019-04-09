@@ -2,14 +2,14 @@
 from __future__ import print_function #use python3 style print
 from psychopy import prefs
 #prefs.general['audioDevice'] = ['HDMI'] #doesnt work on Mac Mini
-prefs.general['audio library'] = ['pygame'] #for Chaz Mac Mini
+#prefs.general['audio library'] = ['pygame'] #for Chaz Mac Mini
 
 from psychopy import monitors, visual, event, data, logging, core, sound, gui
 print('Using', sound.audioLib, '( with ', sound.audioDriver,')', 'for sounds')
 
 import psychopy.info
 import numpy as np
-from math import atan, log, ceil
+from math import atan, log, ceil, cos, sin, radians
 import copy
 import time, sys, os, pylab
 from EyelinkEyetrackerForPsychopySUPA3 import EyeLinkCoreGraphicsPsychopy, Tracker_EyeLink #Chris Fajou integration
@@ -27,7 +27,6 @@ eyetracking = False; eyetrackFileGetFromEyelinkMachine = False #very timeconsumi
 limitedTest = True
 
 # Opening wordlists
-
 def getWords(sample):
     name = open(sample)
     output = [x.rstrip() for x in name.readlines()]
@@ -430,6 +429,9 @@ if firstCondition==1:
     secondCondition=0
 else: secondCondition=1
 
+configuration =  'vertical' #'horizontal' 
+angleToStim = 30 #if vertical, seems to be angle between horizontal meridian and words
+    
 textStimuliStream1 = list()
 textStimuliStream2 = list() #used for second, simultaneous RSVP stream
 def calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial): #Called before each trial 
@@ -442,9 +444,6 @@ def calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial): #Called before ea
     print('wordList2=',wordList2)
     textStimuliStream1[:] = [] #Delete all items in the list
     textStimuliStream2[:] = [] #Delete all items in the list
-    
-    configuration = 'horizontal' #'vertical'
-    angleToStim = 30 #if vertical, seems to be angle between horizontal meridian and words
 
     for i in range( len(cues) ):
         eccentricity = thisTrial['wordEccentricity']
@@ -473,17 +472,16 @@ def calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial): #Called before ea
            pos1 = [-thisTrial['wordEccentricity'], 0] #left
            pos2 = [thisTrial['wordEccentricity'],  0] #right
        elif configuration == 'vertical':
-           pos1 = [ cos(radians(AngleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'], 
-                   sin(radians(AngleToStim))*-thisTrial['wordEccentricity'] ]      #lower
-           pos2 = [ cos(radians(AngleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'],
-                   sin(radians(AngleToStim))*thisTrial['wordEccentricity'] ]       #upper
-       textStimulusStream1.setPos([pos1])
-       textStimulusStream2.setPos([pos2])
+           pos1 = [ cos(radians(angleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'], 
+                   sin(radians(angleToStim))*-thisTrial['wordEccentricity'] ]      #lower
+           pos2 = [ cos(radians(angleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'],
+                   sin(radians(angleToStim))*thisTrial['wordEccentricity'] ]       #upper
+       textStimulusStream1.setPos(pos1)
+       textStimulusStream2.setPos(pos2)
 
        textStimuliStream1.append(textStimulusStream1) #add to list of text stimuli that comprise  stream 1
        textStimuliStream2.append(textStimulusStream2)  #add to list of text stimuli that comprise stream 2
 
-       
     #Use these buckets by pulling out the drawn words in the order you want them. For now, just create the order you want.
     np.random.shuffle(idxsIntoWordList) #0,1,2,3,4,5,... -> randomly permuted 3,2,5,...
     idxsStream1 = copy.deepcopy(idxsIntoWordList) #first RSVP stream
@@ -572,7 +570,7 @@ for cueSerialPos in cueSerialPositions:
         for bin in [PracSample1]: #Different samples of words taken from database to vary word frequency range
             stimListPrac.append( {'cueSerialPos':cueSerialPos, 'rightResponseFirst':rightResponseFirst,
                                     'leftStreamFlip':False, 'rightStreamFlip':False,
-                                     'wordEccentricity':wordEcc, 'bin':bin } )
+                                     'wordEccentricity':wordEcc, 'bin':bin, 'hemifield':hemifield } )
 
 
 pracTrials = data.TrialHandler(stimListPrac,1) #constant stimuli method
@@ -677,6 +675,7 @@ def  oneFrameOfStim( n,cues,cuesSerialPos,seq1,seq2,cueDurFrames,letterDurFrames
     textStimuliStream2[thisStim2Idx].setColor( bgColor )
   textStimuliStream1[thisStimIdx].flipHoriz = thisTrial['leftStreamFlip']
   textStimuliStream2[thisStim2Idx].flipHoriz = thisTrial['rightStreamFlip']
+
   textStimuliStream1[thisStimIdx].draw()
   textStimuliStream2[thisStim2Idx].draw()
   for cue in cues:
@@ -765,7 +764,7 @@ def timingCheckAndLog(ts,trialN):
                         if idx+1<len(interframeIntervs):  flankingAlso.append(idx+1)
                         else: flankingAlso.append(np.NaN)
                     flankingAlso = np.array(flankingAlso)
-                    flankingAlso = flankingAlso[np.negative(np.isnan(flankingAlso))]  #remove nan values
+                    flankingAlso = flankingAlso[~(np.isnan(flankingAlso))]  #remove nan values
                     flankingAlso = flankingAlso.astype(np.integer) #cast as integers, so can use as subscripts
                     logging.info( 'flankers also='+str( np.around( interframeIntervs[flankingAlso], 1) )  ) #because this is not an essential error message, as previous one already indicates error
                       #As INFO, at least it won't fill up the console when console set to WARNING or higher
@@ -807,6 +806,8 @@ def do_RSVP_stim(thisTrial, cues, seq1, seq2, proportnNoise,trialN,eyeTrackthisT
     fixatnPeriodMin = 0.3
     fixatnPeriodFrames = int(   (np.random.rand(1)/2.+fixatnPeriodMin)   *refreshRate)  #random interval between 800ms and 1.3s
     ts = list(); #to store time of each drawing, to check whether skipped frames
+    preCue1.setPos([cos(radians(angleToStim))*wordEcc*thisTrial['hemifield'],sin(radians(angleToStim))*wordEcc])
+    preCue2.setPos([cos(radians(angleToStim))*wordEcc*thisTrial['hemifield'],sin(radians(angleToStim))*-wordEcc])
     preCueMin = 0.5
     preCueFrames = int(preCueMin*refreshRate)
     play_high_tone_correct_low_incorrect(correct=True, passThisTrial=False)
@@ -814,7 +815,6 @@ def do_RSVP_stim(thisTrial, cues, seq1, seq2, proportnNoise,trialN,eyeTrackthisT
         fixationPoint.draw()
         preCue1.draw()
         preCue2.draw()
-        
         myWin.flip()
     
     for i in range(fixatnPeriodFrames+20):  #prestim fixation interval
@@ -890,7 +890,7 @@ def handleAndScoreResponse(passThisTrial,response,responseAutopilot,task,stimSeq
     #        posOfResponse = posOfResponse[0] #first element of list (should be only one element long 
     #    responsePosRelative = posOfResponse - cueSerialPos
     #    approxCorrect = abs(responsePosRelative)<= 3 #Vul efficacy measure of getting it right to within plus/minus
-    #print('wordToIdx(',responseString,',',wordList,')=',responseWordIdx,' stimSequence=',stimSequence,'\nposOfResponse = ',posOfResponse) #debugON
+    #print('wordToIdx(',responseString,',',wordList,')=',responseWordIdx,' stimSequence=',stimSequence,'\nposOfResponse = ',posOfResponse) 
     #print response stuff to dataFile
     #header was answerPos0, answer0, response0, correct0, responsePosRelative0
     print(cueSerialPos,'\t', end='', file=dataFile)
@@ -1068,12 +1068,12 @@ else: #not staircase
             if condition==1:
                 wordList2 = wordBin[numWordsInStream:numWordsInStream*2]
             else:  wordList2 = wordList1
-            print('Now')
             print(wordList1)
             print(wordList2)
             sequenceStream1, sequenceStream2, cues = calcAndPredrawStimuli(wordList1,wordList2,cues,thisPracTrial)
             print('sequenceStream1=',sequenceStream1)
             print('sequenceStream2=',sequenceStream2)
+
             cuesSerialPos,correctAnswerIdxsStream1,correctAnswerIdxsStream2, ts  = \
                                                                         do_RSVP_stim(thisPracTrial, cues, sequenceStream1, sequenceStream2, noisePercent/100.,nDonePrac,False)
             numCasesInterframeLong = timingCheckAndLog(ts,nDonePrac)
