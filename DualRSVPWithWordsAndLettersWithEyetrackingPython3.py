@@ -1130,7 +1130,6 @@ else: #not staircase
             if condition==1:
                 wordList2 = wordBin[numWordsInStream:numWordsInStream*2]
             else:  wordList2 = wordList1
-            print('Now')
             print(wordList1)
             print(wordList2)
             sequenceStream1, sequenceStream2, cues = calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial)
@@ -1149,21 +1148,6 @@ else: #not staircase
                     responseOrder.reverse()
             for i in responseOrder:
                 x = 1.5 * thisTrial['wordEccentricity']*(i*2-1) #put it 3 times farther out than stimulus, so participant is sure which is left and which right
-    #            blanksNeeded = numCharsInResponse
-    #            respStim = visual.TextStim(myWin,pos=(0,x),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=.16,units='norm',autoLog=autoLogging)
-    #            respStr = '____'
-    #            respStim.setText(respStr,log=False)
-    #            respStim.draw(); 
-    #            myWin.flip()
-    #        
-    #            waitingForSpace = True
-    #            while waitingForSpace:
-    #                for key in event.getKeys():
-    #                    key = key.upper()
-    #                    if key in ['SPACE']:
-    #                        waitingForSpace=False
-    
-                #if (numResponses == numCharsWanted) and requireAcceptance:  #ask participant to HIT ENTER TO ACCEPT
     
                 respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
     

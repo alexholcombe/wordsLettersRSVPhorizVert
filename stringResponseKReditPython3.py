@@ -100,7 +100,7 @@ def collectStringResponse(numCharsWanted,respPromptStim,respStim,acceptTextStim,
           
     responsesAutopilot = np.array(   numCharsWanted*list([('A')])   )
     responses=np.array( responses )
-    #print 'responses=', responses,' responsesAutopilot=', responsesAutopilot #debugOFF
+    print('responses=', responses,' responsesAutopilot=', responsesAutopilot) #debugON
     return expStop,passThisTrial,responses,responsesAutopilot
 # #######End of function definition that collects responses!!!! #####################################
 
