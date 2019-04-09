@@ -111,12 +111,12 @@ def setupSoundsForResponse():
     except:
         print('Could not load the desired click sound file, instead using manually created inferior click')
         try:
-            clickSound=sound.Sound('D',octave=3, sampleRate=22050, secs=0.015, bits=8)
+            clickSound=sound.Sound('D',octave=3, sampleRate=22050, secs=0.015)
         except:
             clickSound = None
             print('Could not create a click sound for typing feedback')
     try:
-        badKeySound = sound.Sound('A',octave=5, sampleRate=22050, secs=0.03, bits=8)
+        badKeySound = sound.Sound('A',octave=5, sampleRate=22050, secs=0.03)
     except:
         badKeySound = None
         print('Could not create an invalid key sound for typing feedback')

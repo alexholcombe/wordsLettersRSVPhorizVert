@@ -84,7 +84,7 @@ prefaceStaircaseTrialsN = 20 #22
 prefaceStaircaseNoise = np.array([5,20,20,20,50,50,50,5,80,80,80,5,95,95,95]) #will be recycled / not all used, as needed
 descendingPsycho = True #psychometric function- more noise means worse performance
 threshCriterion = 0.58
-pracTrials = 10
+pracTrials = 0 #10
 numWordsInStream = 18
 instrLtrHeight = 0.8
 instrcolor = 'white'
@@ -1090,8 +1090,8 @@ else: #not staircase
 
                 if configuration == 'horizontal':
                     respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
-                else:
-                    respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisPracTrial['wordEccentricity']*thisPracTrial['hemifield'],x),colorSpace='rgb',
+                elif configuration == 'vertical':
+                    respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisPracTrial['wordEccentricity']*thisPracTrial['hemifield'],0),colorSpace='rgb',
                                                 color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
 
                 expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
