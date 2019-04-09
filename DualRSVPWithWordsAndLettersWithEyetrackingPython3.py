@@ -1149,8 +1149,12 @@ else: #not staircase
             for i in responseOrder:
                 x = 1.5 * thisTrial['wordEccentricity']*(i*2-1) #put it 3 times farther out than stimulus, so participant is sure which is left and which right
     
-                respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
-    
+                if configuration == 'horizontal':
+                    respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
+                else:
+                    respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisPracTrial['wordEccentricity']*thisPracTrial['hemifield'],x),colorSpace='rgb',
+                                                color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
+
                 expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
                                           numCharsInResponse,respPromptStim,respStim,acceptTextStim,myWin,clickSound,badKeySound,
                                                                                        requireAcceptance,autopilot,responseDebug=True)                                                                               

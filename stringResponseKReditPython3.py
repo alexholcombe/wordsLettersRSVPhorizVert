@@ -30,53 +30,53 @@ def collectStringResponse(numCharsWanted,respPromptStim,respStim,acceptTextStim,
     if requireAcceptance: #require user to hit ENTER to finalize response
         accepted = False
 
-    #while not expStop and (numResponses < numCharsWanted or not accepted):
+    while not expStop and (numResponses < numCharsWanted or not accepted):
 
-        #print 'numResponses=', numResponses #debugOFF
-        #print 'expStop=',expStop
-        #print 'accepted=',accepted
-        #noResponseYet = True
-        #thisResponse=''
-        #while noResponseYet: #loop until a valid key is hit
-        #   respPromptStim.draw()
-#           drawResponses(responses,respStim,numCharsWanted,drawBlanks)
-#           myWin.flip()
-#           click =  False
-#           keysPressed = event.getKeys();            #print 'keysPressed = ', keysPressed
-#           if autopilot:
-#               noResponseYet = False
-#               if 'ESCAPE' in keysPressed:
-#                   expStop = True
-#           elif len(keysPressed) > 0:
-#                key = keysPressed[-1] #process only the last key, it being the most recent. In theory person could type more than one key between window flips, 
-#                #but that might be hard to handle.
-#                key = key.upper()
-#                thisResponse = key
-#                if key in ['ESCAPE']:
-#                     expStop = True
-#                     noResponseYet = False
-#                  if key in ['SPACE']: #observer opting out because think they moved their eyes
-#                      passThisTrial = True
-#                      noResponseYet = False
-#                elif key in string.ascii_letters:
-#                    noResponseYet = False
-#                    responses.append(thisResponse)
-#                    numResponses += 1 #not just using len(responses) because want to work even when autopilot, where thisResponse is null
-#                    click = True
-#                elif key in ['BACKSPACE','DELETE']:
-#                    if len(responses) >0:
-#                        responses.pop()
-#                        numResponses -= 1
-#                else: #invalid key pressed
-#                    badKeySound.play()
+        #print('numResponses=', numResponses) #debugON
+        #print('expStop=',expStop)
+        #print('accepted=',accepted)
+        noResponseYet = True
+        thisResponse=''
+        while noResponseYet: #loop until a valid key is hit
+           respPromptStim.draw()
+           drawResponses(responses,respStim,numCharsWanted,drawBlanks)
+           myWin.flip()
+           click =  False
+           keysPressed = event.getKeys();            #print 'keysPressed = ', keysPressed
+           if autopilot:
+               noResponseYet = False
+               if 'ESCAPE' in keysPressed:
+                   expStop = True
+           elif len(keysPressed) > 0:
+                key = keysPressed[-1] #process only the last key, it being the most recent. In theory person could type more than one key between window flips, 
+                #but that might be hard to handle.
+                key = key.upper()
+                thisResponse = key
+                if key in ['ESCAPE']:
+                     expStop = True
+                     noResponseYet = False
+                if key in ['SPACE']: #observer opting out because think they moved their eyes
+                      passThisTrial = True
+                      noResponseYet = False
+                elif key in string.ascii_letters:
+                    noResponseYet = False
+                    responses.append(thisResponse)
+                    numResponses += 1 #not just using len(responses) because want to work even when autopilot, where thisResponse is null
+                    click = True
+                elif key in ['BACKSPACE','DELETE']:
+                    if len(responses) >0:
+                        responses.pop()
+                        numResponses -= 1
+                else: #invalid key pressed
+                    badKeySound.play()
 
-        #if click and (click is not None):
-         #   clickSound.play()
+        if click and (click is not None):
+            clickSound.play()
     
         drawResponses(responses,respStim,numCharsWanted,drawBlanks)
         myWin.flip() #draw again, otherwise won't draw the last key
         
-        if requireAcceptance:  #ask participant to HIT ENTER TO ACCEPT
+        if (numResponses == numCharsWanted) and requireAcceptance:  #ask participant to HIT ENTER TO ACCEPT
             waitingForAccept = True
             while waitingForAccept and not expStop:
                 acceptTextStim.draw()
@@ -100,7 +100,7 @@ def collectStringResponse(numCharsWanted,respPromptStim,respStim,acceptTextStim,
           
     responsesAutopilot = np.array(   numCharsWanted*list([('A')])   )
     responses=np.array( responses )
-    print('responses=', responses,' responsesAutopilot=', responsesAutopilot) #debugON
+    #print('responses=', responses,' responsesAutopilot=', responsesAutopilot) #debugON
     return expStop,passThisTrial,responses,responsesAutopilot
 # #######End of function definition that collects responses!!!! #####################################
 
@@ -137,7 +137,7 @@ if __name__=='__main__':  #Running this file directly, must want to test functio
     respPromptStim = visual.TextStim(window,pos=(0, -.7),colorSpace='rgb',color=(1,1,1),alignHoriz='center', alignVert='center',height=.1,units='norm',autoLog=autoLogging)
     acceptTextStim = visual.TextStim(window,pos=(0, -.8),colorSpace='rgb',color=(1,1,1),alignHoriz='center', alignVert='center',height=.1,units='norm',autoLog=autoLogging)
     acceptTextStim.setText('Hit ENTER to accept. Backspace to edit')
-    respStim = visual.TextStim(window,pos=(0,3),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=.16,units='norm',autoLog=autoLogging)
+    respStim = visual.TextStim(window,pos=(0,.1),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=.16,units='norm',autoLog=autoLogging)
 
     responseDebug=False; responses = list(); responsesAutopilot = list();
     numCharsWanted = 2
