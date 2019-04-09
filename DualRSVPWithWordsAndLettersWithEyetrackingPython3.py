@@ -1087,24 +1087,13 @@ else: #not staircase
                     responseOrder.reverse()
             for i in responseOrder:
                 x = 1.5 * thisPracTrial['wordEccentricity']*(i*2-1) #put it 3 times farther out than stimulus, so participant is sure which is left and which right
-    #            blanksNeeded = numCharsInResponse
-    #            respStim = visual.TextStim(myWin,pos=(0,x),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=.16,units='norm',autoLog=autoLogging)
-    #            respStr = '____'
-    #            respStim.setText(respStr,log=False)
-    #            respStim.draw(); 
-    #            myWin.flip()
-    #        
-    #            waitingForSpace = True
-    #            while waitingForSpace:
-    #                for key in event.getKeys():
-    #                    key = key.upper()
-    #                    if key in ['SPACE']:
-    #                        waitingForSpace=False
-    
-                #if (numResponses == numCharsWanted) and requireAcceptance:  #ask participant to HIT ENTER TO ACCEPT
-    
-                respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
-    
+
+                if configuration == 'horizontal':
+                    respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
+                else:
+                    respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisPracTrial['wordEccentricity']*thisPracTrial['hemifield'],x),colorSpace='rgb',
+                                                color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
+
                 expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
                                           numCharsInResponse,respPromptStim,respStim,acceptTextStim,myWin,clickSound,badKeySound,
                                                                                        requireAcceptance,autopilot,responseDebug=True)                                                                               
@@ -1155,7 +1144,7 @@ else: #not staircase
             numCharsInResponse = len(wordList1[0])
             dL = [None]*numRespsWanted #dummy list for null values
             expStop = copy.deepcopy(dL); responses = copy.deepcopy(dL); responsesAutopilot = copy.deepcopy(dL); passThisTrial=copy.deepcopy(dL)
-            responseOrder = range(numRespsWanted)
+            responseOrder = list( range(numRespsWanted) )
             if thisTrial['rightResponseFirst']: #change order of indices depending on rightResponseFirst. response0, answer0 etc refer to which one had to be reported first
                     responseOrder.reverse()
             for i in responseOrder:
