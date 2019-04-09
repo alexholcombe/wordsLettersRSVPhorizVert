@@ -442,12 +442,24 @@ def calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial): #Called before ea
     print('wordList2=',wordList2)
     textStimuliStream1[:] = [] #Delete all items in the list
     textStimuliStream2[:] = [] #Delete all items in the list
+    
+    configuration = 'horizontal' #'vertical'
+    angleToStim = 30 #if vertical, seems to be angle between horizontal meridian and words
+
     for i in range( len(cues) ):
         eccentricity = thisTrial['wordEccentricity']
         if eccentricity < 2:  #kludge to deal with very low separation case where want just one cue - draw them both in the same place
             eccentricity = 0
-        if i==0: cues[i].setPos( [-eccentricity, 0] )
-        else:  cues[i].setPos( [eccentricity, 0] )
+        if configuration == 'horizontal':
+           pos1 = [-eccentricity, 0] #left
+           pos2 = [ eccentricity,  0] #right
+        elif configuration == 'vertical':
+           pos1 = [ cos(radians(angleToStim))*eccentricity*thisTrial['hemifield'], sin(radians(angleToStim))*eccentricity  ]
+           pos2 = [ cos(radians(angleToStim))*eccentricity*thisTrial['hemifield'], sin(radians(angleToStim))*-eccentricity ]
+           
+        if i==0: cues[i].setPos( pos1 )
+        else:  cues[i].setPos( pos2 )
+
     for i in range(0,len(wordList1)): #draw all the words. Later, the seq will indicate which one to present on each frame. The seq might be shorter than the wordList
        word1 = wordList1[ i ]
        word2 = wordList2[ i ]
@@ -456,12 +468,21 @@ def calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial): #Called before ea
        textStimulusStream1 = visual.TextStim(myWin,text=word1,height=ltrHeight,colorSpace='rgb',color=letterColor,alignHoriz='center',alignVert='center',units='deg',autoLog=autoLogging) 
        #Create a bucket of words for the right stream
        textStimulusStream2 = visual.TextStim(myWin,text=word2,height=ltrHeight,colorSpace='rgb',color=letterColor,alignHoriz='center',alignVert='center',units='deg',autoLog=autoLogging)
-       textStimulusStream1.setPos([-thisTrial['wordEccentricity'],0]) #left
+
+       if configuration == 'horizontal':
+           pos1 = [-thisTrial['wordEccentricity'], 0] #left
+           pos2 = [thisTrial['wordEccentricity'],  0] #right
+       elif configuration == 'vertical':
+           pos1 = [ cos(radians(AngleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'], 
+                   sin(radians(AngleToStim))*-thisTrial['wordEccentricity'] ]      #lower
+           pos2 = [ cos(radians(AngleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'],
+                   sin(radians(AngleToStim))*thisTrial['wordEccentricity'] ]       #upper
+       textStimulusStream1.setPos([pos1])
+       textStimulusStream2.setPos([pos2])
+
        textStimuliStream1.append(textStimulusStream1) #add to list of text stimuli that comprise  stream 1
-       textStimulusStream2.setPos([thisTrial['wordEccentricity'],0]) #right
        textStimuliStream2.append(textStimulusStream2)  #add to list of text stimuli that comprise stream 2
-       #If you are Joel or someone else who needs to mess with the stream conditional on the cue position, this is probably where we are going to do it
-       #pseudoHomophonePos = thisTrial['cuePos'] -1
+
        
     #Use these buckets by pulling out the drawn words in the order you want them. For now, just create the order you want.
     np.random.shuffle(idxsIntoWordList) #0,1,2,3,4,5,... -> randomly permuted 3,2,5,...
@@ -508,17 +529,18 @@ clickSound, badKeySound = stringResponseKReditPython3.setupSoundsForResponse()
 
 screenshot= False; screenshotDone = False
 
-if limitedTest:
+if limitedTest: #only one word frequency range
     stimList = []
-    #SETTING THE CONDITIONS, This implements the full factorial design!
+    #SETTING THE CONDITIONS, This implements the full factorial design
     cueSerialPositions = np.array([8,9]) #  np.array([10,11,12,13,14])
     for cueSerialPos in cueSerialPositions:
        for rightResponseFirst in [False,True]:
-          for wordEcc in [5]:
+         for wordEcc in [5]:
+           for hemifield in [-1,1]:
             for bin in [samples[5]]: #Different samples of words taken from database to vary word frequency range
                 stimList.append( {'cueSerialPos':cueSerialPos, 'rightResponseFirst':rightResponseFirst,
                                         'leftStreamFlip':False, 'rightStreamFlip':False,
-                                         'wordEccentricity':wordEcc, 'bin':bin } )
+                                         'wordEccentricity':wordEcc, 'bin':bin, 'hemifield':hemifield } )
 
     trials = data.TrialHandler(stimList,trialsPerCondition) #constant stimuli method
     trialsForPossibleStaircase = data.TrialHandler(stimList,trialsPerCondition) #independent randomization, just to create random trials for staircase phase
@@ -526,15 +548,16 @@ if limitedTest:
 
 else:
     stimList = []
-    #SETTING THE CONDITIONS, This implements the full factorial design!
+    #SETTING THE CONDITIONS, This implements the full factorial design
     cueSerialPositions = np.array([5,6,7,8,9,10,11,12]) #  np.array([10,11,12,13,14])
     for cueSerialPos in cueSerialPositions:
        for rightResponseFirst in [False,True]:
           for wordEcc in [5]:
+           for hemifield in [-1,1]:
             for bin in samples: #Different samples of words taken from database to vary word frequency range
                 stimList.append( {'cueSerialPos':cueSerialPos, 'rightResponseFirst':rightResponseFirst,
                                         'leftStreamFlip':False, 'rightStreamFlip':False,
-                                         'wordEccentricity':wordEcc, 'bin':bin } )
+                                         'wordEccentricity':wordEcc, 'bin':bin, 'hemifield':hemifield } )
 
     trials = data.TrialHandler(stimList,trialsPerCondition) #constant stimuli method
     trialsForPossibleStaircase = data.TrialHandler(stimList,trialsPerCondition) #independent randomization, just to create random trials for staircase phase
@@ -559,7 +582,6 @@ numRightWrongEachCuepos = np.zeros([ len(cueSerialPositions), 1 ]); #summary res
 
 logging.info( 'numtrials=' + str(trials.nTotal) + ' and each trialDurFrames='+str(trialDurFrames)+' or '+str(trialDurFrames*(1000./refreshRate))+ \
                ' ms' + '  task=' + task)
-
 
 
 def numberToLetter(number): #0 = A, 25 = Z
