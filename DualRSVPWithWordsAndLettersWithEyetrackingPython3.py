@@ -24,7 +24,8 @@ except ImportError:
 
 eyetracking = False; eyetrackFileGetFromEyelinkMachine = False #very timeconsuming to get the file from the Windows machine over the ethernet cable, 
 
-limitedTest = True
+limitedTest = False
+doPracTrials = False
 
 # Opening wordlists
 def getWords(sample):
@@ -84,11 +85,9 @@ prefaceStaircaseTrialsN = 20 #22
 prefaceStaircaseNoise = np.array([5,20,20,20,50,50,50,5,80,80,80,5,95,95,95]) #will be recycled / not all used, as needed
 descendingPsycho = True #psychometric function- more noise means worse performance
 threshCriterion = 0.58
-pracTrials = 0 #10
 numWordsInStream = 18
 instrLtrHeight = 0.8
 instrcolor = 'white'
-#moving this bit under trial handler
 #wordsUnparsed="time, good, work, file, game, home, card, data, mail, best, show, hard, post, year, case, book, read, name, back, life, send, down, read, high" #24 most common words
 
 instructionTextL1 = """On each trial, a rapid stream of letters will appear at two different locations on the screen.\n
@@ -462,8 +461,9 @@ def calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial): #Called before ea
     for i in range(0,len(wordList1)): #draw all the words. Later, the seq will indicate which one to present on each frame. The seq might be shorter than the wordList
        word1 = wordList1[ i ]
        word2 = wordList2[ i ]
-       #flipHoriz, flipVert  textStim http://www.psychopy.org/api/visual/textstim.html
        #Create one bucket of words for the left stream
+       word1 = '----------------------'+word1 #add dashes to check centering #debug
+       word2 = '----------------------'+word2 #add dashes to check centering #debug
        textStimulusStream1 = visual.TextStim(myWin,text=word1,height=ltrHeight,colorSpace='rgb',color=letterColor,alignHoriz='center',alignVert='center',units='deg',autoLog=autoLogging) 
        #Create a bucket of words for the right stream
        textStimulusStream2 = visual.TextStim(myWin,text=word2,height=ltrHeight,colorSpace='rgb',color=letterColor,alignHoriz='center',alignVert='center',units='deg',autoLog=autoLogging)
@@ -517,12 +517,11 @@ fixationPoint= visual.PatchStim(myWin,tex='none',colorSpace='rgb',color=(1,1,1),
 #Construct the holders for the experiment text that will appear on screen
 respPromptStim = visual.TextStim(myWin,pos=(0, -.9),colorSpace='rgb',color=(1,1,1),alignHoriz='center', alignVert='center',height=.1,units='norm',autoLog=autoLogging)
 acceptTextStim = visual.TextStim(myWin,pos=(0, -.8),colorSpace='rgb',color=(1,1,1),alignHoriz='center', alignVert='center',height=.1,units='norm',autoLog=autoLogging)
-acceptTextStim.setText('Say your response. Press Enter to continue')
+acceptTextStim.setText('Press Enter to continue')
 respStim = visual.TextStim(myWin,pos=(0,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=3,units='deg',autoLog=autoLogging)
 requireAcceptance = True #previously this was FALSE.  NOT SURE WHY.
 nextText = visual.TextStim(myWin,pos=(0, .1),colorSpace='rgb',color = (1,1,1),alignHoriz='center', alignVert='center',height=.1,units='norm',autoLog=autoLogging)
 NextRemindCountText = visual.TextStim(myWin,pos=(0,.2),colorSpace='rgb',color= (1,1,1),alignHoriz='center', alignVert='center',height=.1,units='norm',autoLog=autoLogging)
-
 clickSound, badKeySound = stringResponseKReditPython3.setupSoundsForResponse()
 
 screenshot= False; screenshotDone = False
@@ -629,9 +628,9 @@ dataFile.write('rightResponseFirst\t')
 for i in range(numRespsWanted):
    dataFile.write('cueSerialPos'+str(i)+'\t')   #have to use write to avoid ' ' between successive text, at least until Python 3
    dataFile.write('answer'+str(i)+'\t')
-   #dataFile.write('response'+str(i)+'\t')
-   #dataFile.write('correct'+str(i)+'\t')
-   #dataFile.write('responsePosRelative'+str(i)+'\t')
+   dataFile.write('response'+str(i)+'\t')
+   dataFile.write('correct'+str(i)+'\t')
+   dataFile.write('responsePosRelative'+str(i)+'\t')
 for i in range(numWordsInStream):
     dataFile.write('word1_'+str(i)+'\t')
 for i in range(numWordsInStream):
@@ -867,37 +866,39 @@ def handleAndScoreResponse(passThisTrial,response,responseAutopilot,task,stimSeq
     print('correctAnswerIdx = ',correctAnswerIdx) 
     print('wordlist = ', wordList)
     correctAnswer = wordList[idx].upper()
-    #responseString= 'NULL'
-    #responseString= responseString.upper()
-    #print('correctAnswer=',correctAnswer ,' responseString=',responseString)
-    #if correctAnswer == responseString:
-    #    correct = 1
-    #print('correct=',correct)
-    #responseWordIdx = wordToIdx(responseString,wordList)
-    #print('responseWordIdx = ', responseWordIdx, ' stimSequence=', stimSequence)
-    #if responseWordIdx is None: #response is not in the wordList
-    #    posOfResponse = -999
-    #    logging.warn('Response was not present in the stimulus stream')
-    #else:
-    #    posOfResponse= np.where( responseWordIdx==stimSequence )
-    #    posOfResponse= posOfResponse[0] #list with two entries, want first which will be array of places where the response was found in the sequence
-    #    if len(posOfResponse) > 1:
-    #        logging.error('Expected response to have occurred in only one position in stream')
-    #    elif len(posOfResponse) == 0:
-    #        logging.error('Expected response to have occurred somewhere in the stream')
-    #        raise ValueError('Expected response to have occurred somewhere in the stream')
-     #   else:
-    #        posOfResponse = posOfResponse[0] #first element of list (should be only one element long 
-    #    responsePosRelative = posOfResponse - cueSerialPos
-    #    approxCorrect = abs(responsePosRelative)<= 3 #Vul efficacy measure of getting it right to within plus/minus
-    #print('wordToIdx(',responseString,',',wordList,')=',responseWordIdx,' stimSequence=',stimSequence,'\nposOfResponse = ',posOfResponse) 
+
+    responseString= ''.join(['%s' % char for char in response])
+    responseString= responseString.upper()
+    
+    print('correctAnswer=',correctAnswer ,' responseString=',responseString)
+    if correctAnswer == responseString:
+        correct = 1
+    print('correct=',correct)
+    responseWordIdx = wordToIdx(responseString,wordList)
+    print('responseWordIdx = ', responseWordIdx, ' stimSequence=', stimSequence)
+    if responseWordIdx is None: #response is not in the wordList
+        posOfResponse = -999
+        logging.warn('Response was not present in the stimulus stream')
+    else:
+        posOfResponse= np.where( responseWordIdx==stimSequence )
+        posOfResponse= posOfResponse[0] #list with two entries, want first which will be array of places where the response was found in the sequence
+        if len(posOfResponse) > 1:
+            logging.error('Expected response to have occurred in only one position in stream')
+        elif len(posOfResponse) == 0:
+            logging.error('Expected response to have occurred somewhere in the stream')
+            raise ValueError('Expected response to have occurred somewhere in the stream')
+        else:
+            posOfResponse = posOfResponse[0] #first element of list (should be only one element long 
+        responsePosRelative = posOfResponse - cueSerialPos
+        approxCorrect = abs(responsePosRelative)<= 3 #Vul efficacy measure of getting it right to within plus/minus
+    print('wordToIdx(',responseString,',',wordList,')=',responseWordIdx,' stimSequence=',stimSequence,'\nposOfResponse = ',posOfResponse) 
     #print response stuff to dataFile
     #header was answerPos0, answer0, response0, correct0, responsePosRelative0
     print(cueSerialPos,'\t', end='', file=dataFile)
     print(correctAnswer, '\t', end='', file=dataFile) #answer0
-    #print(responseString, '\t', end='', file=dataFile) #response0
-    #print(correct, '\t', end='',file=dataFile)   #correct0
-    #print(responsePosRelative, '\t', end='',file=dataFile) #responsePosRelative0
+    print(responseString, '\t', end='', file=dataFile) #response0
+    print(correct, '\t', end='',file=dataFile)   #correct0
+    print(responsePosRelative, '\t', end='',file=dataFile) #responsePosRelative0
 
     return correct,approxCorrect,responsePosRelative
     #end handleAndScoreResponses
@@ -1045,6 +1046,8 @@ else: #not staircase
         phasesMsg = 'Experiment will have '+str(trials.nTotal)+' trials. Letters will be drawn with superposed noise of ' + "{:.2%}".format(defaultNoiseLevel)
         print(phasesMsg); logging.info(phasesMsg)
         nDonePrac = 0
+        if not doPracTrials:
+            nDonePrac=999
         while nDonePrac < pracTrials.nTotal and expStop==False: #PRACTICE EXPERIMENT LOOP
             if nDonePrac==0:
                     if block==1:
@@ -1091,7 +1094,7 @@ else: #not staircase
                 if configuration == 'horizontal':
                     respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
                 elif configuration == 'vertical':
-                    respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisPracTrial['wordEccentricity']*thisPracTrial['hemifield'],0),colorSpace='rgb',
+                    respStim = visual.TextStim(myWin,pos=(0,x),colorSpace='rgb',
                                                 color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
 
                 expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
@@ -1152,7 +1155,7 @@ else: #not staircase
                 if configuration == 'horizontal':
                     respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
                 else:
-                    respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisPracTrial['wordEccentricity']*thisPracTrial['hemifield'],x),colorSpace='rgb',
+                    respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'],x),colorSpace='rgb',
                                                 color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
 
                 expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
