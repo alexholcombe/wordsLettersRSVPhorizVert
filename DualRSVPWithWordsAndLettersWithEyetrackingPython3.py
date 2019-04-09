@@ -1082,7 +1082,7 @@ else: #not staircase
             numCharsInResponse = len(wordList1[0])
             dL = [None]*numRespsWanted #dummy list for null values
             expStop = copy.deepcopy(dL); responses = copy.deepcopy(dL); responsesAutopilot = copy.deepcopy(dL); passThisTrial=copy.deepcopy(dL)
-            responseOrder = range(numRespsWanted)
+            responseOrder = list( range(numRespsWanted) ) #make sure it's a list rather than an iterator so you can subscript it later
             if thisPracTrial['rightResponseFirst']: #change order of indices depending on rightResponseFirst. response0, answer0 etc refer to which one had to be reported first
                     responseOrder.reverse()
             for i in responseOrder:
