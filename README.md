@@ -9,3 +9,5 @@ VERTICAL NOT EQUIDISTANT
 
 configuration =  'vertical' #'horizontal' 
 Why aren't cues drawing in situation of precueFrames
+
+Only the first trial seems to be having timing errors.

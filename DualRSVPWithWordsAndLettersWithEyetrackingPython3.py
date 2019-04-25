@@ -6,11 +6,10 @@ from psychopy import prefs
 
 from psychopy import monitors, visual, event, data, logging, core, sound, gui
 print('Using', sound.audioLib, '( with ', sound.audioDriver,')', 'for sounds')
-
 import psychopy.info
 import numpy as np
 from math import atan, log, ceil, cos, sin, radians
-import copy
+import copy, random
 import time, sys, os, pylab
 from EyelinkEyetrackerForPsychopySUPA3 import EyeLinkCoreGraphicsPsychopy, Tracker_EyeLink #Chris Fajou integration
 try:
@@ -54,7 +53,7 @@ tasks=['T1']; task = tasks[0]
 #same screen or external screen? Set scrn=0 if one screen. scrn=1 means display stimulus on second screen.
 #widthPix, heightPix
 quitFinder = False #if checkRefreshEtc, quitFinder becomes True.
-autopilot=True
+autopilot=False
 demo=False #False
 exportImages= False #quits after one trial
 subject='Hubert' #user is prompted to enter true subject name
@@ -237,8 +236,12 @@ if quitFinder:
     shellCmd = 'osascript -e '+applescript
     os.system(shellCmd)
 
+seed = int( np.floor( time.time() ) )
+random.seed(seed); np.random.seed(seed) #https://stackoverflow.com/a/48056075/302378
+logging.info("Random seed:" + str(seed))
+
 #letter size 2.5 deg
-SOAms = 300 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
+SOAms = 360 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
 #Minimum SOAms should be 84  because any shorter, I can't always notice the second ring when lag1.   71 in Martini E2 and E1b (actually he used 66.6 but that's because he had a crazy refresh rate of 90 Hz)
 letterDurMs =  80 #130 #80 #23.6  in Martini E2 and E1b (actually he used 22.2 but that's because he had a crazy refresh rate of 90 Hz)
 
@@ -381,12 +384,13 @@ myWin = openMyStimWindow() #reopen stim window. Had to close test window to allo
 infix = '' #part of the filenames
 if doStaircase:
     infix = 'staircase_'
-fileName = os.path.join(dataDir, subject + '_' + infix+ timeAndDateStr)
+fileNameWithPath = os.path.join(dataDir, subject + '_' + infix+ timeAndDateStr)
 if not demo and not exportImages:
-    dataFile = open(fileName+'.txt', 'w')
-    saveCodeCmd = 'cp \'' + sys.argv[0] + '\' '+ fileName + '.py'
-    os.system(saveCodeCmd)  #save a copy of the code as it was when that subject was run
-    logFname = fileName+'.log'
+    dataFile = open(fileNameWithPath+'.txt', 'w')
+    import shutil
+    bupCodeDestination = fileNameWithPath + '.py'
+    shutil.copyfile(sys.argv[0], bupCodeDestination)    
+    logFname = fileNameWithPath+'.log'
     ppLogF = logging.LogFile(logFname, 
         filemode='w',#if you set this to 'a' it will append instead of overwriting
         level=logging.INFO)#errors, data and warnings will be sent to this logfile
@@ -1032,8 +1036,8 @@ if doStaircase:
         print("Fit failed.")
     plotDataAndPsychometricCurve(staircase,fit,descendingPsycho,threshCriterion)
     #save figure to file
-    pylab.savefig(fileName+'.pdf')
-    print('The plot has been saved, as '+fileName+'.pdf')
+    pylab.savefig(fileNameWithPath+'.pdf')
+    print('The plot has been saved, as '+fileNameWithPath+'.pdf')
     pylab.show() #must call this to actually show plot
 else: #not staircase
     block = 1
