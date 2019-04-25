@@ -4,3 +4,8 @@
                 wordBin = thisTrial['bin']
             else:
                 wordBin = SampleLetters
+
+VERTICAL NOT EQUIDISTANT
+
+configuration =  'vertical' #'horizontal' 
+Why aren't cues drawing in situation of precueFrames

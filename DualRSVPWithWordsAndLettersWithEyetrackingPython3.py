@@ -54,7 +54,7 @@ tasks=['T1']; task = tasks[0]
 #same screen or external screen? Set scrn=0 if one screen. scrn=1 means display stimulus on second screen.
 #widthPix, heightPix
 quitFinder = False #if checkRefreshEtc, quitFinder becomes True.
-autopilot=False
+autopilot=True
 demo=False #False
 exportImages= False #quits after one trial
 subject='Hubert' #user is prompted to enter true subject name
@@ -238,7 +238,7 @@ if quitFinder:
     os.system(shellCmd)
 
 #letter size 2.5 deg
-SOAms = 500 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
+SOAms = 300 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
 #Minimum SOAms should be 84  because any shorter, I can't always notice the second ring when lag1.   71 in Martini E2 and E1b (actually he used 66.6 but that's because he had a crazy refresh rate of 90 Hz)
 letterDurMs =  80 #130 #80 #23.6  in Martini E2 and E1b (actually he used 22.2 but that's because he had a crazy refresh rate of 90 Hz)
 
@@ -307,7 +307,7 @@ myWin.close() #have to close window to show dialog box
 
 defaultNoiseLevel = 0.0 #to use if no staircase, can be set by user
 trialsPerCondition = 1 #default value
-firstCondition = 1
+firstCondition = 0
 dlgLabelsOrdered = list()
 if doStaircase:
     myDlg = gui.Dlg(title="Staircase to find appropriate noisePercent", pos=(200,400))
@@ -413,7 +413,6 @@ if fullscr and not demo and not exportImages:
     logging.info(runInfo)
 logging.flush()
 
-
 if eyetracking:
     eyeMoveFile=('EyeTrack_'+subject+'_'+timeAndDateStr+'.EDF')
     tracker=Tracker_EyeLink(myWin,trialClock,subject,1, 'HV5',(255,255,255),(0,0,0),False,(widthPix,heightPix))
@@ -422,8 +421,11 @@ if firstCondition==1:
     secondCondition=0
 else: secondCondition=1
 
-configuration =  'vertical' #'horizontal' 
-angleToStim = 30 #if vertical, seems to be angle between horizontal meridian and words
+configuration = 'horizontal' # 'vertical' #'horizontal'
+if configuration == 'horizontal':
+    angleToStim = 0
+elif configuration == 'vertical':
+    angleToStim = 30 #if vertical, seems to be angle between horizontal meridian and words
     
 textStimuliStream1 = list()
 textStimuliStream2 = list() #used for second, simultaneous RSVP stream
@@ -449,8 +451,10 @@ def calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial): #Called before ea
            pos1 = [ cos(radians(angleToStim))*eccentricity*thisTrial['hemifield'], sin(radians(angleToStim))*eccentricity  ]
            pos2 = [ cos(radians(angleToStim))*eccentricity*thisTrial['hemifield'], sin(radians(angleToStim))*-eccentricity ]
            
-        if i==0: cues[i].setPos( pos1 )
-        else:  cues[i].setPos( pos2 )
+        if i==0: 
+            cues[i].setPos( pos1 )
+        else:  
+            cues[i].setPos( pos2 )
 
     for i in range(0,len(wordList1)): #draw all the words. Later, the seq will indicate which one to present on each frame. The seq might be shorter than the wordList
        word1 = wordList1[ i ]
@@ -799,15 +803,15 @@ def do_RSVP_stim(thisTrial, cues, seq1, seq2, proportnNoise,trialN,eyeTrackthisT
     fixatnPeriodMin = 0.3
     fixatnPeriodFrames = int(   (np.random.rand(1)/2.+fixatnPeriodMin)   *refreshRate)  #random interval between 800ms and 1.3s
     ts = list(); #to store time of each drawing, to check whether skipped frames
-    preCue1.setPos([cos(radians(angleToStim))*wordEcc*thisTrial['hemifield'],sin(radians(angleToStim))*wordEcc])
-    preCue2.setPos([cos(radians(angleToStim))*wordEcc*thisTrial['hemifield'],sin(radians(angleToStim))*-wordEcc])
     preCueMin = 0.5
     preCueFrames = int(preCueMin*refreshRate)
     play_high_tone_correct_low_incorrect(correct=True, passThisTrial=False)
     for i in range(preCueFrames):
         fixationPoint.draw()
-        preCue1.draw()
-        preCue2.draw()
+        cues[0].setLineColor(cueColor)
+        cues[1].setLineColor(cueColor)
+        cues[0].draw()
+        cues[1].draw()
         myWin.flip()
     
     for i in range(fixatnPeriodFrames+20):  #prestim fixation interval
