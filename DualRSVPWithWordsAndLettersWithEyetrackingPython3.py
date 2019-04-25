@@ -46,13 +46,7 @@ lettersUnparsed="a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z"
 SampleLetters = lettersUnparsed.split(",") #split into list
 for i in range(len(SampleLetters)):
     SampleLetters[i] = SampleLetters[i].replace(" ", "") #delete spaces
-
 print("SampleLetters",SampleLetters)
-
-#for j in range(len(i)):
-#        i[j] = i[j].replace(" ", "") #delete spaces
-#        print(i)
-#    return(i)
 
 wordEccentricity=3 #degrees of visual angle away from the fixation point
 tasks=['T1']; task = tasks[0]
@@ -462,8 +456,8 @@ def calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial): #Called before ea
        word1 = wordList1[ i ]
        word2 = wordList2[ i ]
        #Create one bucket of words for the left stream
-       word1 = '----------------------'+word1 #add dashes to check centering #debug
-       word2 = '----------------------'+word2 #add dashes to check centering #debug
+       #word1 = '----------------------'+word1 #add dashes to check centering #debug
+       #word2 = '----------------------'+word2 #add dashes to check centering #debug
        textStimulusStream1 = visual.TextStim(myWin,text=word1,height=ltrHeight,colorSpace='rgb',color=letterColor,alignHoriz='center',alignVert='center',units='deg',autoLog=autoLogging) 
        #Create a bucket of words for the right stream
        textStimulusStream2 = visual.TextStim(myWin,text=word2,height=ltrHeight,colorSpace='rgb',color=letterColor,alignHoriz='center',alignVert='center',units='deg',autoLog=autoLogging)
