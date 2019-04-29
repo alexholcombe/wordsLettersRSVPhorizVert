@@ -191,8 +191,8 @@ bgColor = [-.7,-.7,-.7] # [-1,-1,-1]
 cueColor = [1.,1.,1.]
 letterColor = [1.,1.,1.]
 cueRadius = 2.9 #6 deg in Goodbourn & Holcombe
-widthPix= 1600 #monitor width in pixels of Agosta
-heightPix= 900 #800 #monitor height in pixels
+widthPix= 3360  #1600 #monitor width in pixels
+heightPix= 2100 #900 #800 #monitor height in pixels
 monitorwidth = 52.0 #monitor width in cm
 scrn=0 #0 to use main screen, 1 to use external screen connected to computer
 fullscr=True #True to use fullscreen, False to not. Timing probably won't be quite right if fullscreen = False
@@ -213,7 +213,7 @@ pixelperdegree = widthPix/ (atan(monitorwidth/viewdist) /np.pi*180)
 print('pixelperdegree=',pixelperdegree)
     
 # create a dialog from dictionary 
-infoFirst = { 'Do staircase (only)': False, 'Check refresh etc':False, 'Fullscreen (timing errors if not)': False, 'Screen refresh rate':refreshRate, 'Show instructions': False, 'Practice Trials': False }
+infoFirst = { 'Do staircase (only)': False, 'Check refresh etc':True, 'Fullscreen (timing errors if not)': fullscr, 'Screen refresh rate':refreshRate, 'Show instructions': False, 'Practice Trials': False }
 OK = gui.DlgFromDict(dictionary=infoFirst, 
     title='Dual-RSVP experiment OR staircase to find thresh noise level for performance criterion', 
     order=['Do staircase (only)', 'Check refresh etc', 'Fullscreen (timing errors if not)','Show instructions', 'Practice Trials'], 
@@ -241,9 +241,9 @@ random.seed(seed); np.random.seed(seed) #https://stackoverflow.com/a/48056075/30
 logging.info("Random seed:" + str(seed))
 
 #letter size 2.5 deg
-SOAms = 360 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
+SOAms = 350 #250 #360 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
 #Minimum SOAms should be 84  because any shorter, I can't always notice the second ring when lag1.   71 in Martini E2 and E1b (actually he used 66.6 but that's because he had a crazy refresh rate of 90 Hz)
-letterDurMs =  80 #130 #80 #23.6  in Martini E2 and E1b (actually he used 22.2 but that's because he had a crazy refresh rate of 90 Hz)
+letterDurMs =  300 #130 #80 #23.6  in Martini E2 and E1b (actually he used 22.2 but that's because he had a crazy refresh rate of 90 Hz)
 
 ISIms = SOAms - letterDurMs
 letterDurFrames = int( np.floor(letterDurMs / (1000./refreshRate)) )
@@ -344,7 +344,7 @@ if refreshRateWrong:
 else: logging.info(refreshMsg1+refreshMsg2)
 
 if checkRefreshEtc and (not demo) and (myWinRes != [widthPix,heightPix]).any():
-    msgWrongResolution = 'Screen apparently NOT the desired resolution of '+ str(widthPix)+'x'+str(heightPix)+ ' pixels!!'
+    msgWrongResolution = 'Resolution NOT the desired '+ str(widthPix)+'x'+str(heightPix)+ ' pixels!' + ' Instead ' + str(myWinRes[0]) + 'x' + str(myWinRes[1])
     myDlg.addText(msgWrongResolution, color='Red')
     logging.error(msgWrongResolution)
     print(msgWrongResolution)
