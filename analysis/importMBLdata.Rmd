@@ -1,0 +1,219 @@
+---
+title: "MBL"
+author: "Alex Holcombe"
+date: "2/27/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library('mixRSVP')
+```
+
+Analysis of MBL 
+
+Based mostly on https://github.com/alexholcombe/Cheryl_E2/blob/master/dataPreprocess/readInE2rawData.R
+
+```{r set up functions}
+
+#Loads raw data from MATLAB files for second backwards paper first experiment
+
+
+#First experiment of second backwards-letters paper. random orientation each trial.
+rawDataPath<- file.path("..","data","MBL")
+
+files <- dir(path=rawDataPath,pattern='.txt')  #find all data files in this directory
+dfAll<-data.frame()
+print(files)
+```
+
+
+```{r all}
+
+for (i in 1:length(files)) { #read in each file
+    fileThis<- file.path(rawDataPath,files[i])
+
+    rawData<- tryCatch(
+       read.table( fileThis,  sep="\t", header=TRUE, strip.white=TRUE),
+       error=function(e) {
+         stop( paste0("ERROR reading the file ",fname," :",e) )
+       } )
+
+    filename<-files[i]
+    apparentSubjectName <- strsplit(filename,split="_")[[1]][1]
+    print(paste("Apparent subject name about to load is",apparentSubjectName))
+    subjectName<- as.character(  rawData$subject[1] )
+    if (apparentSubjectName != subjectName) {
+      stop( paste("WARNING apparentSubjectName",apparentSubjectName," from filename does not match subjectName in data structure",
+                  subjectName, "in file",files[i]) )
+    }
+    rawData$file <- filename
+
+    dfThis<-rawData # turnRawPsychopyOutputIntoMeltedDataframe(rawData)
+
+    tryCatch(
+      dfAll<-rbind(dfAll,dfThis), #if fail to bind new with old,
+      error=function(e) { #Give feedback about how the error happened
+        cat(paste0("Tried to merge but error:",e) )
+      } )
+      
+}
+```
+
+Add SOA and letterDur to data, because I tested MBL at multiple values
+
+```{r hey}
+library(dplyr)
+
+dfAll<- dfAll %>% mutate( SOA = case_when(file=="MBL_26Apr2019_11-43.txt" ~ 360,
+                                          file=="MBL_26Apr2019_11-50.txt" ~ 360,
+                                          file=="MBL_26Apr2019_11-54.txt" ~ 400,
+                                          file=="MBL_26Apr2019_11-56.txt" ~ 600,
+                                          file=="MBL_26Apr2019_11-58.txt" ~ 900,
+                                          file=="mbl_26Apr2019_12-01.txt" ~ 350 #almost all the data is in this file
+                                          ))
+
+dfAll<- dfAll %>% mutate( letterdurDesired = case_when(file=="MBL_26Apr2019_11-43.txt" ~ 80,
+                                                file=="MBL_26Apr2019_11-50.txt" ~ 80,
+                                                file=="MBL_26Apr2019_11-54.txt" ~ 80,
+                                                file=="MBL_26Apr2019_11-56.txt" ~ 80,
+                                                file=="MBL_26Apr2019_11-58.txt" ~ 80,
+                                                file=="mbl_26Apr2019_12-01.txt" ~ 300) )
+
+refreshRate <- 60
+dfAll<- dfAll %>% mutate(   letterDurFrames = floor (letterdurDesired / (1000./refreshRate) )  )
+#table(dfAll$letterdur, dfAll$letterDurFrames)
+dfAll$letterdur <- dfAll$letterDurFrames * 1000/refreshRate
+                                                
+```
+
+```{r visual all rates check}
+library(ggplot2)
+
+
+sanityVisualCheck<-TRUE
+if (sanityVisualCheck) {
+
+  g=ggplot(dfAll, aes(x=responsePosRelative0))
+  #plot data
+  g<-g+geom_histogram(binwidth=1) + xlab('serial position error') + facet_grid(.~SOA) + ggtitle('left letter')
+  g <- g + geom_text(aes(x=-10,y=0,label=round(letterdur,0))) #paste("dur:",)))
+  g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
+  show(g)
+  
+  h=ggplot(dfAll, aes(x=responsePosRelative1))
+  #plot data
+  h<-h+geom_histogram(binwidth=1) + xlab('serial position error') +  facet_grid(.~SOA) + ggtitle('right letter')
+  h <-h + geom_text(aes(x=-10,y=0,label=round(letterdur,0))) #paste("dur:",)))
+  h<-h+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
+  show(h)
+  
+  
+}
+```
+
+Only analyse at 350 ms SOA because for all others letterdur was 80 ms and he couldn't do it.
+
+```{r visual check}
+
+E<- dfAll %>% filter(SOA==350)
+
+sanityVisualCheck<-TRUE
+if (sanityVisualCheck) {
+  library(ggplot2)
+
+  g=ggplot(E, aes(x=responsePosRelative0))
+  #plot data
+  g<-g+geom_histogram(binwidth=1) + xlab('serial position error') + ggtitle('left letter')
+  g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
+  show(g)
+  
+  g=ggplot(E, aes(x=responsePosRelative1))
+  #plot data
+  g<-g+geom_histogram(binwidth=1) + xlab('serial position error') + ggtitle('right letter')
+  g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
+  show(g)
+  
+  
+}
+
+
+
+```
+
+
+Melt
+```{r melt with me}
+library(tidyr)
+
+columnsToMelt<- colnames(E)[11:20]
+#https://stackoverflow.com/questions/23945350/reshaping-wide-to-long-with-multiple-values-columns
+dl<-  E %>%  gather(v, value, columnsToMelt)
+#attributes dropped but that's ok
+#Separate the new v column into 0 and 1 (corresponding to left and right)
+dl<- dl %>% separate(col = v, into = c("col", "var"), sep = -1) #This means separate it at the last character, 
+  #which is always 0 or 1 corresponding to left and right
+dl<- dl %>% arrange(file,trialnum) %>% 
+  spread(col, value) %>% rename(side=var, SPE=responsePosRelative)
+rownames(dl)<-NULL
+
+dl$SPE <- as.numeric(dl$SPE)
+
+
+```
+
+```{r calc needed experiment params}
+numItemsInStream <- 17
+dl$cueSerialPos <- as.numeric(dl$cueSerialPos) 
+possibleTargetSP<- sort(unique(dl$cueSerialPos))
+minTargetSP <- min( possibleTargetSP ) 
+maxTargetSP <- max( possibleTargetSP )
+minSPE <- 1 - maxTargetSP
+maxSPE <- numItemsInStream - minTargetSP
+```
+
+
+Plot after melting
+```{r}
+dl[dl$side=="0",]$side <- "left"
+dl[dl$side=="1",]$side <- "right"
+
+g=ggplot(dl, aes(x=SPE)) + theme_apa() + facet_grid(side~.)
+#plot data
+g<-g+geom_histogram(binwidth=1) + xlim(minSPE,maxSPE)
+show(g)
+```
+
+```{r}
+dl<- dl %>% rename(targetSP = cueSerialPos)
+#WHY DOES THE targetSP variable have to be called targetSP for plot_hist_with_fit when you have to pass the motherfucker?
+#Showit also doesn't seem to be working
+```
+
+Mixture model the left side
+```{r}
+
+dlLeft<- dl %>% filter(side=="left") #%>% filter()
+
+plotContinuousGaussian <- FALSE; annotateIt <- TRUE
+j<- plot_hist_with_fit(dlLeft,minSPE,maxSPE,dlLeft$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
+j<- j + ggtitle("left")
+show(j)
+```
+
+Mixture model the right side
+```{r}
+
+guessesFakeSPEs <- minSPE:maxSPE
+guessesFakeSPEs <- guessesFakeSPEs[-pmatch(-3:3,guessesFakeSPEs)] #remove -3:3 to be sure they're modeled as part of the uniform distribution #https://stackoverflow.com/questions/49742315/how-to-delete-multiple-values-from-a-vector-but-not-all-of-them
+
+dl[dl$SPE==-999,]$SPE <- sample(guessesFakeSPEs, size=sum(dl$SPE==-999),replace=TRUE)
+
+dlRight<- dl %>% filter(side=="right") %>% filter(SPE>-999)  #ignore guesses of letters that weren't in the stream. Could alternatively give them random values
+
+plotContinuousGaussian <- TRUE; annotateIt <- TRUE
+k<- plot_hist_with_fit(dlRight,minSPE,maxSPE,dlRight$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
+k<- k + ggtitle("right")
+show(k)
+```

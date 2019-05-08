@@ -1,0 +1,153 @@
+---
+title: "InspectHistogramsE1"
+author: "Alex Holcombe"
+date: "2/27/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Read in data and parameter estimates
+
+```{r}
+
+#Import raw data
+dataPath<- file.path("Data/")
+#Experiment was administered by MATLAB
+#.mat file been preprocessed into melted long dataframe by importE1data.Rmd
+data<- readRDS( file.path(dataPath, "backwards2E1_rawDataFromMAT.rda") ) 
+df<-data
+df$letterSeq<-NULL #Because dplyr won't support it
+estimates<- read.csv(file="Results/backwards2E1_paramEstimates.csv", header=TRUE, sep=",")
+
+```
+
+
+Sanity-check some data by graphing.
+
+Investigate whether the pathological identicalness of inverted/canonical is already at this point
+```{r}
+library(dplyr)
+dg<- df %>% filter(subject < "AC")
+
+numItemsInStream<- length( data$letterSeq[1,] )  
+minSPE<- -17; maxSPE<- 17
+library(ggplot2)
+g=ggplot(dg, aes(x=SPE)) + facet_grid(subject+orientation~stream) #,  scales="free_y")
+g<-g+geom_histogram(binwidth=1,color="grey90") + xlim(minSPE,maxSPE)
+g<-g+ geom_text(x=12, y= 33, aes(label = subject)) #inset subject name/number. Unfortunately it overwrites itself a million times
+show(g)
+```
+
+Let's inspect histogram plots and fits.  Check exclusions
+
+* yellow = guessing component 
+* light blue = Gaussian component
+* green = sum of the guessing and Gaussian components. In other words, the histogram heights predicted by the model
+* dark blue = continuous Gaussian. This helps get a sense of the effect of discretising the Gaussian. For instance, it's possible (especially using Pat's method, it seems), for the Gaussian peak to fly high above the bars and still fit the discrete bins (or bin centers, in Pat's method), suggesting an undesirably high estimates of the efficacy (likely accompanied by an undesirably low precision)
+
+
+Add R parameter estimates to dataframe.
+
+```{r, echo=FALSE, message=FALSE, fig.height=360, fig.width=10}
+#want fig.height of 10 per subject
+
+condtnVariableNames <- c("subject","stream", "orientation")  
+
+#Add R parameter estimates to dataframe
+df<- merge(df,estimates) 
+
+
+```
+
+Calculate curves for parameters, to plot on histograms.
+```{r, echo=TRUE, message=FALSE, fig.height=360, fig.width=10}
+
+library(mixRSVP)
+
+curves<- df %>% group_by_at(.vars = condtnVariableNames) %>% 
+  do(calc_curves_dataframe(.,minSPE,maxSPE,numItemsInStream))
+
+#Calc numObservations to each condition. This is needed only for scaling the fine-grained Gaussian
+#Calc the number of observations for each condition, because gaussianScaledforData needs to know.
+dfGroups<- df %>% group_by_at(.vars = condtnVariableNames) %>% summarise(nPerCond = n())
+#add nPerCond back to parameter estimates
+estimates<- merge(estimates,dfGroups)
+
+grain<-.05
+gaussFine<- estimates %>% group_by_at(.vars = condtnVariableNames) %>% do(
+  gaussian_scaled_from_df(.,minSPE,maxSPE,grain) )
+```
+
+Calculate how many graphs we need to plot.
+
+```{r, echo=TRUE, message=TRUE}
+
+numGroups<- nrow(dfGroups) # length(table(df$orientation,df$subject,df$stream)) 
+print(paste("Num groups = ",numGroups))
+fontSz = 400/numGroups
+
+```
+
+Define function to plot bunch of subjects.
+```{r, echo=TRUE, message=TRUE}
+
+library(ggplot2)
+
+plotBunch<- function(df,curves) {
+
+  g=ggplot(df, aes(x=SPE)) + facet_grid(subject+orientation~stream) #,  scales="free_y")
+  g<-g+geom_histogram(binwidth=1,color="grey90") + xlim(minSPE,maxSPE)
+  g<-g+ geom_text(x=12, y= 33, aes(label = subject)) #inset subject name/number. Unfortunately it overwrites itself a million times
+  g<-g +theme_apa() #+theme(panel.grid.minor=element_blank(),panel.grid.major=element_blank())# hide all gridlines.
+  #g<-g+ theme(line=element_blank(), panel.border = element_blank())
+  sz=.8
+  #Plot the underlying Gaussian , not just the discretized Gaussian. But it's way too tall. I don't know if this is 
+  #a scaling problem or what actually is going on.
+  #g<-g + geom_line(data=gaussFine,aes(x=x,y=gaussianFreq),color="darkblue",size=1.2)
+  
+  g<-g+ geom_point(data=curves,aes(x=x,y=combinedFitFreq),color="chartreuse3",size=sz*2.5)
+  g<-g+ geom_line(data=curves,aes(x=x,y=guessingFreq),color="yellow",size=sz)
+  #Discretized Gaussian
+  g<-g+ geom_line(data=curves,aes(x=x,y=gaussianFreq),color="lightblue",size=sz)
+  
+  #mixSig - whether mixture model statistically significantly better than guessing
+  curves <- dplyr::mutate(curves, mixSig = ifelse(pLRtest <= .05, TRUE, FALSE)) #annotate_fit uses this to color the p-value
+  g<- annotate_fit(g,curves) #assumes curvesDf includes efficacy,latency,precision
+  #Somehow the which mixSig (TRUE or FALSE) is red and which green is flipped relative to plot_hist_with_fit even though
+  #identical commands are used. I haven't been able to work out why.
+  g<- g + scale_color_manual(values=c("red","forestgreen"))
+  return (g)   
+}  
+```
+
+```{r, fig.height=100, fig.width=10}
+
+#A good number of rows for fig of height 100 in html is 32.
+#Each subject gets 2 rows. Therefore find the 16-subject intervals
+subjectsPerGraph<-16
+#length(unique(df$subject[ df$subject < "AQ" ]))
+numSs<- length( unique(df$subject) )
+subjectBreaks<- seq(1,numSs,subjectsPerGraph)
+
+subjCutoffs<- unique(df$subject)[subjectBreaks]
+#add last subject to cutoff list
+subjCutoffs<- c( subjCutoffs, tail(unique(df$subject),1) )
+for (i in 1:(length(subjCutoffs)-1)) {
+  subjMin <- subjCutoffs[i]
+  subjMax<- subjCutoffs[i+1]
+  dg<- df %>% filter(subject >= subjMin, subject <= subjMax)
+  curvesThis <- curves %>% filter(subject >= subjMin, subject <= subjMax)
+  
+  h<-plotBunch(dg,curvesThis)
+  print(paste0("Showing another set of Ss,",subjMin," to ",subjMax)
+  show(h)
+}
+
+  
+```
+
+It all looks good, the significance test picks up on a few Ss who fail in all 4 conditions (AY, who always reports from near the end of the stream, and AF who responds randomly seemingly) , who should be excluded. However there are a number of Ss whose second-target deficit is so large that they fail on just the right side in the canonical condition and the left side in the inverted condition (AS, AG). Their efficacies actually are reasonable even when the likelihood ratio test fails. So the criteria for exclusion should perhaps be 3 out of 4 or more failures of likelihood ratio test.
+
