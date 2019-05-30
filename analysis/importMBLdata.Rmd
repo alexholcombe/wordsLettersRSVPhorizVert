@@ -82,7 +82,8 @@ refreshRate <- 60
 dfAll<- dfAll %>% mutate(   letterDurFrames = floor (letterdurDesired / (1000./refreshRate) )  )
 #table(dfAll$letterdur, dfAll$letterDurFrames)
 dfAll$letterdur <- dfAll$letterDurFrames * 1000/refreshRate
-                                                
+
+table(dfAll$SOA, dfAll$letterdur)                 
 ```
 
 ```{r visual all rates check}
@@ -105,7 +106,6 @@ if (sanityVisualCheck) {
   h <-h + geom_text(aes(x=-10,y=0,label=round(letterdur,0))) #paste("dur:",)))
   h<-h+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
   show(h)
-  
   
 }
 ```
@@ -131,12 +131,7 @@ if (sanityVisualCheck) {
   g<-g+geom_histogram(binwidth=1) + xlab('serial position error') + ggtitle('right letter')
   g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
   show(g)
-  
-  
 }
-
-
-
 ```
 
 
@@ -189,10 +184,19 @@ dl<- dl %>% rename(targetSP = cueSerialPos)
 #Showit also doesn't seem to be working
 ```
 
-Mixture model the left side
-```{r}
+Prepare for mixture modeling by putting the few -999 errors (where he reported a letter not in the stream) as a random error not close to the peak. This is a conservative kludge. Otherwise have to modify the mixture modeling code to model -999 or another dummy value as pure guessing, which is doable but probably would be v. time-consuming. Don't have time now, better to wait until Mike writing this up.
 
-dlLeft<- dl %>% filter(side=="left") #%>% filter()
+```{r}
+guessesFakeSPEs <- minSPE:maxSPE
+guessesFakeSPEs <- guessesFakeSPEs[-pmatch(-3:3,guessesFakeSPEs)] #remove -3:3 to be sure they're modeled as part of the uniform distribution #https://stackoverflow.com/questions/49742315/how-to-delete-multiple-values-from-a-vector-but-not-all-of-them
+dl[dl$SPE==-999,]$SPE <- sample(guessesFakeSPEs, size=sum(dl$SPE==-999),replace=TRUE)
+
+```
+
+Mixture model the left side
+
+```{r mixml}
+dlLeft<- dl %>% filter(side=="left") 
 
 plotContinuousGaussian <- FALSE; annotateIt <- TRUE
 j<- plot_hist_with_fit(dlLeft,minSPE,maxSPE,dlLeft$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
@@ -202,16 +206,19 @@ show(j)
 
 Mixture model the right side
 ```{r}
-
-guessesFakeSPEs <- minSPE:maxSPE
-guessesFakeSPEs <- guessesFakeSPEs[-pmatch(-3:3,guessesFakeSPEs)] #remove -3:3 to be sure they're modeled as part of the uniform distribution #https://stackoverflow.com/questions/49742315/how-to-delete-multiple-values-from-a-vector-but-not-all-of-them
-
-dl[dl$SPE==-999,]$SPE <- sample(guessesFakeSPEs, size=sum(dl$SPE==-999),replace=TRUE)
-
 dlRight<- dl %>% filter(side=="right") %>% filter(SPE>-999)  #ignore guesses of letters that weren't in the stream. Could alternatively give them random values
 
 plotContinuousGaussian <- TRUE; annotateIt <- TRUE
 k<- plot_hist_with_fit(dlRight,minSPE,maxSPE,dlRight$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
 k<- k + ggtitle("right")
 show(k)
+```
+
+Save the data, for combining later with day two.
+```{r save file}
+library(readr) #has better than save.csv https://readr.tidyverse.org/reference/write_delim.html
+pathToSave<- file.path("..","data","MBL")
+
+saveRDS(dl, file = file.path(pathToSave,"dayOne.rda"), compress="bzip2")
+write_tsv(dl, file.path(pathToSave,"dayOne.tsv"))
 ```

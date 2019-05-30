@@ -84,11 +84,6 @@ Add SOA and letterDur to data, because I tested MBL at multiple values
 ```{r hey}
 library(dplyr)
 
-MBL_14May2019_10-58.txt   SOA=350 letterDur=200
-MBL_14May2019_11-04.txt  400 / 250
-"MBL_14May2019_11-06.txt"  400 / 300
-"MBL_14May2019_12-14.txt" 350/280
-
 dfAll<- dfAll %>% mutate( SOA = case_when(file=="MBL_14May2019_10-58.txt" ~ 350,
                                           file=="MBL_14May2019_11-04.txt" ~ 400,
                                           file=="MBL_14May2019_11-06.txt" ~ 400,
@@ -104,12 +99,15 @@ refreshRate <- 60
 dfAll<- dfAll %>% mutate(   letterDurFrames = floor (letterdurDesired / (1000./refreshRate) )  )
 #table(dfAll$letterdur, dfAll$letterDurFrames)
 dfAll$letterdur <- dfAll$letterDurFrames * 1000/refreshRate
-                                                
+                               
+table(dfAll$SOA, dfAll$letterdur)                 
 ```
+So, 43 trials at SOA=350, dur=267 and 47 trials at SOA=400,dur=267, also 14 at other combinations that seemed too hard.
+Compare to day 1, where tested mostly at SOA=350, dur=300.
+For purposes of bootstrapping should combine all. Whereas for mixture modelling should maybe restrict to SOA=350 for combining with previous day.
 
 ```{r visual all rates check}
 library(ggplot2)
-
 
 sanityVisualCheck<-TRUE
 if (sanityVisualCheck) {
@@ -123,7 +121,7 @@ if (sanityVisualCheck) {
   
   h=ggplot(dfAll, aes(x=responsePosRelative1))
   #plot data
-  h<-h+geom_histogram(binwidth=1) + xlab('serial position error') +  facet_grid(.~SOA) + ggtitle('right letter')
+  h<-h+geom_histogram(binwidth=1) + xlab('serial position error') +  facet_grid(letterdur~SOA) + ggtitle('right letter')
   h <-h + geom_text(aes(x=-10,y=0,label=round(letterdur,0))) #paste("dur:",)))
   h<-h+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
   show(h)
@@ -134,7 +132,8 @@ if (sanityVisualCheck) {
 
 
 
-Melt
+Melt. Error "attributes are not identical across measure variables; they will be dropped" seems OK.
+
 ```{r melt with me}
 library(tidyr)
 
@@ -183,6 +182,13 @@ dl<- dl %>% rename(targetSP = cueSerialPos)
 #Showit also doesn't seem to be working
 ```
 
+```{r}
+guessesFakeSPEs <- minSPE:maxSPE
+guessesFakeSPEs <- guessesFakeSPEs[-pmatch(-3:3,guessesFakeSPEs)] #remove -3:3 to be sure they're modeled as part of the uniform distribution #https://stackoverflow.com/questions/49742315/how-to-delete-multiple-values-from-a-vector-but-not-all-of-them
+
+dl[dl$SPE==-999,]$SPE <- sample(guessesFakeSPEs, size=sum(dl$SPE==-999),replace=TRUE)
+```
+
 Mixture model the left side
 ```{r}
 
@@ -197,11 +203,6 @@ show(j)
 Mixture model the right side
 ```{r}
 
-guessesFakeSPEs <- minSPE:maxSPE
-guessesFakeSPEs <- guessesFakeSPEs[-pmatch(-3:3,guessesFakeSPEs)] #remove -3:3 to be sure they're modeled as part of the uniform distribution #https://stackoverflow.com/questions/49742315/how-to-delete-multiple-values-from-a-vector-but-not-all-of-them
-
-dl[dl$SPE==-999,]$SPE <- sample(guessesFakeSPEs, size=sum(dl$SPE==-999),replace=TRUE)
-
 dlRight<- dl %>% filter(side=="right") %>% filter(SPE>-999)  #ignore guesses of letters that weren't in the stream. Could alternatively give them random values
 
 plotContinuousGaussian <- TRUE; annotateIt <- TRUE
@@ -209,3 +210,15 @@ k<- plot_hist_with_fit(dlRight,minSPE,maxSPE,dlRight$targetSP,numItemsInStream,p
 k<- k + ggtitle("right")
 show(k)
 ```
+
+```{r save file}
+library(readr) #has better than save.csv https://readr.tidyverse.org/reference/write_delim.html
+pathToSave<- file.path("..","data","MBL")
+
+saveRDS(dl, file = file.path(pathToSave,"dayTwo.rda"), compress="bzip2")
+write_tsv(dl, file.path(pathToSave,"dayTwo.tsv"))
+```
+
+One ring
+```{r oneRingIMport}
+
