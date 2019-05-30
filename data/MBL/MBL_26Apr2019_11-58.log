@@ -1,0 +1,92 @@
+13.8005 	WARNING 	User requested fullscreen with size [3360 2100], but screen is actually [1680, 1050]. Using actual size
+14.6236 	INFO 	Successfully set darwin thread to realtime
+15.6931 	INFO 	#[ PsychoPy3 RuntimeInfoStart ]
+  #[[ PsychoPy ]] #---------
+    psychopyVersion: 3.0.7
+    psychopyHaveExtRush: True
+  #[[ Experiment ]] #---------
+    experimentRunTime: 2019_04_26 11:58 (Year_Month_Day Hour:Min)
+    experimentRunTime.epoch: 1556294316
+    experimentScript: DualRSVPWithWordsAndLettersWithEyetrackingPython3.py
+    experimentScript.digestSHA1: 7b29ab685cb3380f43d04b0f371bd2dc81c48401
+    experimentScript.directory: /Users/alexh/Documents/attention_tempresltn/letters_words/McCloskey_patient/RansleyExperimentWordsLettersRSVP/wordsLettersRSVP
+  #[[ System ]] #---------
+    systemHaveInternetAccess: True
+    systemHostName: Alexs-MacBook-Pro.local
+    systemLocale: C
+    systemMemFreeRAM: 7873.0
+    systemMemTotalRAM: 16384.0
+    systemPlatform: darwin 10.14.4 x86_64
+    systemPyoVersion: -
+    systemRavailable: R version 3.5.1 (2018-07-02) -- Feather Spray
+    systemRebooted: Apr 25 16:50
+    systemSec.OpenSSLVersion: LibreSSL 2.6.5
+    systemSec.pythonSSL: True
+    systemTimeNumpySD1000000_sec: 0.0033
+    systemUser: alex
+    systemUserID: 502
+    systemUsersCount: 1
+  #[[ Window ]] #---------
+    windowWinType: pyglet
+    windowUnits: deg
+    windowSize_pix: [3360 2100]
+    windowScreen: 0
+    windowRgb: [-0.7 -0.7 -0.7]
+    windowRefreshTimeSD_ms: 1.099
+    windowRefreshTimeMedian_ms: 16.670
+    windowRefreshTimeAvg_ms: 16.653
+    windowPos_pix: [0.0, 0.0]
+    windowMonitor.name: testmonitor
+    windowMonitor.getWidth_cm: 52.0
+    windowMonitor.getDistance_cm: 57.0
+    windowMonitor.currentCalibName: 2019_02_27 21:46
+    windowIsFullScr: True
+  #[[ Python ]] #---------
+    pythonVersion: 3.6.1
+  #[[ OpenGL ]] #---------
+#[ PsychoPy3 RuntimeInfoEnd ]
+
+15.9400 	EXP 	Created sequence: random, trialTypes=192, nReps=1, seed=None
+16.0739 	EXP 	Created sequence: random, trialTypes=192, nReps=1, seed=None
+16.0748 	EXP 	Created sequence: random, trialTypes=192, nReps=1, seed=None
+16.0754 	EXP 	Created sequence: random, trialTypes=2, nReps=1, seed=None
+16.0761 	EXP 	Created sequence: random, trialTypes=2, nReps=1, seed=None
+16.0765 	INFO 	numtrials=192 and each trialDurFrames=954 or 15900.000000000002 ms  task=T1
+16.0848 	INFO 	Experiment will have 192 trials. Letters will be drawn with superposed noise of 0.00%
+16.0848 	INFO 	Experiment will have 192 trials. Letters will be drawn with superposed noise of 0.00%
+16.0848 	INFO 	Starting main (non-staircase) part of experiment
+16.0851 	EXP 	New trial (rep=0, index=0): {'cueSerialPos': 6, 'rightResponseFirst': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+16.3302 	EXP 	Sound  set volume 0.800
+16.3302 	EXP 	Sound  set volume 1.000
+16.3303 	EXP 	Sound  set volume 0.800
+33.6985 	EXP 	window1: recordFrameIntervals = False
+33.7155 	ERROR 	trialnum=0 ERROR,1 frames were longer than 21.67 ms apparently screen refreshes skipped, interframe durs were:[51.3] and was these frames: [146]
+33.7157 	INFO 	flankers also=[16.  51.3 16.5]
+35.0686 	DATA 	Keypress: y
+36.1489 	DATA 	Keypress: return
+36.4833 	DATA 	Keypress: u
+37.0507 	DATA 	Keypress: return
+37.5776 	EXP 	New trial (rep=0, index=1): {'cueSerialPos': 5, 'rightResponseFirst': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+37.7761 	EXP 	Sound  set volume 0.800
+37.7761 	EXP 	Sound  set volume 1.000
+37.7762 	EXP 	Sound  set volume 0.800
+54.8995 	EXP 	window1: recordFrameIntervals = False
+56.9176 	DATA 	Keypress: o
+58.0989 	DATA 	Keypress: return
+58.5680 	DATA 	Keypress: z
+59.1323 	DATA 	Keypress: return
+59.1336 	WARNING 	Response was not present in the stimulus stream
+59.6362 	EXP 	New trial (rep=0, index=2): {'cueSerialPos': 11, 'rightResponseFirst': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+59.8249 	EXP 	Sound  set volume 0.800
+59.8249 	EXP 	Sound  set volume 1.000
+59.8250 	EXP 	Sound  set volume 0.800
+77.0819 	EXP 	window1: recordFrameIntervals = False
+78.6330 	DATA 	Keypress: x
+79.7495 	DATA 	Keypress: return
+80.4675 	DATA 	Keypress: u
+80.7484 	DATA 	Keypress: escape
+80.7491 	INFO 	Experiment will have 192 trials. Letters will be drawn with superposed noise of 0.00%
+80.7491 	INFO 	Experiment will have 192 trials. Letters will be drawn with superposed noise of 0.00%
+80.7491 	INFO 	Finishing at 11:59 on 26 Apr 2019
+80.7491 	ERROR 	user aborted experiment on keypress with trials done=0 of 193
+81.0174 	EXP 	window1: mouseVisible = True

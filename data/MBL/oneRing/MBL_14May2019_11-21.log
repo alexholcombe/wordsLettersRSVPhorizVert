@@ -1,0 +1,757 @@
+260.6952 	WARNING 	User requested fullscreen with size [3360 2100], but screen is actually [1680, 1050]. Using actual size
+261.5234 	INFO 	Successfully set darwin thread to realtime
+262.5864 	INFO 	#[ PsychoPy3 RuntimeInfoStart ]
+  #[[ PsychoPy ]] #---------
+    psychopyVersion: 3.0.7
+    psychopyHaveExtRush: True
+  #[[ Experiment ]] #---------
+    experimentRunTime: 2019_05_14 11:25 (Year_Month_Day Hour:Min)
+    experimentRunTime.epoch: 1557847545
+    experimentScript: oneRingKludge.py
+    experimentScript.digestSHA1: dce7be06aea829b6b6298926032504f021a45e3f
+    experimentScript.directory: /Users/alexh/Documents/attention_tempresltn/letters_words/McCloskey_patient/RansleyExperimentWordsLettersRSVP/wordsLettersRSVP
+  #[[ System ]] #---------
+    systemHaveInternetAccess: True
+    systemHostName: Alexs-MacBook-Pro.local
+    systemLocale: C
+    systemMemFreeRAM: 7504.8203125
+    systemMemTotalRAM: 16384.0
+    systemPlatform: darwin 10.14.4 x86_64
+    systemPyoVersion: -
+    systemRavailable: R version 3.5.1 (2018-07-02) -- Feather Spray
+    systemRebooted: May 14 10:13
+    systemSec.OpenSSLVersion: LibreSSL 2.6.5
+    systemSec.pythonSSL: True
+    systemTimeNumpySD1000000_sec: 0.0026
+    systemUser: alex
+    systemUserID: 502
+    systemUsersCount: 1
+  #[[ Window ]] #---------
+    windowWinType: pyglet
+    windowUnits: deg
+    windowSize_pix: [3360 2100]
+    windowScreen: 0
+    windowRgb: [-0.7 -0.7 -0.7]
+    windowRefreshTimeSD_ms: 0.273
+    windowRefreshTimeMedian_ms: 16.678
+    windowRefreshTimeAvg_ms: 16.671
+    windowPos_pix: [0.0, 0.0]
+    windowMonitor.name: testmonitor
+    windowMonitor.getWidth_cm: 52.0
+    windowMonitor.getDistance_cm: 57.0
+    windowMonitor.currentCalibName: 2019_02_27 21:46
+    windowIsFullScr: True
+  #[[ Python ]] #---------
+    pythonVersion: 3.6.1
+  #[[ OpenGL ]] #---------
+#[ PsychoPy3 RuntimeInfoEnd ]
+
+263.5934 	EXP 	Created sequence: random, trialTypes=96, nReps=1, seed=None
+263.7211 	EXP 	Created sequence: random, trialTypes=96, nReps=1, seed=None
+263.7217 	EXP 	Created sequence: random, trialTypes=96, nReps=1, seed=None
+263.7221 	INFO 	numtrials=96 and each trialDurFrames=414 or 6900.000000000001 ms  task=T1
+263.7287 	INFO 	Experiment will have 96 trials. Letters will be drawn with superposed noise of 0.00%
+263.7287 	INFO 	Experiment will have 96 trials. Letters will be drawn with superposed noise of 0.00%
+263.7287 	INFO 	Starting main (non-staircase) part of experiment
+263.7290 	EXP 	New trial (rep=0, index=0): {'cueSerialPos': 6, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+263.9550 	EXP 	Sound  set volume 0.800
+263.9550 	EXP 	Sound  set volume 1.000
+263.9551 	EXP 	Sound  set volume 0.800
+272.2249 	EXP 	window1: recordFrameIntervals = False
+272.2402 	ERROR 	trialnum=0 ERROR,1 frames were longer than 21.67 ms apparently screen refreshes skipped, interframe durs were:[52.3] and was these frames: [193]
+272.2404 	INFO 	flankers also=[15.8 52.3 15.4]
+486.6762 	DATA 	Keypress: k
+487.9230 	DATA 	Keypress: return
+488.4349 	EXP 	New trial (rep=0, index=1): {'cueSerialPos': 8, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+488.6325 	EXP 	Sound  set volume 0.800
+488.6325 	EXP 	Sound  set volume 1.000
+488.6326 	EXP 	Sound  set volume 0.800
+496.8722 	EXP 	window1: recordFrameIntervals = False
+497.9899 	DATA 	Keypress: j
+499.3063 	DATA 	Keypress: return
+499.8096 	EXP 	New trial (rep=0, index=2): {'cueSerialPos': 8, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+499.9989 	EXP 	Sound  set volume 0.800
+499.9990 	EXP 	Sound  set volume 1.000
+499.9990 	EXP 	Sound  set volume 0.800
+508.0716 	EXP 	window1: recordFrameIntervals = False
+508.8897 	DATA 	Keypress: m
+510.7893 	DATA 	Keypress: return
+511.2929 	EXP 	New trial (rep=0, index=3): {'cueSerialPos': 5, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+511.4821 	EXP 	Sound  set volume 0.800
+511.4821 	EXP 	Sound  set volume 1.000
+511.4821 	EXP 	Sound  set volume 0.800
+519.5883 	EXP 	window1: recordFrameIntervals = False
+520.0230 	DATA 	Keypress: x
+520.8065 	DATA 	Keypress: return
+521.3100 	EXP 	New trial (rep=0, index=4): {'cueSerialPos': 11, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+521.4993 	EXP 	Sound  set volume 0.800
+521.4993 	EXP 	Sound  set volume 1.000
+521.4993 	EXP 	Sound  set volume 0.800
+529.6212 	EXP 	window1: recordFrameIntervals = False
+532.2069 	DATA 	Keypress: o
+534.6895 	DATA 	Keypress: return
+535.1927 	EXP 	New trial (rep=0, index=5): {'cueSerialPos': 5, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+535.3818 	EXP 	Sound  set volume 0.800
+535.3818 	EXP 	Sound  set volume 1.000
+535.3819 	EXP 	Sound  set volume 0.800
+543.8550 	EXP 	window1: recordFrameIntervals = False
+545.3058 	DATA 	Keypress: k
+546.6059 	DATA 	Keypress: return
+547.1183 	EXP 	New trial (rep=0, index=6): {'cueSerialPos': 5, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+547.3146 	EXP 	Sound  set volume 0.800
+547.3146 	EXP 	Sound  set volume 1.000
+547.3147 	EXP 	Sound  set volume 0.800
+555.6549 	EXP 	window1: recordFrameIntervals = False
+556.3558 	DATA 	Keypress: u
+557.2384 	DATA 	Keypress: return
+557.7415 	EXP 	New trial (rep=0, index=7): {'cueSerialPos': 8, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+557.9316 	EXP 	Sound  set volume 0.800
+557.9316 	EXP 	Sound  set volume 1.000
+557.9316 	EXP 	Sound  set volume 0.800
+566.3879 	EXP 	window1: recordFrameIntervals = False
+567.0392 	DATA 	Keypress: m
+567.5556 	DATA 	Keypress: return
+568.0592 	EXP 	New trial (rep=0, index=8): {'cueSerialPos': 9, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+568.2478 	EXP 	Sound  set volume 0.800
+568.2478 	EXP 	Sound  set volume 1.000
+568.2479 	EXP 	Sound  set volume 0.800
+576.5878 	EXP 	window1: recordFrameIntervals = False
+577.0557 	DATA 	Keypress: a
+577.6220 	DATA 	Keypress: return
+578.1340 	EXP 	New trial (rep=0, index=9): {'cueSerialPos': 8, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+578.3306 	EXP 	Sound  set volume 0.800
+578.3306 	EXP 	Sound  set volume 1.000
+578.3307 	EXP 	Sound  set volume 0.800
+586.4706 	EXP 	window1: recordFrameIntervals = False
+587.5881 	DATA 	Keypress: w
+588.5036 	DATA 	Keypress: return
+589.0069 	EXP 	New trial (rep=0, index=10): {'cueSerialPos': 8, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+589.1973 	EXP 	Sound  set volume 0.800
+589.1973 	EXP 	Sound  set volume 1.000
+589.1974 	EXP 	Sound  set volume 0.800
+597.5869 	EXP 	window1: recordFrameIntervals = False
+598.2548 	DATA 	Keypress: w
+599.1214 	DATA 	Keypress: return
+599.6251 	EXP 	New trial (rep=0, index=11): {'cueSerialPos': 12, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+599.8145 	EXP 	Sound  set volume 0.800
+599.8145 	EXP 	Sound  set volume 1.000
+599.8145 	EXP 	Sound  set volume 0.800
+608.2034 	EXP 	window1: recordFrameIntervals = False
+612.2389 	DATA 	Keypress: a
+612.8541 	DATA 	Keypress: return
+613.3658 	EXP 	New trial (rep=0, index=12): {'cueSerialPos': 10, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+613.5646 	EXP 	Sound  set volume 0.800
+613.5646 	EXP 	Sound  set volume 1.000
+613.5646 	EXP 	Sound  set volume 0.800
+621.6538 	EXP 	window1: recordFrameIntervals = False
+622.1219 	DATA 	Keypress: e
+623.0213 	DATA 	Keypress: return
+623.5246 	EXP 	New trial (rep=0, index=13): {'cueSerialPos': 7, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+623.7140 	EXP 	Sound  set volume 0.800
+623.7140 	EXP 	Sound  set volume 1.000
+623.7140 	EXP 	Sound  set volume 0.800
+631.9704 	EXP 	window1: recordFrameIntervals = False
+632.3882 	DATA 	Keypress: o
+632.8200 	DATA 	Keypress: return
+633.3323 	EXP 	New trial (rep=0, index=14): {'cueSerialPos': 11, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+633.5310 	EXP 	Sound  set volume 0.800
+633.5310 	EXP 	Sound  set volume 1.000
+633.5311 	EXP 	Sound  set volume 0.800
+641.5530 	EXP 	window1: recordFrameIntervals = False
+645.8543 	DATA 	Keypress: z
+646.7046 	DATA 	Keypress: return
+647.2069 	EXP 	New trial (rep=0, index=15): {'cueSerialPos': 8, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+647.3962 	EXP 	Sound  set volume 0.800
+647.3962 	EXP 	Sound  set volume 1.000
+647.3963 	EXP 	Sound  set volume 0.800
+655.7360 	EXP 	window1: recordFrameIntervals = False
+657.9877 	DATA 	Keypress: r
+658.6705 	DATA 	Keypress: return
+659.1733 	EXP 	New trial (rep=0, index=16): {'cueSerialPos': 7, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+659.3624 	EXP 	Sound  set volume 0.800
+659.3624 	EXP 	Sound  set volume 1.000
+659.3624 	EXP 	Sound  set volume 0.800
+667.6347 	EXP 	window1: recordFrameIntervals = False
+668.1875 	DATA 	Keypress: d
+668.6535 	DATA 	Keypress: return
+669.1658 	EXP 	New trial (rep=0, index=17): {'cueSerialPos': 10, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+669.3632 	EXP 	Sound  set volume 0.800
+669.3632 	EXP 	Sound  set volume 1.000
+669.3633 	EXP 	Sound  set volume 0.800
+677.7025 	EXP 	window1: recordFrameIntervals = False
+678.1885 	DATA 	Keypress: x
+678.7040 	DATA 	Keypress: return
+679.2076 	EXP 	New trial (rep=0, index=18): {'cueSerialPos': 9, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+679.3963 	EXP 	Sound  set volume 0.800
+679.3963 	EXP 	Sound  set volume 1.000
+679.3964 	EXP 	Sound  set volume 0.800
+687.5695 	EXP 	window1: recordFrameIntervals = False
+691.0030 	DATA 	Keypress: a
+691.3365 	DATA 	Keypress: return
+691.3376 	WARNING 	Response was not present in the stimulus stream
+691.8401 	EXP 	New trial (rep=0, index=19): {'cueSerialPos': 6, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+692.0299 	EXP 	Sound  set volume 0.800
+692.0299 	EXP 	Sound  set volume 1.000
+692.0300 	EXP 	Sound  set volume 0.800
+700.1685 	EXP 	window1: recordFrameIntervals = False
+702.9206 	DATA 	Keypress: z
+704.1691 	DATA 	Keypress: return
+704.6807 	EXP 	New trial (rep=0, index=20): {'cueSerialPos': 5, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+704.8792 	EXP 	Sound  set volume 0.800
+704.8792 	EXP 	Sound  set volume 1.000
+704.8792 	EXP 	Sound  set volume 0.800
+713.3022 	EXP 	window1: recordFrameIntervals = False
+713.8040 	DATA 	Keypress: r
+714.3204 	DATA 	Keypress: return
+714.8230 	EXP 	New trial (rep=0, index=21): {'cueSerialPos': 6, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+715.0125 	EXP 	Sound  set volume 0.800
+715.0125 	EXP 	Sound  set volume 1.000
+715.0126 	EXP 	Sound  set volume 0.800
+723.0689 	EXP 	window1: recordFrameIntervals = False
+723.7700 	DATA 	Keypress: k
+724.2867 	DATA 	Keypress: return
+724.7991 	EXP 	New trial (rep=0, index=22): {'cueSerialPos': 12, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+725.0452 	EXP 	Sound  set volume 0.800
+725.0452 	EXP 	Sound  set volume 1.000
+725.0453 	EXP 	Sound  set volume 0.800
+733.2677 	EXP 	window1: recordFrameIntervals = False
+736.1525 	DATA 	Keypress: u
+738.7200 	DATA 	Keypress: return
+739.2237 	EXP 	New trial (rep=0, index=23): {'cueSerialPos': 9, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+739.4118 	EXP 	Sound  set volume 0.800
+739.4118 	EXP 	Sound  set volume 1.000
+739.4119 	EXP 	Sound  set volume 0.800
+747.7348 	EXP 	window1: recordFrameIntervals = False
+748.2206 	DATA 	Keypress: s
+748.8854 	DATA 	Keypress: return
+749.3885 	EXP 	New trial (rep=0, index=24): {'cueSerialPos': 10, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+749.5789 	EXP 	Sound  set volume 0.800
+749.5789 	EXP 	Sound  set volume 1.000
+749.5790 	EXP 	Sound  set volume 0.800
+758.0849 	EXP 	window1: recordFrameIntervals = False
+759.1188 	DATA 	Keypress: v
+760.0356 	DATA 	Keypress: return
+762.4508 	DATA 	Keypress: space
+762.8517 	EXP 	New trial (rep=0, index=25): {'cueSerialPos': 5, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+763.0449 	EXP 	Sound  set volume 0.800
+763.0449 	EXP 	Sound  set volume 1.000
+763.0450 	EXP 	Sound  set volume 0.800
+771.3679 	EXP 	window1: recordFrameIntervals = False
+771.7030 	DATA 	Keypress: a
+772.2684 	DATA 	Keypress: return
+772.7717 	EXP 	New trial (rep=0, index=26): {'cueSerialPos': 12, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+772.9611 	EXP 	Sound  set volume 0.800
+772.9611 	EXP 	Sound  set volume 1.000
+772.9611 	EXP 	Sound  set volume 0.800
+781.3021 	EXP 	window1: recordFrameIntervals = False
+781.3025 	ERROR 	trialnum=26 ERROR,1 frames were longer than 21.67 ms apparently screen refreshes skipped, interframe durs were:[25.4] and was these frames: [251]
+781.3027 	INFO 	flankers also=[14.8 25.4  8.7]
+783.1859 	DATA 	Keypress: o
+783.6194 	DATA 	Keypress: return
+784.1228 	EXP 	New trial (rep=0, index=27): {'cueSerialPos': 7, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+784.3122 	EXP 	Sound  set volume 0.800
+784.3122 	EXP 	Sound  set volume 1.000
+784.3122 	EXP 	Sound  set volume 0.800
+792.6679 	EXP 	window1: recordFrameIntervals = False
+794.7364 	DATA 	Keypress: k
+795.6363 	DATA 	Keypress: return
+796.1398 	EXP 	New trial (rep=0, index=28): {'cueSerialPos': 9, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+796.3282 	EXP 	Sound  set volume 0.800
+796.3282 	EXP 	Sound  set volume 1.000
+796.3283 	EXP 	Sound  set volume 0.800
+804.3834 	EXP 	window1: recordFrameIntervals = False
+806.2027 	DATA 	Keypress: t
+806.8357 	DATA 	Keypress: return
+807.3390 	EXP 	New trial (rep=0, index=29): {'cueSerialPos': 6, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+807.5277 	EXP 	Sound  set volume 0.800
+807.5277 	EXP 	Sound  set volume 1.000
+807.5278 	EXP 	Sound  set volume 0.800
+815.9682 	EXP 	window1: recordFrameIntervals = False
+816.4353 	DATA 	Keypress: m
+816.9188 	DATA 	Keypress: return
+817.4304 	EXP 	New trial (rep=0, index=30): {'cueSerialPos': 10, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+817.6282 	EXP 	Sound  set volume 0.800
+817.6282 	EXP 	Sound  set volume 1.000
+817.6283 	EXP 	Sound  set volume 0.800
+825.9334 	EXP 	window1: recordFrameIntervals = False
+830.6522 	DATA 	Keypress: j
+831.3687 	DATA 	Keypress: return
+831.8721 	EXP 	New trial (rep=0, index=31): {'cueSerialPos': 9, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+832.0614 	EXP 	Sound  set volume 0.800
+832.0614 	EXP 	Sound  set volume 1.000
+832.0615 	EXP 	Sound  set volume 0.800
+840.3344 	EXP 	window1: recordFrameIntervals = False
+840.8857 	DATA 	Keypress: s
+841.4183 	DATA 	Keypress: return
+841.9218 	EXP 	New trial (rep=0, index=32): {'cueSerialPos': 11, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+842.1112 	EXP 	Sound  set volume 0.800
+842.1112 	EXP 	Sound  set volume 1.000
+842.1113 	EXP 	Sound  set volume 0.800
+850.1340 	EXP 	window1: recordFrameIntervals = False
+850.6192 	DATA 	Keypress: t
+851.2006 	DATA 	Keypress: return
+851.7124 	EXP 	New trial (rep=0, index=33): {'cueSerialPos': 12, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+851.9112 	EXP 	Sound  set volume 0.800
+851.9112 	EXP 	Sound  set volume 1.000
+851.9112 	EXP 	Sound  set volume 0.800
+859.9494 	EXP 	window1: recordFrameIntervals = False
+860.7016 	DATA 	Keypress: w
+861.2846 	DATA 	Keypress: return
+861.7876 	EXP 	New trial (rep=0, index=34): {'cueSerialPos': 9, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+861.9775 	EXP 	Sound  set volume 0.800
+861.9776 	EXP 	Sound  set volume 1.000
+861.9776 	EXP 	Sound  set volume 0.800
+870.1340 	EXP 	window1: recordFrameIntervals = False
+870.9354 	DATA 	Keypress: x
+871.5497 	DATA 	Keypress: return
+872.0580 	EXP 	New trial (rep=0, index=35): {'cueSerialPos': 9, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+872.2597 	EXP 	Sound  set volume 0.800
+872.2597 	EXP 	Sound  set volume 1.000
+872.2598 	EXP 	Sound  set volume 0.800
+880.2820 	EXP 	window1: recordFrameIntervals = False
+882.2500 	DATA 	Keypress: t
+883.3019 	DATA 	Keypress: return
+883.3032 	WARNING 	Response was not present in the stimulus stream
+883.8057 	EXP 	New trial (rep=0, index=36): {'cueSerialPos': 10, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+883.9937 	EXP 	Sound  set volume 0.800
+883.9937 	EXP 	Sound  set volume 1.000
+883.9938 	EXP 	Sound  set volume 0.800
+892.2330 	EXP 	window1: recordFrameIntervals = False
+893.4017 	DATA 	Keypress: w
+893.9175 	DATA 	Keypress: return
+894.4200 	EXP 	New trial (rep=0, index=37): {'cueSerialPos': 10, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+894.6093 	EXP 	Sound  set volume 0.800
+894.6094 	EXP 	Sound  set volume 1.000
+894.6094 	EXP 	Sound  set volume 0.800
+902.6992 	EXP 	window1: recordFrameIntervals = False
+904.7345 	DATA 	Keypress: q
+905.7170 	DATA 	Keypress: return
+906.2293 	EXP 	New trial (rep=0, index=38): {'cueSerialPos': 11, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+906.4266 	EXP 	Sound  set volume 0.800
+906.4266 	EXP 	Sound  set volume 1.000
+906.4266 	EXP 	Sound  set volume 0.800
+914.7320 	EXP 	window1: recordFrameIntervals = False
+915.1678 	DATA 	Keypress: c
+915.7001 	DATA 	Keypress: return
+916.2037 	EXP 	New trial (rep=0, index=39): {'cueSerialPos': 12, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+916.3932 	EXP 	Sound  set volume 0.800
+916.3933 	EXP 	Sound  set volume 1.000
+916.3933 	EXP 	Sound  set volume 0.800
+924.4997 	EXP 	window1: recordFrameIntervals = False
+929.8173 	DATA 	Keypress: n
+930.6512 	DATA 	Keypress: return
+930.6523 	WARNING 	Response was not present in the stimulus stream
+931.1548 	EXP 	New trial (rep=0, index=40): {'cueSerialPos': 10, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+931.3428 	EXP 	Sound  set volume 0.800
+931.3428 	EXP 	Sound  set volume 1.000
+931.3429 	EXP 	Sound  set volume 0.800
+939.4321 	EXP 	window1: recordFrameIntervals = False
+940.0015 	DATA 	Keypress: l
+1103.3335 	DATA 	Keypress: return
+1103.8364 	EXP 	New trial (rep=0, index=41): {'cueSerialPos': 9, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1104.0238 	EXP 	Sound  set volume 0.800
+1104.0238 	EXP 	Sound  set volume 1.000
+1104.0238 	EXP 	Sound  set volume 0.800
+1112.1966 	EXP 	window1: recordFrameIntervals = False
+1112.8644 	DATA 	Keypress: k
+1114.1963 	DATA 	Keypress: return
+1114.6988 	EXP 	New trial (rep=0, index=42): {'cueSerialPos': 12, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1114.8901 	EXP 	Sound  set volume 0.800
+1114.8901 	EXP 	Sound  set volume 1.000
+1114.8902 	EXP 	Sound  set volume 0.800
+1123.0641 	EXP 	window1: recordFrameIntervals = False
+1123.6485 	DATA 	Keypress: c
+1124.2981 	DATA 	Keypress: return
+1124.8017 	EXP 	New trial (rep=0, index=43): {'cueSerialPos': 6, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+1125.0405 	EXP 	Sound  set volume 0.800
+1125.0405 	EXP 	Sound  set volume 1.000
+1125.0406 	EXP 	Sound  set volume 0.800
+1133.2956 	EXP 	window1: recordFrameIntervals = False
+1133.6317 	DATA 	Keypress: x
+1135.2976 	DATA 	Keypress: return
+1135.8009 	EXP 	New trial (rep=0, index=44): {'cueSerialPos': 12, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1135.9897 	EXP 	Sound  set volume 0.800
+1135.9897 	EXP 	Sound  set volume 1.000
+1135.9898 	EXP 	Sound  set volume 0.800
+1144.4302 	EXP 	window1: recordFrameIntervals = False
+1144.7977 	DATA 	Keypress: k
+1145.1468 	DATA 	Keypress: return
+1145.6592 	EXP 	New trial (rep=0, index=45): {'cueSerialPos': 5, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+1145.8569 	EXP 	Sound  set volume 0.800
+1145.8569 	EXP 	Sound  set volume 1.000
+1145.8570 	EXP 	Sound  set volume 0.800
+1153.9304 	EXP 	window1: recordFrameIntervals = False
+1154.4982 	DATA 	Keypress: t
+1154.9470 	DATA 	Keypress: return
+1155.4493 	EXP 	New trial (rep=0, index=46): {'cueSerialPos': 7, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+1155.6399 	EXP 	Sound  set volume 0.800
+1155.6399 	EXP 	Sound  set volume 1.000
+1155.6400 	EXP 	Sound  set volume 0.800
+1163.7790 	EXP 	window1: recordFrameIntervals = False
+1165.2809 	DATA 	Keypress: n
+1165.6310 	DATA 	Keypress: return
+1166.1347 	EXP 	New trial (rep=0, index=47): {'cueSerialPos': 11, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+1166.3226 	EXP 	Sound  set volume 0.800
+1166.3226 	EXP 	Sound  set volume 1.000
+1166.3227 	EXP 	Sound  set volume 0.800
+1174.4631 	EXP 	window1: recordFrameIntervals = False
+1175.4973 	DATA 	Keypress: w
+1176.5808 	DATA 	Keypress: return
+1177.0929 	EXP 	New trial (rep=0, index=48): {'cueSerialPos': 12, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1177.2893 	EXP 	Sound  set volume 0.800
+1177.2893 	EXP 	Sound  set volume 1.000
+1177.2893 	EXP 	Sound  set volume 0.800
+1185.4465 	EXP 	window1: recordFrameIntervals = False
+1186.1472 	DATA 	Keypress: r
+1187.0966 	DATA 	Keypress: return
+1189.4907 	DATA 	Keypress: space
+1189.8924 	EXP 	New trial (rep=0, index=49): {'cueSerialPos': 5, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+1190.0897 	EXP 	Sound  set volume 0.800
+1190.0897 	EXP 	Sound  set volume 1.000
+1190.0898 	EXP 	Sound  set volume 0.800
+1198.1610 	EXP 	window1: recordFrameIntervals = False
+1200.1132 	DATA 	Keypress: z
+1201.2966 	DATA 	Keypress: return
+1201.8006 	EXP 	New trial (rep=0, index=50): {'cueSerialPos': 10, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1201.9889 	EXP 	Sound  set volume 0.800
+1201.9889 	EXP 	Sound  set volume 1.000
+1201.9889 	EXP 	Sound  set volume 0.800
+1210.1952 	EXP 	window1: recordFrameIntervals = False
+1215.5132 	DATA 	Keypress: a
+1217.7295 	DATA 	Keypress: return
+1218.2416 	EXP 	New trial (rep=0, index=51): {'cueSerialPos': 8, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1218.4388 	EXP 	Sound  set volume 0.800
+1218.4388 	EXP 	Sound  set volume 1.000
+1218.4389 	EXP 	Sound  set volume 0.800
+1226.7625 	EXP 	window1: recordFrameIntervals = False
+1227.3964 	DATA 	Keypress: o
+1228.2801 	DATA 	Keypress: return
+1228.7837 	EXP 	New trial (rep=0, index=52): {'cueSerialPos': 5, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1228.9719 	EXP 	Sound  set volume 0.800
+1228.9719 	EXP 	Sound  set volume 1.000
+1228.9720 	EXP 	Sound  set volume 0.800
+1237.1283 	EXP 	window1: recordFrameIntervals = False
+1238.3620 	DATA 	Keypress: t
+1239.2120 	DATA 	Keypress: return
+1239.7148 	EXP 	New trial (rep=0, index=53): {'cueSerialPos': 7, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+1239.9057 	EXP 	Sound  set volume 0.800
+1239.9057 	EXP 	Sound  set volume 1.000
+1239.9057 	EXP 	Sound  set volume 0.800
+1248.1944 	EXP 	window1: recordFrameIntervals = False
+1248.6291 	DATA 	Keypress: a
+1249.7791 	DATA 	Keypress: return
+1250.2816 	EXP 	New trial (rep=0, index=54): {'cueSerialPos': 6, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1250.4721 	EXP 	Sound  set volume 0.800
+1250.4722 	EXP 	Sound  set volume 1.000
+1250.4722 	EXP 	Sound  set volume 0.800
+1258.5960 	DATA 	Keypress: p
+1258.8949 	EXP 	window1: recordFrameIntervals = False
+1259.6628 	DATA 	Keypress: p
+1260.3623 	DATA 	Keypress: return
+1260.8816 	EXP 	New trial (rep=0, index=55): {'cueSerialPos': 6, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1261.0711 	EXP 	Sound  set volume 0.800
+1261.0712 	EXP 	Sound  set volume 1.000
+1261.0712 	EXP 	Sound  set volume 0.800
+1269.5777 	EXP 	window1: recordFrameIntervals = False
+1274.2634 	DATA 	Keypress: b
+1275.1126 	DATA 	Keypress: return
+1275.6248 	EXP 	New trial (rep=0, index=56): {'cueSerialPos': 5, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1275.8218 	EXP 	Sound  set volume 0.800
+1275.8218 	EXP 	Sound  set volume 1.000
+1275.8218 	EXP 	Sound  set volume 0.800
+1284.0444 	EXP 	window1: recordFrameIntervals = False
+1284.3955 	DATA 	Keypress: x
+1285.1617 	DATA 	Keypress: return
+1285.6650 	EXP 	New trial (rep=0, index=57): {'cueSerialPos': 8, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+1285.8552 	EXP 	Sound  set volume 0.800
+1285.8552 	EXP 	Sound  set volume 1.000
+1285.8552 	EXP 	Sound  set volume 0.800
+1294.2773 	EXP 	window1: recordFrameIntervals = False
+1296.7964 	DATA 	Keypress: w
+1297.5783 	DATA 	Keypress: return
+1298.0903 	EXP 	New trial (rep=0, index=58): {'cueSerialPos': 8, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1298.2871 	EXP 	Sound  set volume 0.800
+1298.2871 	EXP 	Sound  set volume 1.000
+1298.2872 	EXP 	Sound  set volume 0.800
+1306.5278 	EXP 	window1: recordFrameIntervals = False
+1306.9456 	DATA 	Keypress: e
+1307.7452 	DATA 	Keypress: return
+1308.2481 	EXP 	New trial (rep=0, index=59): {'cueSerialPos': 6, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1308.4384 	EXP 	Sound  set volume 0.800
+1308.4384 	EXP 	Sound  set volume 1.000
+1308.4384 	EXP 	Sound  set volume 0.800
+1316.8431 	EXP 	window1: recordFrameIntervals = False
+1317.3126 	DATA 	Keypress: t
+1318.2765 	DATA 	Keypress: return
+1318.7792 	EXP 	New trial (rep=0, index=60): {'cueSerialPos': 9, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1318.9711 	EXP 	Sound  set volume 0.800
+1318.9711 	EXP 	Sound  set volume 1.000
+1318.9711 	EXP 	Sound  set volume 0.800
+1327.1599 	EXP 	window1: recordFrameIntervals = False
+1327.5289 	DATA 	Keypress: e
+1328.6278 	DATA 	Keypress: return
+1329.1400 	EXP 	New trial (rep=0, index=61): {'cueSerialPos': 7, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1329.3366 	EXP 	Sound  set volume 0.800
+1329.3366 	EXP 	Sound  set volume 1.000
+1329.3367 	EXP 	Sound  set volume 0.800
+1337.3777 	EXP 	window1: recordFrameIntervals = False
+1338.5461 	DATA 	Keypress: z
+1338.9283 	DATA 	Keypress: return
+1339.4319 	EXP 	New trial (rep=0, index=62): {'cueSerialPos': 10, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1339.6375 	EXP 	Sound  set volume 0.800
+1339.6375 	EXP 	Sound  set volume 1.000
+1339.6376 	EXP 	Sound  set volume 0.800
+1348.0939 	EXP 	window1: recordFrameIntervals = False
+1351.4775 	DATA 	Keypress: r
+1352.1117 	DATA 	Keypress: return
+1352.6239 	EXP 	New trial (rep=0, index=63): {'cueSerialPos': 11, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+1352.8210 	EXP 	Sound  set volume 0.800
+1352.8210 	EXP 	Sound  set volume 1.000
+1352.8210 	EXP 	Sound  set volume 0.800
+1360.8776 	EXP 	window1: recordFrameIntervals = False
+1361.3791 	DATA 	Keypress: k
+1362.3103 	DATA 	Keypress: return
+1362.8136 	EXP 	New trial (rep=0, index=64): {'cueSerialPos': 11, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1363.0032 	EXP 	Sound  set volume 0.800
+1363.0032 	EXP 	Sound  set volume 1.000
+1363.0032 	EXP 	Sound  set volume 0.800
+1371.3106 	EXP 	window1: recordFrameIntervals = False
+1371.3111 	ERROR 	trialnum=64 ERROR,2 frames were longer than 21.67 ms apparently screen refreshes skipped, interframe durs were:[25.9 24.5] and was these frames: [252 253]
+1371.3113 	INFO 	flankers also=[14.8 25.9 24.5 25.9 24.5 16.1]
+1372.5283 	DATA 	Keypress: c
+1372.9930 	DATA 	Keypress: return
+1373.4960 	EXP 	New trial (rep=0, index=65): {'cueSerialPos': 7, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1373.6869 	EXP 	Sound  set volume 0.800
+1373.6869 	EXP 	Sound  set volume 1.000
+1373.6870 	EXP 	Sound  set volume 0.800
+1381.9254 	EXP 	window1: recordFrameIntervals = False
+1382.5284 	DATA 	Keypress: c
+1382.7953 	DATA 	Keypress: return
+1383.3064 	EXP 	New trial (rep=0, index=66): {'cueSerialPos': 12, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1383.5035 	EXP 	Sound  set volume 0.800
+1383.5035 	EXP 	Sound  set volume 1.000
+1383.5036 	EXP 	Sound  set volume 0.800
+1391.9603 	EXP 	window1: recordFrameIntervals = False
+1394.7938 	DATA 	Keypress: o
+1395.1594 	DATA 	Keypress: return
+1395.6627 	EXP 	New trial (rep=0, index=67): {'cueSerialPos': 6, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1395.8527 	EXP 	Sound  set volume 0.800
+1395.8527 	EXP 	Sound  set volume 1.000
+1395.8527 	EXP 	Sound  set volume 0.800
+1403.8935 	EXP 	window1: recordFrameIntervals = False
+1406.9931 	DATA 	Keypress: x
+1407.2936 	DATA 	Keypress: return
+1407.7973 	EXP 	New trial (rep=0, index=68): {'cueSerialPos': 10, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1407.9866 	EXP 	Sound  set volume 0.800
+1407.9866 	EXP 	Sound  set volume 1.000
+1407.9866 	EXP 	Sound  set volume 0.800
+1416.2263 	EXP 	window1: recordFrameIntervals = False
+1416.7437 	DATA 	Keypress: o
+1417.1272 	DATA 	Keypress: return
+1417.6393 	EXP 	New trial (rep=0, index=69): {'cueSerialPos': 9, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1417.8361 	EXP 	Sound  set volume 0.800
+1417.8361 	EXP 	Sound  set volume 1.000
+1417.8362 	EXP 	Sound  set volume 0.800
+1426.1094 	EXP 	window1: recordFrameIntervals = False
+1426.5106 	DATA 	Keypress: h
+1427.2091 	DATA 	Keypress: return
+1427.7123 	EXP 	New trial (rep=0, index=70): {'cueSerialPos': 10, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['land', 'size', 'save', 'race', 'born', 'pass', 'lord', 'wish', 'rock', 'cold', 'safe', 'seem', 'test', 'rain', 'gold', 'fish', 'club', 'walk', 'view', 'hour', 'mine', 'cool', 'star', 'nine', 'main', 'felt', 'dear', 'read', 'join', 'poor', 'wall', 'term', 'park', 'wife', 'near', 'song', 'lead', 'fast', 'beat', 'cook', 'cost', 'blue', 'sent', 'fire', 'king', 'step', 'fair', 'form', 'east', 'fall', 'hair', 'vote', 'feet', 'shop'], 'hemifield': 1}
+1427.9021 	EXP 	Sound  set volume 0.800
+1427.9021 	EXP 	Sound  set volume 1.000
+1427.9021 	EXP 	Sound  set volume 0.800
+1436.0425 	EXP 	window1: recordFrameIntervals = False
+1436.8097 	DATA 	Keypress: l
+1437.8754 	DATA 	Keypress: return
+1438.3785 	EXP 	New trial (rep=0, index=71): {'cueSerialPos': 12, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1438.5692 	EXP 	Sound  set volume 0.800
+1438.5693 	EXP 	Sound  set volume 1.000
+1438.5693 	EXP 	Sound  set volume 0.800
+1446.7412 	EXP 	window1: recordFrameIntervals = False
+1448.2423 	DATA 	Keypress: u
+1448.7928 	DATA 	Keypress: return
+1449.3047 	EXP 	New trial (rep=0, index=72): {'cueSerialPos': 7, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+1449.5029 	EXP 	Sound  set volume 0.800
+1449.5029 	EXP 	Sound  set volume 1.000
+1449.5029 	EXP 	Sound  set volume 0.800
+1457.6576 	EXP 	window1: recordFrameIntervals = False
+1458.7435 	DATA 	Keypress: o
+1484.4587 	DATA 	Keypress: return
+1489.8747 	DATA 	Keypress: space
+1490.2770 	EXP 	New trial (rep=0, index=73): {'cueSerialPos': 7, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1490.4689 	EXP 	Sound  set volume 0.800
+1490.4689 	EXP 	Sound  set volume 1.000
+1490.4689 	EXP 	Sound  set volume 0.800
+1498.9246 	EXP 	window1: recordFrameIntervals = False
+1499.8596 	DATA 	Keypress: k
+1500.7758 	DATA 	Keypress: return
+1501.2795 	EXP 	New trial (rep=0, index=74): {'cueSerialPos': 6, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1501.4678 	EXP 	Sound  set volume 0.800
+1501.4678 	EXP 	Sound  set volume 1.000
+1501.4679 	EXP 	Sound  set volume 0.800
+1509.7233 	EXP 	window1: recordFrameIntervals = False
+1510.2248 	DATA 	Keypress: m
+1510.9252 	DATA 	Keypress: return
+1511.4290 	EXP 	New trial (rep=0, index=75): {'cueSerialPos': 12, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+1511.6180 	EXP 	Sound  set volume 0.800
+1511.6181 	EXP 	Sound  set volume 1.000
+1511.6181 	EXP 	Sound  set volume 0.800
+1519.6750 	EXP 	window1: recordFrameIntervals = False
+1520.2594 	DATA 	Keypress: r
+1520.5249 	DATA 	Keypress: return
+1521.0281 	EXP 	New trial (rep=0, index=76): {'cueSerialPos': 8, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1521.2182 	EXP 	Sound  set volume 0.800
+1521.2182 	EXP 	Sound  set volume 1.000
+1521.2183 	EXP 	Sound  set volume 0.800
+1529.6745 	EXP 	window1: recordFrameIntervals = False
+1530.7413 	DATA 	Keypress: c
+1531.8573 	DATA 	Keypress: return
+1532.3681 	EXP 	New trial (rep=0, index=77): {'cueSerialPos': 7, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1532.5674 	EXP 	Sound  set volume 0.800
+1532.5675 	EXP 	Sound  set volume 1.000
+1532.5675 	EXP 	Sound  set volume 0.800
+1541.0579 	EXP 	window1: recordFrameIntervals = False
+1541.9089 	DATA 	Keypress: m
+1543.2914 	DATA 	Keypress: return
+1543.7944 	EXP 	New trial (rep=0, index=78): {'cueSerialPos': 6, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1543.9841 	EXP 	Sound  set volume 0.800
+1543.9841 	EXP 	Sound  set volume 1.000
+1543.9841 	EXP 	Sound  set volume 0.800
+1552.4236 	EXP 	window1: recordFrameIntervals = False
+1552.9255 	DATA 	Keypress: l
+1553.2751 	DATA 	Keypress: return
+1553.7786 	EXP 	New trial (rep=0, index=79): {'cueSerialPos': 11, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1553.9667 	EXP 	Sound  set volume 0.800
+1553.9667 	EXP 	Sound  set volume 1.000
+1553.9667 	EXP 	Sound  set volume 0.800
+1562.3912 	EXP 	window1: recordFrameIntervals = False
+1563.8422 	DATA 	Keypress: o
+1564.4736 	DATA 	Keypress: return
+1564.9865 	EXP 	New trial (rep=0, index=80): {'cueSerialPos': 11, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1565.1849 	EXP 	Sound  set volume 0.800
+1565.1849 	EXP 	Sound  set volume 1.000
+1565.1850 	EXP 	Sound  set volume 0.800
+1573.2065 	EXP 	window1: recordFrameIntervals = False
+1575.2741 	DATA 	Keypress: u
+1575.6074 	DATA 	Keypress: return
+1576.1105 	EXP 	New trial (rep=0, index=81): {'cueSerialPos': 5, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1576.3001 	EXP 	Sound  set volume 0.800
+1576.3001 	EXP 	Sound  set volume 1.000
+1576.3001 	EXP 	Sound  set volume 0.800
+1584.3400 	EXP 	window1: recordFrameIntervals = False
+1584.7917 	DATA 	Keypress: v
+1585.2408 	DATA 	Keypress: return
+1585.7445 	EXP 	New trial (rep=0, index=82): {'cueSerialPos': 11, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1585.9509 	EXP 	Sound  set volume 0.800
+1585.9509 	EXP 	Sound  set volume 1.000
+1585.9509 	EXP 	Sound  set volume 0.800
+1594.3234 	EXP 	window1: recordFrameIntervals = False
+1594.8915 	DATA 	Keypress: r
+1595.3917 	DATA 	Keypress: return
+1595.9050 	EXP 	New trial (rep=0, index=83): {'cueSerialPos': 7, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1596.1004 	EXP 	Sound  set volume 0.800
+1596.1005 	EXP 	Sound  set volume 1.000
+1596.1005 	EXP 	Sound  set volume 0.800
+1604.3575 	EXP 	window1: recordFrameIntervals = False
+1604.7084 	DATA 	Keypress: m
+1604.7568 	DATA 	Keypress: return
+1605.2601 	EXP 	New trial (rep=0, index=84): {'cueSerialPos': 11, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1605.3460 	DATA 	Keypress: return
+1605.4501 	EXP 	Sound  set volume 0.800
+1605.4502 	EXP 	Sound  set volume 1.000
+1605.4502 	EXP 	Sound  set volume 0.800
+1613.8563 	EXP 	window1: recordFrameIntervals = False
+1615.3413 	DATA 	Keypress: u
+1615.8402 	DATA 	Keypress: return
+1616.3439 	EXP 	New trial (rep=0, index=85): {'cueSerialPos': 6, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1616.5330 	EXP 	Sound  set volume 0.800
+1616.5330 	EXP 	Sound  set volume 1.000
+1616.5331 	EXP 	Sound  set volume 0.800
+1625.0066 	EXP 	window1: recordFrameIntervals = False
+1625.3417 	DATA 	Keypress: m
+1625.4900 	DATA 	Keypress: return
+1625.9933 	EXP 	New trial (rep=0, index=86): {'cueSerialPos': 5, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1626.0791 	DATA 	Keypress: return
+1626.1836 	EXP 	Sound  set volume 0.800
+1626.1836 	EXP 	Sound  set volume 1.000
+1626.1836 	EXP 	Sound  set volume 0.800
+1634.2230 	EXP 	window1: recordFrameIntervals = False
+1634.6252 	DATA 	Keypress: k
+1634.9400 	DATA 	Keypress: return
+1635.4432 	EXP 	New trial (rep=0, index=87): {'cueSerialPos': 11, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+1635.6332 	EXP 	Sound  set volume 0.800
+1635.6332 	EXP 	Sound  set volume 1.000
+1635.6332 	EXP 	Sound  set volume 0.800
+1644.1065 	EXP 	window1: recordFrameIntervals = False
+1644.5916 	DATA 	Keypress: q
+1645.5224 	DATA 	Keypress: return
+1646.0257 	EXP 	New trial (rep=0, index=88): {'cueSerialPos': 5, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['peel', 'bend', 'quit', 'whip', 'rang', 'muck', 'mild', 'cage', 'beep', 'skip', 'snap', 'sail', 'shoe', 'twin', 'bass', 'raid', 'tray', 'doll', 'loft', 'flip', 'hire', 'wolf', 'mint', 'tone', 'lazy', 'bust', 'pity', 'cent', 'hoot', 'lean', 'grip', 'crop', 'goat', 'herd', 'gulf', 'wool', 'coin', 'poll', 'lamp', 'foul', 'mask', 'woof', 'blew', 'roar', 'tick', 'frog', 'jazz', 'lump', 'stir', 'tart', 'glue', 'horn', 'soap', 'drag'], 'hemifield': 1}
+1646.2153 	EXP 	Sound  set volume 0.800
+1646.2153 	EXP 	Sound  set volume 1.000
+1646.2154 	EXP 	Sound  set volume 0.800
+1654.3888 	EXP 	window1: recordFrameIntervals = False
+1655.3242 	DATA 	Keypress: n
+1655.9076 	DATA 	Keypress: return
+1655.9086 	WARNING 	Response was not present in the stimulus stream
+1656.4196 	EXP 	New trial (rep=0, index=89): {'cueSerialPos': 12, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1656.6157 	EXP 	Sound  set volume 0.800
+1656.6157 	EXP 	Sound  set volume 1.000
+1656.6157 	EXP 	Sound  set volume 0.800
+1665.1225 	EXP 	window1: recordFrameIntervals = False
+1665.5898 	DATA 	Keypress: t
+1665.9227 	DATA 	Keypress: return
+1666.4258 	EXP 	New trial (rep=0, index=90): {'cueSerialPos': 10, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1666.6160 	EXP 	Sound  set volume 0.800
+1666.6160 	EXP 	Sound  set volume 1.000
+1666.6160 	EXP 	Sound  set volume 0.800
+1674.9882 	EXP 	window1: recordFrameIntervals = False
+1675.4907 	DATA 	Keypress: a
+1675.9066 	DATA 	Keypress: return
+1676.4251 	EXP 	New trial (rep=0, index=91): {'cueSerialPos': 8, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['heat', 'chef', 'seat', 'bowl', 'wide', 'debt', 'rise', 'snow', 'moon', 'mess', 'bath', 'milk', 'fuel', 'hill', 'skin', 'duty', 'clue', 'wake', 'rule', 'kiss', 'note', 'fill', 'sick', 'bang', 'task', 'base', 'boss', 'plus', 'ride', 'mile', 'calm', 'hide', 'loss', 'neck', 'rare', 'feed', 'roof', 'pack', 'crew', 'wood', 'mail', 'lack', 'nose', 'trip', 'lift', 'rose', 'soft', 'hole', 'ship', 'tour', 'fund', 'lamb', 'blow', 'male'], 'hemifield': 1}
+1676.6166 	EXP 	Sound  set volume 0.800
+1676.6166 	EXP 	Sound  set volume 1.000
+1676.6166 	EXP 	Sound  set volume 0.800
+1684.9385 	EXP 	window1: recordFrameIntervals = False
+1685.4078 	DATA 	Keypress: t
+1685.9732 	DATA 	Keypress: return
+1686.4858 	EXP 	New trial (rep=0, index=92): {'cueSerialPos': 7, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['boat', 'foot', 'site', 'jump', 'pair', 'ring', 'list', 'cake', 'sale', 'farm', 'post', 'send', 'dish', 'drop', 'self', 'role', 'kick', 'card', 'shut', 'pain', 'roll', 'band', 'fear', 'none', 'grow', 'date', 'dark', 'hall', 'deep', 'bird', 'hurt', 'flat', 'wine', 'cash', 'slow', 'rich', 'type', 'fell', 'pull', 'till', 'tree', 'sign', 'warm', 'goal', 'keen', 'sing', 'wear', 'push', 'bear', 'wild', 'glad', 'draw', 'rate', 'hang'], 'hemifield': 1}
+1686.6827 	EXP 	Sound  set volume 0.800
+1686.6827 	EXP 	Sound  set volume 1.000
+1686.6827 	EXP 	Sound  set volume 0.800
+1694.3566 	DATA 	Keypress: o
+1695.1226 	EXP 	window1: recordFrameIntervals = False
+1695.7075 	DATA 	Keypress: o
+1696.5231 	DATA 	Keypress: return
+1697.0265 	EXP 	New trial (rep=0, index=93): {'cueSerialPos': 9, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['weak', 'fate', 'worn', 'heir', 'bake', 'vase', 'wire', 'pure', 'rope', 'seal', 'babe', 'seed', 'mill', 'dust', 'chap', 'belt', 'core', 'claw', 'aunt', 'hook', 'ding', 'soil', 'harm', 'flog', 'gear', 'pole', 'chip', 'hung', 'buzz', 'leaf', 'slip', 'tale', 'knee', 'flow', 'drew', 'dive', 'shed', 'duke', 'barn', 'ward', 'peak', 'coal', 'gate', 'deer', 'posh', 'bull', 'pipe', 'gang', 'cell', 'menu', 'loan', 'folk', 'tube', 'damp'], 'hemifield': 1}
+1697.2159 	EXP 	Sound  set volume 0.800
+1697.2159 	EXP 	Sound  set volume 1.000
+1697.2159 	EXP 	Sound  set volume 0.800
+1704.8405 	DATA 	Keypress: x
+1705.7217 	EXP 	window1: recordFrameIntervals = False
+1706.6069 	DATA 	Keypress: x
+1706.9891 	DATA 	Keypress: return
+1707.4928 	EXP 	New trial (rep=0, index=94): {'cueSerialPos': 8, 'leftRight': False, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1707.6992 	EXP 	Sound  set volume 0.800
+1707.6992 	EXP 	Sound  set volume 1.000
+1707.6993 	EXP 	Sound  set volume 0.800
+1716.1215 	EXP 	window1: recordFrameIntervals = False
+1716.6075 	DATA 	Keypress: p
+1717.0396 	DATA 	Keypress: return
+1717.5512 	EXP 	New trial (rep=0, index=95): {'cueSerialPos': 9, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1717.7494 	EXP 	Sound  set volume 0.800
+1717.7494 	EXP 	Sound  set volume 1.000
+1717.7494 	EXP 	Sound  set volume 0.800
+1726.1379 	EXP 	window1: recordFrameIntervals = False
+1727.5068 	DATA 	Keypress: w
+1727.8554 	DATA 	Keypress: return
+1728.3583 	INFO 	Experiment will have 96 trials. Letters will be drawn with superposed noise of 0.00%
+1728.3584 	INFO 	Experiment will have 96 trials. Letters will be drawn with superposed noise of 0.00%
+1728.3584 	INFO 	Starting main (non-staircase) part of experiment
+1728.3590 	EXP 	New trial (rep=0, index=0): {'cueSerialPos': 10, 'leftRight': True, 'leftStreamFlip': False, 'rightStreamFlip': False, 'wordEccentricity': 5, 'bin': ['cope', 'lane', 'loud', 'sake', 'joke', 'mass', 'duck', 'path', 'fake', 'bomb', 'tall', 'load', 'tune', 'sand', 'camp', 'fail', 'zone', 'golf', 'mood', 'vast', 'beef', 'cast', 'soup', 'coat', 'grew', 'beer', 'quiz', 'boom', 'bone', 'spin', 'tail', 'wave', 'wing', 'pool', 'wise', 'gift', 'bite', 'thin', 'code', 'page', 'wash', 'lake', 'drug', 'rent', 'meal', 'swim', 'grab', 'suit', 'soul', 'flag', 'bond', 'port', 'firm', 'rice'], 'hemifield': 1}
+1728.6157 	EXP 	Sound  set volume 0.800
+1728.6157 	EXP 	Sound  set volume 1.000
+1728.6158 	EXP 	Sound  set volume 0.800
+1737.0554 	EXP 	window1: recordFrameIntervals = False
+1738.8731 	DATA 	Keypress: escape
+1738.8869 	INFO 	Finishing at 11:50 on 14 May 2019
+1738.8870 	ERROR 	user aborted experiment on keypress with trials done=0 of 97
+1739.2866 	EXP 	window1: mouseVisible = True

@@ -243,7 +243,7 @@ logging.info("Random seed:" + str(seed))
 #letter size 2.5 deg
 SOAms = 350 #250 #360 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
 #Minimum SOAms should be 84  because any shorter, I can't always notice the second ring when lag1.   71 in Martini E2 and E1b (actually he used 66.6 but that's because he had a crazy refresh rate of 90 Hz)
-letterDurMs =  250 #300 #130 #80 #23.6  in Martini E2 and E1b (actually he used 22.2 but that's because he had a crazy refresh rate of 90 Hz)
+letterDurMs =  300 #130 #80 #23.6  in Martini E2 and E1b (actually he used 22.2 but that's because he had a crazy refresh rate of 90 Hz)
 
 ISIms = SOAms - letterDurMs
 letterDurFrames = int( np.floor(letterDurMs / (1000./refreshRate)) )
@@ -865,8 +865,8 @@ def handleAndScoreResponse(passThisTrial,response,responseAutopilot,task,stimSeq
     posOfResponse = -999
     responsePosRelative = -999
     idx = correctAnswerIdx
-    #print('correctAnswerIdx = ',correctAnswerIdx) 
-    #print('wordlist = ', wordList)
+    print('correctAnswerIdx = ',correctAnswerIdx) 
+    print('wordlist = ', wordList)
     correctAnswer = wordList[idx].upper()
 
     responseString= ''.join(['%s' % char for char in response])
@@ -1098,6 +1098,7 @@ else: #not staircase
                 elif configuration == 'vertical':
                     respStim = visual.TextStim(myWin,pos=(0,x),colorSpace='rgb',
                                                 color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
+
                 expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
                                           numCharsInResponse,respPromptStim,respStim,acceptTextStim,myWin,clickSound,badKeySound,
                                                                                        requireAcceptance,autopilot,responseDebug=True)                                                                               

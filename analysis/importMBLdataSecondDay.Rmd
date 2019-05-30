@@ -1,5 +1,5 @@
 ---
-title: "MBL day 1"
+title: "MBL"
 author: "Alex Holcombe"
 date: "2/27/2018"
 output: html_document
@@ -11,13 +11,13 @@ knitr::opts_chunk$set(echo = TRUE)
 library('mixRSVP')
 ```
 
-Analysis of MBL day 1.
+Analysis of MBL 
 
 Script based mostly on https://github.com/alexholcombe/Cheryl_E2/blob/master/dataPreprocess/readInE2rawData.R
 
 ```{r set up functions}
 
-rawDataPath<- file.path("..","data","MBL")
+rawDataPath<- file.path("..","data","MBL","secondDayDualRing")
 
 files <- dir(path=rawDataPath,pattern='.txt')  #find all data files in this directory
 dfAll<-data.frame()
@@ -56,27 +56,49 @@ for (i in 1:length(files)) { #read in each file
       
 }
 ```
+LOAD ONE-RING FILE
+```{r Load onering file}
+rawDataPath<- file.path("..","data","MBL","oneRing")
+fileThis<- file.path(rawDataPath,"MBL_14May2019_11-21.txt")
+
+rawData<- tryCatch(
+  read.table( fileThis,  sep="\t", header=TRUE, strip.white=TRUE),
+  error=function(e) {
+    stop( paste0("ERROR reading the file ",fname," :",e) )
+  } )
+
+filename<-files[i]
+apparentSubjectName <- strsplit(filename,split="_")[[1]][1]
+print(paste("Apparent subject name about to load is",apparentSubjectName))
+subjectName<- as.character(  rawData$subject[1] )
+if (apparentSubjectName != subjectName) {
+  stop( paste("WARNING apparentSubjectName",apparentSubjectName," from filename does not match subjectName in data structure",
+              subjectName, "in file",files[i]) )
+}
+rawData$file <- filename
+    
+```
 
 Add SOA and letterDur to data, because I tested MBL at multiple values
 
 ```{r hey}
 library(dplyr)
 
-dfAll<- dfAll %>% mutate( SOA = case_when(file=="MBL_26Apr2019_11-43.txt" ~ 360,
-                                          file=="MBL_26Apr2019_11-50.txt" ~ 360,
-                                          file=="MBL_26Apr2019_11-54.txt" ~ 400,
-                                          file=="MBL_26Apr2019_11-56.txt" ~ 600,
-                                          file=="MBL_26Apr2019_11-58.txt" ~ 900,
-                                          file=="mbl_26Apr2019_12-01.txt" ~ 350 #almost all the data is in this file
+MBL_14May2019_10-58.txt   SOA=350 letterDur=200
+MBL_14May2019_11-04.txt  400 / 250
+"MBL_14May2019_11-06.txt"  400 / 300
+"MBL_14May2019_12-14.txt" 350/280
+
+dfAll<- dfAll %>% mutate( SOA = case_when(file=="MBL_14May2019_10-58.txt" ~ 350,
+                                          file=="MBL_14May2019_11-04.txt" ~ 400,
+                                          file=="MBL_14May2019_11-06.txt" ~ 400,
+                                          file=="MBL_14May2019_12-14.txt" ~ 350
                                           ))
 
-dfAll<- dfAll %>% mutate( letterdurDesired = case_when(file=="MBL_26Apr2019_11-43.txt" ~ 80,
-                                                file=="MBL_26Apr2019_11-50.txt" ~ 80,
-                                                file=="MBL_26Apr2019_11-54.txt" ~ 80,
-                                                file=="MBL_26Apr2019_11-56.txt" ~ 80,
-                                                file=="MBL_26Apr2019_11-58.txt" ~ 80,
-                                                file=="mbl_26Apr2019_12-01.txt" ~ 300) )
-
+dfAll<- dfAll %>% mutate( letterdurDesired = case_when(file=="MBL_14May2019_10-58.txt" ~ 200,
+                                                file=="MBL_14May2019_11-04.txt" ~ 250,
+                                                file=="MBL_14May2019_11-06.txt" ~ 300,
+                                                file=="MBL_14May2019_12-14.txt" ~ 280) )
 
 refreshRate <- 60
 dfAll<- dfAll %>% mutate(   letterDurFrames = floor (letterdurDesired / (1000./refreshRate) )  )
@@ -110,38 +132,9 @@ if (sanityVisualCheck) {
 }
 ```
 
-Only analyse at 350 ms SOA because for all others letterdur was 80 ms and he couldn't do it.
-
-```{r visual check}
-
-E<- dfAll %>% filter(SOA==350, experimentPhase=="main")
-
-sanityVisualCheck<-TRUE
-if (sanityVisualCheck) {
-  library(ggplot2)
-
-  g=ggplot(E, aes(x=responsePosRelative0))
-  #plot data
-  g<-g+geom_histogram(binwidth=1) + xlab('serial position error') + ggtitle('left letter')
-  g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
-  show(g)
-  
-  g=ggplot(E, aes(x=responsePosRelative1))
-  #plot data
-  g<-g+geom_histogram(binwidth=1) + xlab('serial position error') + ggtitle('right letter')
-  g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
-  show(g)
-  
-  
-}
 
 
-
-```
-
-
-Melt.  Error "attributes are not identical across measure variables; they will be dropped" seems OK.
-
+Melt
 ```{r melt with me}
 library(tidyr)
 
@@ -174,6 +167,7 @@ maxSPE <- numItemsInStream - minTargetSP
 
 Plot after melting
 ```{r}
+dl<- dl %>% filter(experimentPhase=="main")
 dl[dl$side=="0",]$side <- "left"
 dl[dl$side=="1",]$side <- "right"
 

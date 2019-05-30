@@ -195,7 +195,7 @@ widthPix= 3360  #1600 #monitor width in pixels
 heightPix= 2100 #900 #800 #monitor height in pixels
 monitorwidth = 52.0 #monitor width in cm
 scrn=0 #0 to use main screen, 1 to use external screen connected to computer
-fullscr=True #True to use fullscreen, False to not. Timing probably won't be quite right if fullscreen = False
+fullscr=False #True to use fullscreen, False to not. Timing probably won't be quite right if fullscreen = False
 allowGUI = False
 if demo: monitorwidth = 23#18.0
 if exportImages:
@@ -213,7 +213,7 @@ pixelperdegree = widthPix/ (atan(monitorwidth/viewdist) /np.pi*180)
 print('pixelperdegree=',pixelperdegree)
     
 # create a dialog from dictionary 
-infoFirst = { 'Do staircase (only)': False, 'Check refresh etc':True, 'Fullscreen (timing errors if not)': fullscr, 'Screen refresh rate':refreshRate, 'Show instructions': False, 'Practice Trials': False }
+infoFirst = { 'Do staircase (only)': False, 'Check refresh etc':False, 'Fullscreen (timing errors if not)': fullscr, 'Screen refresh rate':refreshRate, 'Show instructions': False, 'Practice Trials': False }
 OK = gui.DlgFromDict(dictionary=infoFirst, 
     title='Dual-RSVP experiment OR staircase to find thresh noise level for performance criterion', 
     order=['Do staircase (only)', 'Check refresh etc', 'Fullscreen (timing errors if not)','Show instructions', 'Practice Trials'], 
@@ -241,9 +241,9 @@ random.seed(seed); np.random.seed(seed) #https://stackoverflow.com/a/48056075/30
 logging.info("Random seed:" + str(seed))
 
 #letter size 2.5 deg
-SOAms = 350 #250 #360 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
+SOAms = 133 #350 #250 #360 #133 #170 #133 #Battelli, Agosta, Goodbourn, Holcombe mostly using 133
 #Minimum SOAms should be 84  because any shorter, I can't always notice the second ring when lag1.   71 in Martini E2 and E1b (actually he used 66.6 but that's because he had a crazy refresh rate of 90 Hz)
-letterDurMs =  250 #300 #130 #80 #23.6  in Martini E2 and E1b (actually he used 22.2 but that's because he had a crazy refresh rate of 90 Hz)
+letterDurMs = 80#200 #300 #130 #80 #23.6  in Martini E2 and E1b (actually he used 22.2 but that's because he had a crazy refresh rate of 90 Hz)
 
 ISIms = SOAms - letterDurMs
 letterDurFrames = int( np.floor(letterDurMs / (1000./refreshRate)) )
@@ -528,54 +528,23 @@ clickSound, badKeySound = stringResponseKReditPython3.setupSoundsForResponse()
 
 screenshot= False; screenshotDone = False
 
-if limitedTest: #only one word frequency range
-    stimList = []
-    #SETTING THE CONDITIONS, This implements the full factorial design
-    cueSerialPositions = np.array([8,9]) #  np.array([10,11,12,13,14])
-    for cueSerialPos in cueSerialPositions:
-       for rightResponseFirst in [False,True]:
-         for wordEcc in [5]:
-           for hemifield in [-1,1]:
-            for bin in [samples[5]]: #Different samples of words taken from database to vary word frequency range
-                stimList.append( {'cueSerialPos':cueSerialPos, 'rightResponseFirst':rightResponseFirst,
-                                        'leftStreamFlip':False, 'rightStreamFlip':False,
-                                         'wordEccentricity':wordEcc, 'bin':bin, 'hemifield':hemifield } )
 
-    trials = data.TrialHandler(stimList,trialsPerCondition) #constant stimuli method
-    trialsForPossibleStaircase = data.TrialHandler(stimList,trialsPerCondition) #independent randomization, just to create random trials for staircase phase
-    block2trials = data.TrialHandler(stimList,trialsPerCondition)
-
-else:
-    stimList = []
-    #SETTING THE CONDITIONS, This implements the full factorial design
-    cueSerialPositions = np.array([5,6,7,8,9,10,11,12]) #  np.array([10,11,12,13,14])
-    for cueSerialPos in cueSerialPositions:
-       for rightResponseFirst in [False,True]:
-          for wordEcc in [5]:
-           for hemifield in [-1,1]:
-            for bin in samples: #Different samples of words taken from database to vary word frequency range
-                stimList.append( {'cueSerialPos':cueSerialPos, 'rightResponseFirst':rightResponseFirst,
-                                        'leftStreamFlip':False, 'rightStreamFlip':False,
-                                         'wordEccentricity':wordEcc, 'bin':bin, 'hemifield':hemifield } )
-
-    trials = data.TrialHandler(stimList,trialsPerCondition) #constant stimuli method
-    trialsForPossibleStaircase = data.TrialHandler(stimList,trialsPerCondition) #independent randomization, just to create random trials for staircase phase
-    block2trials = data.TrialHandler(stimList,trialsPerCondition)
-
-stimListPrac = []
-#SETTING THE CONDITIONS FOR PRAC TRIALS,
-cueSerialPositions = np.array([5])#([5,7,8,10,12]) #  np.array([10,11,12,13,14])
+stimList = []
+#SETTING THE CONDITIONS, This implements the full factorial design
+cueSerialPositions = np.array([5,6,7,8,9,10,11,12]) #  np.array([10,11,12,13,14])
 for cueSerialPos in cueSerialPositions:
-   for rightResponseFirst in [False,True]:
+  for leftRight in [False,True]:
       for wordEcc in [5]:
-        for bin in [PracSample1]: #Different samples of words taken from database to vary word frequency range
-            stimListPrac.append( {'cueSerialPos':cueSerialPos, 'rightResponseFirst':rightResponseFirst,
+       for hemifield in [-1,1]:
+        for bin in samples: #Different samples of words taken from database to vary word frequency range
+            stimList.append( {'cueSerialPos':cueSerialPos, 'leftRight':leftRight,
                                     'leftStreamFlip':False, 'rightStreamFlip':False,
                                      'wordEccentricity':wordEcc, 'bin':bin, 'hemifield':hemifield } )
 
+trials = data.TrialHandler(stimList,trialsPerCondition) #constant stimuli method
+trialsForPossibleStaircase = data.TrialHandler(stimList,trialsPerCondition) #independent randomization, just to create random trials for staircase phase
+block2trials = data.TrialHandler(stimList,trialsPerCondition)
 
-pracTrials = data.TrialHandler(stimListPrac,1) #constant stimuli method
-block2pracTrials = data.TrialHandler(stimListPrac,1)
 
 numRightWrongEachCuepos = np.zeros([ len(cueSerialPositions), 1 ]); #summary results to print out at end
 
@@ -625,8 +594,9 @@ def wordToIdx(word,wordList):
 print('experimentPhase\tblock\tcondition\ttrialnum\tsubject\ttask\t',file=dataFile,end='')
 print('noisePercent\tleftStreamFlip\trightStreamFlip\t',end='',file=dataFile)
 if task=='T1':
-    numRespsWanted = 2
+    numRespsWanted = 1
 dataFile.write('rightResponseFirst\t')
+dataFile.write('leftRight\t')
 for i in range(numRespsWanted):
    dataFile.write('cueSerialPos'+str(i)+'\t')   #have to use write to avoid ' ' between successive text, at least until Python 3
    dataFile.write('answer'+str(i)+'\t')
@@ -666,7 +636,10 @@ def  oneFrameOfStim( n,cues,cuesSerialPos,seq1,seq2,cueDurFrames,letterDurFrames
   for i in range( len(cueFrames) ): #check whether it's time for any cue. Assume first cueFrame is for first cue, etc.
     thisCueFrame = cueFrames[i]
     if n>=thisCueFrame and n<thisCueFrame+cueDurFrames:
-         cues[i].setLineColor( cueColor )
+        if thisTrial['leftRight']:
+            cues[1].setLineColor( cueColor )
+        else:
+            cues[0].setLineColor( cueColor )
 
   if showLetter:
     textStimuliStream1[thisStimIdx].setColor( letterColor )
@@ -707,30 +680,6 @@ for i in range(2):
                      autoLog=False)#this stim changes too much for autologging to be useful
     cues.append(cue)
     
-#Precue to potentially inform the participant where the letter streams will appear
-preCue1 = visual.Circle(myWin,  
-                 radius=cueRadius,#Martini used circles with diameter of 12 deg
-                 lineColorSpace = 'rgb',
-                 lineColor='white',
-                 lineWidth=4.0, #in pixels. Was thinner (2 pixels) in letter AB experiments
-                 units = 'deg',
-                 fillColorSpace = 'rgb',
-                 fillColor= None, #beware, with convex shapes fill colors don't work
-                 pos= [wordEcc,0], #the anchor (rotation and vertices are position with respect to this)
-                 interpolate=True,
-                 autoLog=False)#this stim changes too much for autologging to be useful
-
-preCue2 = visual.Circle(myWin,  
-                 radius=cueRadius,#Martini used circles with diameter of 12 deg
-                 lineColorSpace = 'rgb',
-                 lineColor='white',
-                 lineWidth=4.0, #in pixels. Was thinner (2 pixels) in letter AB experiments
-                 units = 'deg',
-                 fillColorSpace = 'rgb',
-                 fillColor= None, #beware, with convex shapes fill colors don't work
-                 pos= [-wordEcc,0], #the anchor (rotation and vertices are position with respect to this)
-                 interpolate=True,
-                 autoLog=False)#this stim changes too much for autologging to be useful
 
 ltrHeight = 2  #changed to accomodate 4 letter words #2.5 #Martini letters were 2.5deg high
 #All noise dot coordinates ultimately in pixels, so can specify each dot is one pixel 
@@ -783,10 +732,11 @@ def do_RSVP_stim(thisTrial, cues, seq1, seq2, proportnNoise,trialN,eyeTrackthisT
     #   textStimuli, logging, bgColor
     #  thisTrial should have 'cueSerialPos'
     global framesSaved #because change this variable. Can only change a global variable if you declare it
-    cuesSerialPos = [] #will contain the serial positions in the stream of all the cues (corresponding to the targets)
-    cuesSerialPos.append(thisTrial['cueSerialPos']) #stream1
-    cuesSerialPos.append(thisTrial['cueSerialPos']) #stream2
-    cuesSerialPos = np.array(cuesSerialPos)
+    #cuesSerialPos will contain the serial positions in the stream of all the cues (corresponding to the targets)
+    cuesSerialPos = np.array(   [thisTrial['cueSerialPos']]  ) 
+    print('cuesSerialPos = ',cuesSerialPos)
+    #cuesSerialPos.append(thisTrial['cueSerialPos']) #stream2
+    #cuesSerialPos = np.array(cuesSerialPos)
     noise = None; allFieldCoords=None; numNoiseDots=0
     if proportnNoise > 0: #gtenerating noise is time-consuming, so only do it once per trial. Then shuffle noise coordinates for each letter
         (noise,allFieldCoords,numNoiseDots) = createNoise(proportnNoise,myWin,noiseFieldWidthPix, bgColor)
@@ -847,10 +797,14 @@ def do_RSVP_stim(thisTrial, cues, seq1, seq2, proportnNoise,trialN,eyeTrackthisT
         respPromptStim.setText('What was circled?',log=False)   
     else: respPromptStim.setText('Error: unexpected task',log=False)
     postCueNumBlobsAway=-999 #doesn't apply to non-tracking and click tracking task
-    correctAnswerIdxsStream1 = np.array( seq1[cuesSerialPos] )
-    correctAnswerIdxsStream2 = np.array( seq2[cuesSerialPos] )
+    if thisTrial['leftRight']:
+        correctAnswerIdxs = np.array( seq2[cuesSerialPos] )
+    else:
+        correctAnswerIdxs = np.array( seq1[cuesSerialPos] )
+
+    #correctAnswerIdxsStream2 = np.array( seq2[cuesSerialPos] )
     #print('correctAnswerIdxsStream1=',correctAnswerIdxsStream1, 'wordList[correctAnswerIdxsStream1[0]]=',wordList[correctAnswerIdxsStream1[0]])
-    return cuesSerialPos,correctAnswerIdxsStream1,correctAnswerIdxsStream2,ts
+    return cuesSerialPos,correctAnswerIdxs,ts
     
 def handleAndScoreResponse(passThisTrial,response,responseAutopilot,task,stimSequence,cueSerialPos,correctAnswerIdx,wordList):
     #Handle response, calculate whether correct, ########################################
@@ -865,11 +819,11 @@ def handleAndScoreResponse(passThisTrial,response,responseAutopilot,task,stimSeq
     posOfResponse = -999
     responsePosRelative = -999
     idx = correctAnswerIdx
-    #print('correctAnswerIdx = ',correctAnswerIdx) 
-    #print('wordlist = ', wordList)
+    print('response=',response,'correctAnswerIdx = ',correctAnswerIdx) 
+    print('wordlist = ', wordList)
     correctAnswer = wordList[idx].upper()
 
-    responseString= ''.join(['%s' % char for char in response])
+    responseString= response[0] #list(response)
     responseString= responseString.upper()
     
     print('correctAnswer=',correctAnswer ,' responseString=',responseString)
@@ -894,9 +848,10 @@ def handleAndScoreResponse(passThisTrial,response,responseAutopilot,task,stimSeq
         responsePosRelative = posOfResponse - cueSerialPos
         approxCorrect = abs(responsePosRelative)<= 3 #Vul efficacy measure of getting it right to within plus/minus
     print('wordToIdx(',responseString,',',wordList,')=',responseWordIdx,' stimSequence=',stimSequence,'\nposOfResponse = ',posOfResponse) 
+    print(cueSerialPos,'\t', end='', file=dataFile)
     #print response stuff to dataFile
     #header was answerPos0, answer0, response0, correct0, responsePosRelative0
-    print(cueSerialPos,'\t', end='', file=dataFile)
+    print(leftRight,'\t', end='', file=dataFile)
     print(correctAnswer, '\t', end='', file=dataFile) #answer0
     print(responseString, '\t', end='', file=dataFile) #response0
     print(correct, '\t', end='',file=dataFile)   #correct0
@@ -921,124 +876,7 @@ def play_high_tone_correct_low_incorrect(correct, passThisTrial=False):
 expStop=False
 nDoneMain = -1 #change to zero once start main part of experiment
 if doStaircase:
-    #create the staircase handler
-    useQuest = True
-    if  useQuest:
-        staircase = data.QuestHandler(startVal = 95, 
-                              startValSd = 80,
-                              stopInterval= 1, #sd of posterior has to be this small or smaller for staircase to stop, unless nTrials reached
-                              nTrials = staircaseTrials,
-                              #extraInfo = thisInfo,
-                              pThreshold = threshCriterion, #0.25,    
-                              gamma = 1./26,
-                              delta=0.02, #lapse rate, I suppose for Weibull function fit
-                              method = 'quantile', #uses the median of the posterior as the final answer
-                              stepType = 'log',  #will home in on the 80% threshold. But stepType = 'log' doesn't usually work
-                              minVal=1, maxVal = 100
-                              )
-        print('created QUEST staircase')
-    else:
-        stepSizesLinear = [.2,.2,.1,.1,.05,.05]
-        stepSizesLog = [log(1.4,10),log(1.4,10),log(1.3,10),log(1.3,10),log(1.2,10)]
-        staircase = data.StairHandler(startVal = 0.1,
-                                  stepType = 'log', #if log, what do I want to multiply it by
-                                  stepSizes = stepSizesLog,    #step size to use after each reversal
-                                  minVal=0, maxVal=1,
-                                  nUp=1, nDown=3,  #will home in on the 80% threshold
-                                  nReversals = 2, #The staircase terminates when nTrials have been exceeded, or when both nReversals and nTrials have been exceeded
-                                  nTrials=1)
-        print('created conventional staircase')
-        
-    if prefaceStaircaseTrialsN > len(prefaceStaircaseNoise): #repeat array to accommodate desired number of easyStarterTrials
-        prefaceStaircaseNoise = np.tile( prefaceStaircaseNoise, ceil( prefaceStaircaseTrialsN/len(prefaceStaircaseNoise) ) )
-    prefaceStaircaseNoise = prefaceStaircaseNoise[0:prefaceStaircaseTrialsN]
-    
-    phasesMsg = ('Doing '+str(prefaceStaircaseTrialsN)+'trials with noisePercent= '+str(prefaceStaircaseNoise)+' then doing a max '+str(staircaseTrials)+'-trial staircase')
-    print(phasesMsg); logging.info(phasesMsg)
-
-    #staircaseStarterNoise PHASE OF EXPERIMENT
-    corrEachTrial = list() #only needed for easyStaircaseStarterNoise
-    staircaseTrialN = -1; mainStaircaseGoing = False
-    while (not staircase.finished) and expStop==False: #staircase.thisTrialN < staircase.nTrials
-        if staircaseTrialN+1 < len(prefaceStaircaseNoise): #still doing easyStaircaseStarterNoise
-            staircaseTrialN += 1
-            noisePercent = prefaceStaircaseNoise[staircaseTrialN]
-        else:
-            if staircaseTrialN+1 == len(prefaceStaircaseNoise): #add these non-staircase trials so QUEST knows about them
-                mainStaircaseGoing = True
-                print('Importing ',corrEachTrial,' and intensities ',prefaceStaircaseNoise)
-                staircase.importData(100-prefaceStaircaseNoise, np.array(corrEachTrial))
-                printStaircase(staircase, descendingPsycho, briefTrialUpdate=False, printInternalVal=True, alsoLog=False)
-            try: #advance the staircase
-                printStaircase(staircase, descendingPsycho, briefTrialUpdate=True, printInternalVal=True, alsoLog=False)
-                noisePercent = 100. - staircase.__next__()  #will step through the staircase, based on whether told it (addResponse) got it right or wrong
-                staircaseTrialN += 1
-            except StopIteration: #Need this here, even though test for finished above. I can't understand why finished test doesn't accomplish this.
-                print('stopping because staircase.next() returned a StopIteration, which it does when it is finished')
-                break #break out of the trials loop
-        #print('staircaseTrialN=',staircaseTrialN)
-        idxsStream1, idxsStream2, cues = calcAndPredrawStimuli(wordList,cues,staircaseTrials)
-        cuesSerialPos,correctAnswerIdxsStream1,correctAnswerIdxsStream2, ts  = \
-                                        do_RSVP_stim(thisTrial, cues, idxsStream1, idxsStream2, noisePercent/100.,staircaseTrialN)
-        numCasesInterframeLong = timingCheckAndLog(ts,staircaseTrialN)
-        expStop,passThisTrial,responses,responsesAutopilot = \
-                stringResponseKRedit.collectStringResponse(numRespsWanted,respPromptStim,respStim,acceptTextStim,myWin,clickSound,badKeySound,
-                                                                               requireAcceptance,autopilot,responseDebug=True)
-
-        if not expStop:
-            if mainStaircaseGoing:
-                print('staircase\t', end='', file=dataFile)
-            else: 
-                print('staircase_preface\t', end='', file=dataFile)
-             #header start      'trialnum\tsubject\ttask\t'
-            print(staircaseTrialN,'\t', end='', file=dataFile) #first thing printed on each line of dataFile
-            print(subject,'\t',task,'\t', round(noisePercent,2),'\t', end='', file=dataFile)
-            correct,approxCorrect,responsePosRelative= handleAndScoreResponse(
-                                                passThisTrial,responses,responseAutopilot,task,g,cuesSerialPos[0],correctAnswerIdx )
-
-            print(numCasesInterframeLong, file=dataFile) #timingBlips, last thing recorded on each line of dataFile
-            core.wait(.06)
-            if feedback: 
-                play_high_tone_correct_low_incorrect(correct, passThisTrial=False)
-            print('staircaseTrialN=', staircaseTrialN,' noisePercent=',round(noisePercent,3),' T1approxCorrect=',T1approxCorrect) #debugON
-            corrEachTrial.append(T1approxCorrect)
-            if mainStaircaseGoing: 
-                staircase.addResponse(T1approxCorrect, intensity = 100-noisePercent) #Add a 1 or 0 to signify a correct/detected or incorrect/missed trial
-                #print('Have added an intensity of','{:.3f}'.format(100-noisePercent), 'T1approxCorrect =', T1approxCorrect, ' to staircase') #debugON
-    #ENDING STAIRCASE PHASE
-
-    if staircaseTrialN+1 < len(prefaceStaircaseNoise) and (staircaseTrialN>=0): #exp stopped before got through staircase preface trials, so haven't imported yet
-        print('Importing ',corrEachTrial,' and intensities ',prefaceStaircaseNoise[0:staircaseTrialN+1])
-        staircase.importData(100-prefaceStaircaseNoise[0:staircaseTrialN], np.array(corrEachTrial)) 
-    print('framesSaved after staircase=',framesSaved) #debugON
-
-    timeAndDateStr = time.strftime("%H:%M on %d %b %Y", time.localtime())
-    msg = ('prefaceStaircase phase' if expStop else '')
-    msg += ('ABORTED' if expStop else 'Finished') + ' staircase part of experiment at ' + timeAndDateStr
-    logging.info(msg); print(msg)
-    printStaircase(staircase, descendingPsycho, briefTrialUpdate=True, printInternalVal=True, alsoLog=False)
-    #print('staircase.quantile=',round(staircase.quantile(),2),' sd=',round(staircase.sd(),2))
-    threshNoise = round(staircase.quantile(),3)
-    if descendingPsycho:
-        threshNoise = 100- threshNoise
-    threshNoise = max( 0, threshNoise ) #e.g. ff get all trials wrong, posterior peaks at a very negative number
-    msg= 'Staircase estimate of threshold = ' + str(threshNoise) + ' with sd=' + str(round(staircase.sd(),2))
-    logging.info(msg); print(msg)
-    myWin.close()
-    #Fit and plot data
-    fit = None
-    try:
-        intensityForCurveFitting = staircase.intensities
-        if descendingPsycho: 
-            intensityForCurveFitting = 100-staircase.intensities #because fitWeibull assumes curve is ascending
-        fit = data.FitWeibull(intensityForCurveFitting, staircase.data, expectedMin=1/26., sems = 1.0/len(staircase.intensities))
-    except:
-        print("Fit failed.")
-    plotDataAndPsychometricCurve(staircase,fit,descendingPsycho,threshCriterion)
-    #save figure to file
-    pylab.savefig(fileNameWithPath+'.pdf')
-    print('The plot has been saved, as '+fileNameWithPath+'.pdf')
-    pylab.show() #must call this to actually show plot
+    pass
 else: #not staircase
     block = 1
     for condition in (firstCondition,secondCondition):
@@ -1047,69 +885,7 @@ else: #not staircase
         noisePercent = defaultNoiseLevel
         phasesMsg = 'Experiment will have '+str(trials.nTotal)+' trials. Letters will be drawn with superposed noise of ' + "{:.2%}".format(defaultNoiseLevel)
         print(phasesMsg); logging.info(phasesMsg)
-        nDonePrac = 0
-        if not doPracTrials:
-            nDonePrac=999
-        while nDonePrac < pracTrials.nTotal and expStop==False: #PRACTICE EXPERIMENT LOOP
-            if nDonePrac==0:
-                    if block==1:
-                        #instructions(condition)
-                        msg='Starting practice trials'
-                        logging.info(msg); print(msg)
-                        thisPracTrial = pracTrials.__next__()
-                    else:
-                        #block2instructions(condition)
-                        msg='Starting practice trials'
-                        logging.info(msg); print(msg)
-                        thisPracTrial = block2pracTrials.__next__()
-            
-            if condition==1:
-                wordBin = thisPracTrial['bin']
-            else:
-                wordBin = SampleLetters
-            np.random.shuffle(wordBin)
-            
-            wordList1 = wordBin[0:numWordsInStream]
-            if condition==1:
-                wordList2 = wordBin[numWordsInStream:numWordsInStream*2]
-            else:  wordList2 = wordList1
-            print(wordList1)
-            print(wordList2)
-            sequenceStream1, sequenceStream2, cues = calcAndPredrawStimuli(wordList1,wordList2,cues,thisPracTrial)
-            print('sequenceStream1=',sequenceStream1)
-            print('sequenceStream2=',sequenceStream2)
 
-            cuesSerialPos,correctAnswerIdxsStream1,correctAnswerIdxsStream2, ts  = \
-                                                                        do_RSVP_stim(thisPracTrial, cues, sequenceStream1, sequenceStream2, noisePercent/100.,nDonePrac,False)
-            numCasesInterframeLong = timingCheckAndLog(ts,nDonePrac)
-            #call for each response
-            expStop = list(); passThisTrial = list(); responses=list(); responsesAutopilot=list()
-            numCharsInResponse = len(wordList1[0])
-            dL = [None]*numRespsWanted #dummy list for null values
-            expStop = copy.deepcopy(dL); responses = copy.deepcopy(dL); responsesAutopilot = copy.deepcopy(dL); passThisTrial=copy.deepcopy(dL)
-            responseOrder = list( range(numRespsWanted) ) #make sure it's a list rather than an iterator so you can subscript it later
-            if thisPracTrial['rightResponseFirst']: #change order of indices depending on rightResponseFirst. response0, answer0 etc refer to which one had to be reported first
-                    responseOrder.reverse()
-            for i in responseOrder:
-                x = 1.5 * thisPracTrial['wordEccentricity']*(i*2-1) #put it 3 times farther out than stimulus, so participant is sure which is left and which right
-
-                if configuration == 'horizontal':
-                    respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
-                elif configuration == 'vertical':
-                    respStim = visual.TextStim(myWin,pos=(0,x),colorSpace='rgb',
-                                                color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
-                expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
-                                          numCharsInResponse,respPromptStim,respStim,acceptTextStim,myWin,clickSound,badKeySound,
-                                                                                       requireAcceptance,autopilot,responseDebug=True)                                                                               
-            expStop = np.array(expStop).any(); passThisTrial = np.array(passThisTrial).any()
-            nDonePrac+=1
-            if nDonePrac==pracTrials.nTotal:
-                    
-                endPrac = visual.TextStim(myWin, text = finishedPractice,pos=(0, 0),height=instrLtrHeight,colorSpace='rgb',color=instrcolor,alignHoriz='center',alignVert='center',units='deg',autoLog=autoLogging )
-    
-                endPrac.draw()
-                myWin.flip()
-                event.waitKeys()
             
         noisePercent = defaultNoiseLevel
         phasesMsg = 'Experiment will have '+str(trials.nTotal)+' trials. Letters will be drawn with superposed noise of ' + "{:.2%}".format(defaultNoiseLevel)
@@ -1139,29 +915,28 @@ else: #not staircase
             sequenceStream1, sequenceStream2, cues = calcAndPredrawStimuli(wordList1,wordList2,cues,thisTrial)
             print('sequenceStream1=',sequenceStream1)
             print('sequenceStream2=',sequenceStream2)
-            cuesSerialPos,correctAnswerIdxsStream1,correctAnswerIdxsStream2, ts  = \
-                                                                        do_RSVP_stim(thisTrial, cues, sequenceStream1, sequenceStream2, noisePercent/100.,nDoneMain,eyetracking)
+            cuesSerialPos,correctAnswerIdxs, ts  =   do_RSVP_stim(thisTrial, cues, sequenceStream1, sequenceStream2, noisePercent/100.,nDoneMain,eyetracking)
             numCasesInterframeLong = timingCheckAndLog(ts,nDoneMain)
             #call for each response
             expStop = list(); passThisTrial = list(); responses=list(); responsesAutopilot=list()
             numCharsInResponse = len(wordList1[0])
-            dL = [None]*numRespsWanted #dummy list for null values
+            dL = [None]*2 #numRespsWanted #dummy list for null values #AHdebug
             expStop = copy.deepcopy(dL); responses = copy.deepcopy(dL); responsesAutopilot = copy.deepcopy(dL); passThisTrial=copy.deepcopy(dL)
-            responseOrder = list( range(numRespsWanted) )
-            if thisTrial['rightResponseFirst']: #change order of indices depending on rightResponseFirst. response0, answer0 etc refer to which one had to be reported first
-                    responseOrder.reverse()
-            for i in responseOrder:
-                x = 1.5 * thisTrial['wordEccentricity']*(i*2-1) #put it 3 times farther out than stimulus, so participant is sure which is left and which right
-    
-                if configuration == 'horizontal':
-                    respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
-                else:
-                    respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'],x),colorSpace='rgb',
-                                                color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
+            if thisTrial['leftRight']:
+                responseOrder = [1]
+            else: responseOrder = [0]
+            i = responseOrder[0]
+            x = 1.5 * thisTrial['wordEccentricity']*(i*2-1) #put it 3 times farther out than stimulus, so participant is sure which is left and which right
 
-                expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
-                                          numCharsInResponse,respPromptStim,respStim,acceptTextStim,myWin,clickSound,badKeySound,
-                                                                                       requireAcceptance,autopilot,responseDebug=True)                                                                               
+            if configuration == 'horizontal':
+                respStim = visual.TextStim(myWin,pos=(x,0),colorSpace='rgb',color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
+            else:
+                respStim = visual.TextStim(myWin,pos=(cos(radians(angleToStim))*thisTrial['wordEccentricity']*thisTrial['hemifield'],x),colorSpace='rgb',
+                                            color=(1,1,0),alignHoriz='center', alignVert='center',height=2.5,units='deg',autoLog=autoLogging)
+            print('i=',i)
+            expStop[i],passThisTrial[i],responses[i],responsesAutopilot[i] = stringResponseKReditPython3.collectStringResponse(
+                                      numCharsInResponse,respPromptStim,respStim,acceptTextStim,myWin,clickSound,badKeySound,
+                                                                                   requireAcceptance,autopilot,responseDebug=True)                                                                               
             expStop = np.array(expStop).any(); passThisTrial = np.array(passThisTrial).any()
             if not expStop:
                 print('main\t', end='', file=dataFile) #first thing printed on each line of dataFile to indicate main part of experiment, not staircase
@@ -1171,18 +946,20 @@ else: #not staircase
                 print(subject,'\t',task,'\t', round(noisePercent,3),'\t', end='', file=dataFile)
                 print(thisTrial['leftStreamFlip'],'\t', end='', file=dataFile)
                 print(thisTrial['rightStreamFlip'],'\t', end='', file=dataFile)
-                print(thisTrial['rightResponseFirst'],'\t', end='', file=dataFile)
-                i = 0
+                i = responseOrder[0]
                 eachCorrect = np.ones(numRespsWanted)*-999; eachApproxCorrect = np.ones(numRespsWanted)*-999
-                for i in range(numRespsWanted): #scored and printed to dataFile in left first, right second order even if collected in different order
-                    if i==0:
-                        sequenceStream = sequenceStream1; correctAnswerIdxs = correctAnswerIdxsStream1; wordList = wordList1;
-                    else: sequenceStream = sequenceStream2; correctAnswerIdxs = correctAnswerIdxsStream2; wordList = wordList2;
-               
-                    correct,approxCorrect,responsePosRelative = (
-                            handleAndScoreResponse(passThisTrial,responses[i],responsesAutopilot[i],task,sequenceStream,thisTrial['cueSerialPos'],correctAnswerIdxs[i],wordList) )
-                    eachCorrect[i] = correct
-                    eachApproxCorrect[i] = approxCorrect
+                #scored and printed to dataFile in left first, right second order even if collected in different order
+                correctAnswerIdx = correctAnswerIdxs[0];
+                if thisTrial['leftRight']:
+                    sequenceStream = sequenceStream2;  wordList = wordList2;
+                else: 
+                    sequenceStream = sequenceStream1;  wordList = wordList1;
+           
+                correct,approxCorrect,responsePosRelative = (
+                        handleAndScoreResponse(passThisTrial,responses[i],responsesAutopilot[i],task,sequenceStream,thisTrial['cueSerialPos'],correctAnswerIdx,wordList) )
+                print('Got out of handleAndScoreResponse')
+                eachCorrect[i] = correct
+                eachApproxCorrect[i] = approxCorrect
                 for i in range(numWordsInStream):
                     print(wordList1[i],'\t',end='',file=dataFile)
                 for i in range(numWordsInStream):
