@@ -114,9 +114,9 @@ Melt. Error "attributes are not identical across measure variables; they will be
 ```{r melt with me}
 library(tidyr)
 
-columnsToMelt<- colnames(E)[11:20]
+columnsToMelt<- colnames(dfAll)[11:20]
 #https://stackoverflow.com/questions/23945350/reshaping-wide-to-long-with-multiple-values-columns
-dl<-  E %>%  gather(v, value, columnsToMelt)
+dl<-  dfAll %>%  gather(v, value, columnsToMelt)
 #attributes dropped but that's ok
 #Separate the new v column into 0 and 1 (corresponding to left and right)
 dl<- dl %>% separate(col = v, into = c("col", "var"), sep = -1) #This means separate it at the last character, 
@@ -130,11 +130,11 @@ dl$SPE <- as.numeric(dl$SPE)
 
 ```
 
-```{r calc needed experiment params}
+```{r calc needed params}
 numItemsInStream <- 17
-dl$targetSP <- as.numeric(dl$cueSerialPos) 
+dl<- dl %>% rename(targetSP = cueSerialPos)
 #WHY DOES THE targetSP variable have to be called targetSP for plot_hist_with_fit when you have to pass the motherfucker? Because createGuessingDistribution creates guessing distribution from scratch. Is that necessary?
-
+dl$targetSP <- as.numeric(dl$targetSP)
 possibleTargetSP<- sort(unique(dl$targetSP))
 minTargetSP <- min( possibleTargetSP ) 
 maxTargetSP <- max( possibleTargetSP )
@@ -185,7 +185,7 @@ k<- k + ggtitle("right")
 show(k)
 ```
 
-```{r save file}
+```{r save daytwo}
 library(readr) #has better than save.csv https://readr.tidyverse.org/reference/write_delim.html
 pathToSave<- file.path("..","data","MBL")
 
@@ -193,7 +193,7 @@ saveRDS(dl, file = file.path(pathToSave,"dayTwo.rda"), compress="bzip2")
 write_tsv(dl, file.path(pathToSave,"dayTwo.tsv"))
 ```
 
-One ring
+Load and analyze ONE RING data
 ```{r oneRingFiles}
 rawDataPath<- file.path("..","data","MBL","oneRing")
 
@@ -202,7 +202,6 @@ oneR<-data.frame()
 print(files)
 ```
 
-ONE RING
 
 ```{r oneRingImport}
 
@@ -253,7 +252,8 @@ oneRing[oneRing$SPE==-999,]$SPE <- sample(guessesFakeSPEs, size=sum(oneRing$SPE=
 
 ```{r calc needed experiment params}
 numItemsInStream <- 17
-oneRing$targetSP <- as.numeric(oneRing$cueSerialPos0) 
+oneRing<- oneRing %>% rename(targetSP = cueSerialPos0)
+
 possibleTargetSP<- sort(unique(oneRing$targetSP))
 minTargetSP <- min( possibleTargetSP ) 
 maxTargetSP <- max( possibleTargetSP )

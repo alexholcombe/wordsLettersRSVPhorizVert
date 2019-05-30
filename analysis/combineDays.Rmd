@@ -1,0 +1,100 @@
+---
+title: "MBL days combined"
+author: "Alex Holcombe"
+date: "2/27/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library('mixRSVP')
+```
+
+Load individual days
+```{r load files}
+library(readr) #has better than save.csv https://readr.tidyverse.org/reference/write_delim.html
+pathToLoad<- file.path("..","data","MBL")
+
+dayOne <- readRDS(file = file.path(pathToLoad,"dayOne.rda"))
+dayTwo <- readRDS(file = file.path(pathToLoad,"dayTwo.rda"))
+
+dayOne$day <- 1
+dayTwo$day <- 2
+```
+Combine days
+```{r combine}
+setdiff(colnames(dayOne),colnames(dayTwo))
+setdiff(colnames(dayTwo),colnames(dayOne))
+combnd<- rbind(dayOne,dayTwo)
+combnd$letterdur <- round(combnd$letterdur,1)
+```
+
+```{r visual all rates check}
+library(ggplot2)
+
+sanityVisualCheck<-TRUE
+if (sanityVisualCheck) {
+
+  g=ggplot(combnd, aes(x=SPE,fill=factor(day))) + theme_apa()
+  #plot data
+  g<-g+geom_histogram(binwidth=1, alpha=.5, position = position_dodge(width=0.5))
+  g<-g+ xlab('serial position error') + facet_grid(SOA~side) + ggtitle('rows are different SOAs')
+  g <- g + geom_text(aes(x=-10,y=0,label=round(letterdur,0))) #paste("dur:",)))
+  g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
+  show(g)
+  
+}
+```
+
+Just analyze SOA=350 for now. I don't know why I ran SOA=400 on the second day.
+```{r visual stacked}
+library(dplyr)
+
+g=ggplot(combnd %>% filter(SOA==350), aes(x=SPE,fill=factor(day))) + theme_apa()
+#plot data
+g<-g+geom_histogram(binwidth=1, position = 'stack')
+g<-g+ xlab('serial position error') + facet_grid(letterdur~side) + ggtitle('rows are different letter durations')
+g <- g + geom_text(aes(x=-10,y=0,label=round(letterdur,0))) #paste("dur:",)))
+g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
+show(g)
+
+```
+
+```{r calc needed experiment params}
+numItemsInStream <- 17
+possibleTargetSP<- sort(unique(combnd$targetSP))
+minTargetSP <- min( possibleTargetSP ) 
+maxTargetSP <- max( possibleTargetSP )
+minSPE <- 1 - maxTargetSP
+maxSPE <- numItemsInStream - minTargetSP
+```
+
+Mixture model the left side
+
+```{r mixml}
+combnd350 <- combnd %>% filter(SOA==350)
+dlLeft<- combnd350 %>% filter(side=="left") 
+
+plotContinuousGaussian <- FALSE; annotateIt <- TRUE
+j<- plot_hist_with_fit(dlLeft,minSPE,maxSPE,dlLeft$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
+j<- j + ggtitle("left")
+show(j)
+```
+
+```{r mixmR}
+dlRight<- combnd350 %>% filter(side=="right") 
+
+plotContinuousGaussian <- FALSE; annotateIt <- TRUE
+j<- plot_hist_with_fit(dlRight,minSPE,maxSPE,dlRight$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
+j<- j + ggtitle("right")
+show(j)
+```
+Save data for charlie to bootstrap.
+```{r saveForCharlie}
+pathToSave<- file.path("..","data","MBL")
+
+saveRDS(dlRight, file = file.path(pathToSave,"combndRightForCharlie.rda"), compress="bzip2")
+```
+
+
