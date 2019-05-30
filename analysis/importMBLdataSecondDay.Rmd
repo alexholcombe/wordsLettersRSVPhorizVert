@@ -11,11 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library('mixRSVP')
 ```
 
-Analysis of MBL 
+Analysis of MBL second day, both dual targets and one ring (at every end of file) 
 
 Script based mostly on https://github.com/alexholcombe/Cheryl_E2/blob/master/dataPreprocess/readInE2rawData.R
 
-```{r set up functions}
+```{r set up }
 
 rawDataPath<- file.path("..","data","MBL","secondDayDualRing")
 
@@ -26,7 +26,6 @@ print(files)
 
 
 ```{r all}
-
 for (i in 1:length(files)) { #read in each file
     fileThis<- file.path(rawDataPath,files[i])
 
@@ -55,28 +54,6 @@ for (i in 1:length(files)) { #read in each file
       } )
       
 }
-```
-LOAD ONE-RING FILE
-```{r Load onering file}
-rawDataPath<- file.path("..","data","MBL","oneRing")
-fileThis<- file.path(rawDataPath,"MBL_14May2019_11-21.txt")
-
-rawData<- tryCatch(
-  read.table( fileThis,  sep="\t", header=TRUE, strip.white=TRUE),
-  error=function(e) {
-    stop( paste0("ERROR reading the file ",fname," :",e) )
-  } )
-
-filename<-files[i]
-apparentSubjectName <- strsplit(filename,split="_")[[1]][1]
-print(paste("Apparent subject name about to load is",apparentSubjectName))
-subjectName<- as.character(  rawData$subject[1] )
-if (apparentSubjectName != subjectName) {
-  stop( paste("WARNING apparentSubjectName",apparentSubjectName," from filename does not match subjectName in data structure",
-              subjectName, "in file",files[i]) )
-}
-rawData$file <- filename
-    
 ```
 
 Add SOA and letterDur to data, because I tested MBL at multiple values
@@ -155,8 +132,10 @@ dl$SPE <- as.numeric(dl$SPE)
 
 ```{r calc needed experiment params}
 numItemsInStream <- 17
-dl$cueSerialPos <- as.numeric(dl$cueSerialPos) 
-possibleTargetSP<- sort(unique(dl$cueSerialPos))
+dl$targetSP <- as.numeric(dl$cueSerialPos) 
+#WHY DOES THE targetSP variable have to be called targetSP for plot_hist_with_fit when you have to pass the motherfucker? Because createGuessingDistribution creates guessing distribution from scratch. Is that necessary?
+
+possibleTargetSP<- sort(unique(dl$targetSP))
 minTargetSP <- min( possibleTargetSP ) 
 maxTargetSP <- max( possibleTargetSP )
 minSPE <- 1 - maxTargetSP
@@ -176,11 +155,6 @@ g<-g+geom_histogram(binwidth=1) + xlim(minSPE,maxSPE)
 show(g)
 ```
 
-```{r}
-dl<- dl %>% rename(targetSP = cueSerialPos)
-#WHY DOES THE targetSP variable have to be called targetSP for plot_hist_with_fit when you have to pass the motherfucker?
-#Showit also doesn't seem to be working
-```
 
 ```{r}
 guessesFakeSPEs <- minSPE:maxSPE
@@ -192,7 +166,7 @@ dl[dl$SPE==-999,]$SPE <- sample(guessesFakeSPEs, size=sum(dl$SPE==-999),replace=
 Mixture model the left side
 ```{r}
 
-dlLeft<- dl %>% filter(side=="left") #%>% filter()
+dlLeft<- dl %>% filter(side=="left")
 
 plotContinuousGaussian <- FALSE; annotateIt <- TRUE
 j<- plot_hist_with_fit(dlLeft,minSPE,maxSPE,dlLeft$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
@@ -203,7 +177,7 @@ show(j)
 Mixture model the right side
 ```{r}
 
-dlRight<- dl %>% filter(side=="right") %>% filter(SPE>-999)  #ignore guesses of letters that weren't in the stream. Could alternatively give them random values
+dlRight<- dl %>% filter(side=="right") 
 
 plotContinuousGaussian <- TRUE; annotateIt <- TRUE
 k<- plot_hist_with_fit(dlRight,minSPE,maxSPE,dlRight$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
@@ -220,5 +194,92 @@ write_tsv(dl, file.path(pathToSave,"dayTwo.tsv"))
 ```
 
 One ring
-```{r oneRingIMport}
+```{r oneRingFiles}
+rawDataPath<- file.path("..","data","MBL","oneRing")
+
+files <- dir(path=rawDataPath,pattern='.txt')  #find all data files in this directory
+oneR<-data.frame()
+print(files)
+```
+
+ONE RING
+
+```{r oneRingImport}
+
+fileThis<- file.path(rawDataPath,files[1])
+
+rawData<- tryCatch(
+  read.table( fileThis,  sep="\t", header=TRUE, strip.white=TRUE),
+  error=function(e) {
+    stop( paste0("ERROR reading the file ",fname," :",e) )
+  } )
+rawData$file <- fileThis
+
+oneRing <- rawData %>% rename(SPE=responsePosRelative0)
+oneRing$SOA <- 400
+oneRing$letterdurDesired <- 250
+
+refreshRate <- 60
+oneRing<- oneRing %>% mutate(   letterDurFrames = floor (letterdurDesired / (1000./refreshRate) )  )
+#table(dfAll$letterdur, dfAll$letterDurFrames)
+oneRing$letterdur <- oneRing$letterDurFrames * 1000/refreshRate
+                               
+table(oneRing$SOA, oneRing$letterdur)       
+
+```
+Performance is similarly bad for right side even when just one ring - no evidence of extinction, just as Mike also found when brief presentation.
+```{r visual check}
+library(ggplot2)
+
+sanityVisualCheck<-TRUE
+if (sanityVisualCheck) {
+  
+  g=ggplot(oneRing, aes(x=SPE))
+  #plot data
+  g<-g+geom_histogram(binwidth=1) + xlab('serial position error') + facet_grid(.~leftRight) 
+  g <- g + geom_text(aes(x=-10,y=0,label=round(letterdur,0))) #paste("dur:",)))
+  g<-g+ xlim(-11,11) #18 items per stream. Based on Kim's program so included letters that were never presented in the stream
+  show(g)
+  
+}
+```
+
+```{r}
+guessesFakeSPEs <- minSPE:maxSPE
+guessesFakeSPEs <- guessesFakeSPEs[-pmatch(-3:3,guessesFakeSPEs)] #remove -3:3 to be sure they're modeled as part of the uniform distribution #https://stackoverflow.com/questions/49742315/how-to-delete-multiple-values-from-a-vector-but-not-all-of-them
+
+oneRing[oneRing$SPE==-999,]$SPE <- sample(guessesFakeSPEs, size=sum(oneRing$SPE==-999),replace=TRUE)
+```
+
+```{r calc needed experiment params}
+numItemsInStream <- 17
+oneRing$targetSP <- as.numeric(oneRing$cueSerialPos0) 
+possibleTargetSP<- sort(unique(oneRing$targetSP))
+minTargetSP <- min( possibleTargetSP ) 
+maxTargetSP <- max( possibleTargetSP )
+minSPE <- 1 - maxTargetSP
+maxSPE <- numItemsInStream - minTargetSP
+```
+
+Mixture model the right side
+```{r}
+oneRing<- oneRing %>% mutate( leftRight = case_when(leftRight=="True" ~ TRUE,
+                                          leftRight=="False" ~ FALSE
+                                          ))
+
+oneRingRight<- oneRing %>% filter(leftRight==TRUE)   #ignore guesses of letters that weren't in the stream. Could alternatively give them random values
+
+plotContinuousGaussian <- TRUE; annotateIt <- TRUE
+k<- plot_hist_with_fit(oneRingRight,minSPE,maxSPE,oneRingRight$targetSP,numItemsInStream,plotContinuousGaussian,annotateIt, FALSE)
+k<- k + ggtitle("right")
+show(k)
+```
+
+```{r save file}
+library(readr) #has better than save.csv https://readr.tidyverse.org/reference/write_delim.html
+pathToSave<- file.path("..","data","MBL")
+
+saveRDS(oneRing, file = file.path(pathToSave,"oneRing.rda"), compress="bzip2")
+write_tsv(oneRing, file.path(pathToSave,"oneRing.tsv"))
+```
 
