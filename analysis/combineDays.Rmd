@@ -47,7 +47,8 @@ if (sanityVisualCheck) {
 }
 ```
 
-Just analyze SOA=350 for now. I don't know why I ran SOA=400 on the second day.
+
+
 ```{r visual stacked}
 library(dplyr)
 
@@ -69,6 +70,8 @@ maxTargetSP <- max( possibleTargetSP )
 minSPE <- 1 - maxTargetSP
 maxSPE <- numItemsInStream - minTargetSP
 ```
+
+Just analyze SOA=350 for now. Looks like I ran SOA=400 on the second day a good bit because I started out with 350/200 but that was too hard, so I slowed down to 400/200 and then 400/300.
 
 Mixture model the left side
 
