@@ -17,7 +17,7 @@ Script based mostly on https://github.com/alexholcombe/Cheryl_E2/blob/master/dat
 
 ```{r set up functions}
 
-rawDataPath<- file.path("..","data","MBL")
+rawDataPath<- file.path("..","data","MBL","firstDay")
 
 files <- dir(path=rawDataPath,pattern='.txt')  #find all data files in this directory
 dfAll<-data.frame()

@@ -1,0 +1,124 @@
+---
+title: "Patient Bootstrap and Skew fit"
+author: "Charlie Ludowici"
+date: "31/05/2019"
+output: html_document
+---
+```{r echo = FALSE, message = FALSE}
+#setwd('~/gitCode/McCloskeyPatient/')
+
+library(magrittr)
+library(dplyr)
+library(mixRSVP)
+#devtools::load_all('../mixRSVP/')
+
+timeStamp <- Sys.time() %>% strftime(format = '%d-%m-%Y_%H-%M')
+
+pathToLoad<- file.path("..","data","MBL")
+MBL <- readRDS(file = file.path(pathToLoad,"combndRightForCharlie.rda"))
+
+parameterBoundsGamma <- data.frame(
+  lower = c(0,0.1,0.1),
+  upper = c(1,8,5)
+)
+
+bootstrapPValue <- function(theseData, numItemsInStream, whichSPE, nReps){
+  nTrials <- nrow(theseData)
+  
+  #############################
+  ###Generate pseudo-uniform###
+  #############################
+  
+  maxSPETheseData <- theseData %>% pull(targetSP) %>% max
+  minSPETheseData <- theseData %>% pull(targetSP) %>% min
+  minSPE <- 1 - maxSPETheseData
+  maxSPE <- numItemsInStream - minSPETheseData
+  
+  
+  thisAccuracy <- length(which(theseData$SPE == 0))/nTrials
+
+  thisGuessingRate <- 1 - thisAccuracy
+  
+  guessingDist <- createGuessingDistribution(minSPE = minSPE,
+                                             maxSPE = maxSPE,
+                                             targetSP = theseData$targetSP,
+                                             numItemsInStream = numItemsInStream)
+  
+  pseudoUniform <- data.frame(xDomain = minSPE:maxSPE, guessingDist = guessingDist, prob = guessingDist/sum(guessingDist)) #give guessing dist values labels
+  
+  
+  
+  
+  nWhichSPE <- theseData %>% filter(SPE == whichSPE) %>% nrow() #How many observations at SPE = whichSPE?
+  
+  bootstraps <- data.frame(rep = 1:nReps, #store the counts of whichSPE sampled from the pseudouniform here.
+                           count = -999)
+  
+  for(i in 1:nReps){
+    thisSample <- sample(pseudoUniform$xDomain, prob = pseudoUniform$prob, replace = T, size =  nTrials*thisGuessingRate) #sample nTrials many trials from the pseudouniform over the range of possible SPEs in this experiment
+    nThisSPE<- which(thisSample == whichSPE) %>% length #How many of the trials had an SPE == whichSPE
+    bootstraps %<>% mutate(count = replace(count, rep == i, nThisSPE)) #Put the count nThisSPE in the dataframe
+  }
+  
+  return(length(which(bootstraps$count>=nWhichSPE))/nReps) #a p.value. The proportion of bootstrapped samples that had a count of whichSPE at least as great as the observed count
+  
+}
+```
+
+```{r}
+negOneP <- bootstrapPValue(
+  theseData = MBL,
+  numItemsInStream = 17,
+  whichSPE = -1,
+  nReps = 10000
+  )
+
+
+posOneP <- bootstrapPValue(
+  theseData = MBL,
+  numItemsInStream = 17,
+  whichSPE = 1, 
+  nReps = 10000
+  )
+```
+The patient's temporal distribution diverges from guessing at -1 (n=`r MBL %>% filter(SPE == -1) %>% nrow()`, p = `r negOneP`) and at 1 (n=`r MBL %>% filter(SPE == 1) %>% nrow()`, p = `r posOneP`)
+
+```{r}
+paramFiles <- list.files(pattern = 'paramsDF')
+
+runAnyway <- FALSE #If true, fit the models regardless of the presence of saved parameter estimates
+
+if(length(paramFiles)>0 & !runAnyway){
+  paramTimes <- paramFiles %>% gsub('.*paramsDF_|\\.csv','', .) %>% as.POSIXct(format = '%d-%m-%Y_%H-%M') #Extract the timestamps
+  params <- read.csv(paramFiles[which(paramTimes == max(paramTimes))], stringsAsFactors = F) #read in the file with the most recent timestamp
+} else {
+  normalMixture <- analyzeOneConditionDF(
+    df = MBL,
+    numItemsInStream = 17,
+    paramBounds = parameterBounds(),
+    nReplicates = 100,
+    modelKind = 'Normal'
+  ) %>% mutate(model = 'Normal')
+  
+  
+  gammaMixture <- analyzeOneConditionDF(
+    df = MBL,
+    numItemsInStream = 17,
+    paramBounds = parameterBoundsGamma,
+    nReplicates = 100,
+    modelKind = 'Gamma'
+  ) %>% mutate(model = 'Gamma')
+  
+  params <- rbind(normalMixture, gammaMixture)
+  
+  paramsFile <- paste0('paramsDF_', timeStamp, '.csv')
+  
+  write.csv(file = paramsFile,
+            x = params, 
+            row.names = F)
+}
+
+BFModelComparison <- exp(-params$val[params$model == 'Gamma'])/exp(-params$val[params$model == 'Normal'])
+```
+
+The normal model is favoured by a factor of `r 1/BFModelComparison`. The params are: efficacy = `r normalMixture$efficacy %>% round(2)`, latency = `r normalMixture$latency %>% round(2)`, precision = `r normalMixture$precision %>% round(2)` 

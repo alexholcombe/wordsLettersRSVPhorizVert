@@ -79,7 +79,7 @@ dfAll$letterdur <- dfAll$letterDurFrames * 1000/refreshRate
                                
 table(dfAll$SOA, dfAll$letterdur)                 
 ```
-So, 43 trials at SOA=350, dur=267 and 47 trials at SOA=400,dur=267, also 14 at other combinations that seemed too hard.
+So, 43 trials at SOA=350, dur=267 and 47 trials at SOA=400,dur=300, also 14 at other combinations that seemed too hard.
 Compare to day 1, where tested mostly at SOA=350, dur=300.
 For purposes of bootstrapping should combine all. Whereas for mixture modelling should maybe restrict to SOA=350 for combining with previous day.
 
@@ -193,7 +193,7 @@ saveRDS(dl, file = file.path(pathToSave,"dayTwo.rda"), compress="bzip2")
 write_tsv(dl, file.path(pathToSave,"dayTwo.tsv"))
 ```
 
-Load and analyze ONE RING data
+## Load and analyze ONE RING data
 ```{r oneRingFiles}
 rawDataPath<- file.path("..","data","MBL","oneRing")
 
