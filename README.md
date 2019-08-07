@@ -1,9 +1,4 @@
-    myDlg.addField('firstCondition (0 = Letters, 1 = Words):', firstCondition, tip=str(firstCondition))
-
-            if condition==1:
-                wordBin = thisTrial['bin']
-            else:
-                wordBin = SampleLetters
+Used for MBL (Hopkins patient) and updated to Python3 from the words/letters comparison RSVP experiment, but for rerunning the experiment, the old Python2 version is being used.
 
 VERTICAL NOT EQUIDISTANT
 
