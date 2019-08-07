@@ -1,0 +1,202 @@
+---
+title: "BayesianAnalysisForPrereg"
+author: "Alex Holcombe"
+date: "8/06/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Illustrate the Bayesian analysis to be done.
+
+To inform the prior for the size of the letters top advantage, we will use the previously-published vertical results.
+
+But what about the fact that in the erroneous (vertical position wrong) experiment, the reading bias was lower than before. Well, that was the horizontal one. And it could be a fluke, or it could be again because of left-hemisphere specialization or the verbal response. Just additional reasons to be conservative.
+
+Another difference with our previous work is that in this experiment both streams are in one or the other hemisphere.
+
+Average the results from Holcombe Nguyen & Goodbourn (backwards paper), E2 because that had the vertical configuration, with Holcombe & Goodbourn () vertical. However, the letters in the Holcombe Nguyen & Goodbourn experiment were rotated to face downwards or upwards so weight the Goodbourn & Holcombe effect more highly.
+
+
+```{r, echo=FALSE}
+#E1, E2 refers to Holcombe Nguyen Goodbourn E1, E2
+E1n<- 16
+#Raw effect size plus standard error and sd
+P1E1canonical=.23;  P1E1c_se = .058; P1E1c_sd = P1E1c_se * sqrt(E1n)
+P1E1reversed= .062;  P1E1r_se = .07; P1E1r_sd = P1E1r_se * sqrt(E1n)
+#To calculate sd of the bias diff, consider that the variances sum,
+#therefore first sum the variances then convert back to standard deviation
+#Although only true for *independent* random variables and these unlikely to be totally independent
+P1E1diff_sdCalculated = sqrt( (P1E1c_sd^2 + P1E1r_sd^2) )  #.257
+
+E2n<- 24
+P1E2canonical=.218; P1E2c_se =.034; P1E2c_sd= P1E2c_se * sqrt(E2n)
+P1E2inverted=.017; P1E2i_se =.049; P1E2i_sd = P1E2i_se * sqrt(E2n)
+P1E2diff_sdCalculated = sqrt( (P1E2c_sd^2 + P1E2i_sd^2) ) #.2066
+
+P1E2vertUpright=.188; P1E2vu_se=.043; P1E2vu_sd = P1E2vu_se * sqrt(E2n)
+P1E2vertInverted= -.07; P1E2vi_se=.049; P1E2vi_sd = P1E2vi_se * sqrt(E2n)
+P1E2vdiff_sdCalculated = sqrt( (P1E2vi_sd^2 + P1E2vu_sd^2) )
+
+P1E1leftBiasDiff<- P1E1canonical-P1E1reversed
+P1E2leftBiasDiff<- P1E2canonical - P1E2inverted
+P1E2vertBiasDiff<- P1E2vertUpright - P1E2vertInverted
+#reported as  .258 +/- .047 in the paper
+
+#The diff standard errors are also available from the paper directly. But still need to 
+#convert to SD to get Cohen's d.
+
+P1E1diff_se<-.07; P1E1diff_sd<- P1E1diff_se*sqrt(E2n) 
+P1E2diff_se<-.038; P1E2diff_sd<- P1E2diff_se*sqrt(E2n) 
+P1E2vdiff_se<- .047; P1E2vdiff_sd<- P1E2vdiff_se*sqrt(E2n)
+
+```
+
+What was it for the HolcombeNguyenGoodbourn paper? For E1 horizontal,`r P1E1canonical`canonical orientation and 
+`r P1E1reversed` Mirror-reversed. For E2, `r P1E2canonical` for canonical orientation.
+
+For E2 vertical arrangement, letters rotated to face down, `r P1E2vertUpright` and for letters facing up, `r P1E2vertInverted`.
+
+
+```{r HolcombeGoodbourn, echo = FALSE}
+#Figure 4a
+#Looks like for HolcombeNguyenGoodbourn the effect size calculations above are all of the difference scores, not the individual sides
+# vertical difference d = 1.74, 95% CI [0.30, 0.50].  This is taken straight from the results section.
+HolGoodVertCohensD = 1.74
+
+```
+
+For Holcombe & Goodbourn, vertical upper advantage was Cohen's d of `r HolGoodVertCohensD`.
+
+Do Bayesian t-test. That is, take the likelihood of the left bias difference observed under the prior and divide it by the likelihood of the left bias difference observed under the null.
+
+http://jeffrouder.blogspot.com.au/2016/01/what-priors-should-i-use-part-i.html
+For the null model, the bias is just zero (delta function).For our model, support is zero to infinity. 
+
+Probably better to do it in standardized units (Cohen's d) because otherwise need to create a model of the variance separately (for the data model) so that can calculate the probability of the data given e.g. the null hypothesis.
+
+```{r}
+cohensDs<-c(HolGoodVertCohensD,
+            P1E2vertBiasDiff / P1E2vdiff_sd) 
+print(cohensDs)
+labels<-c("HolGoodVert", "HolNguGoodVert")
+meanCohensD<-cohensDs[[1]]*.7 + cohensDs[[2]]*.3  #mean(cohensDs)
+```
+We are predicting (the mode of our prior) for the letters condition is `r meanCohensD`.
+
+Because the words arguably have a greater left-to-right implication tha individual letters, we can expect that the effect will be smaller than the usual letters effect,
+```{r, echo=FALSE}
+wordHandicap=.5
+```
+by a factor of `r wordHandicap`
+```{r handicapWords}
+wordPredictedCohensD<- meanCohensD * wordHandicap
+```
+
+As a result we are predicting (the mode of our prior) that the Cohen's d for the words condition upper bias is `r wordPredictedCohensD`.
+
+For the standard deviation of the prior, to be honest it is hard to know how to set the sigma (width of the prior) because how much to think of the previous estimates as estimating the same thing versus being actually different effects? Setting it to the sd of the previous results looks too small, so multiply it by 2.2 to get
+```{r, echo=FALSE}
+priorSD<- sd(cohensDs)*0.6
+```
+`r priorSD`
+
+
+In summary, our informed prior for the letters will be a Gaussian distribution with our mean observed effect (as a Cohen's d), `r meanCohensD` and sigma `r priorSD`. 
+
+Prior for the words will be a Gaussian distribution with our mean observed effect (as a Cohen's d), `r wordPredictedCohensD` and sigma `r priorSD`.
+
+```{r lettersPrior}
+#Specify hypothesis, technically alternative hypothesis (up to constant of proportionality) for letters
+modalEffectSize = meanCohensD
+  
+lo=0 #lower bound of support
+hi=Inf #upper bound of support
+
+#Define integrable prior - must be function of only the integrand
+altHypothesisLtrs=function(delta) {
+  #for gamma function, mode is (k-1)theta where k is what I call the location parameter but they call shape parameter
+  sigma= priorSD
+
+  # modalEffectSize = (k-1)*sigma
+  # k-1 = modalEffectSize/sigma
+  # k = modalEffectSize/sigma + 1
+  location= modalEffectSize/sigma + 1  
+  #y= dnorm(delta,location,sigma)
+  y= dgamma(delta, location, scale = sigma)
+
+  y=y*as.integer(delta>lo)*as.integer(delta<hi) #multiply by zero if outside of support
+}
+#Normalize alternative density in case is not already
+#Calculate normalization factor - fraction to multiply prior by so it will integrate to 1
+K=1/integrate(altHypothesisLtrs,lower=lo,upper=hi)$value 
+
+#Thus final prior is the normalized function
+priorLtrs=function(delta) K*altHypothesisLtrs(delta)
+```
+
+
+Plot the letters prior
+```{r}
+
+#delta=seq(-.2,1.2,.01)
+
+dDomain=seq(0,3,.01)
+
+#Plot Alternative as a density and Null as a point arrow
+maxAlt=max(priorLtrs(dDomain))
+
+plot(dDomain,priorLtrs(dDomain),typ='n',xlab="Top bias (Cohen's d)",ylab="Density",ylim=c(0,max(1,1.4*maxAlt)),main="Letter top bias prior")
+#typ 'n' means invisible, and it's the lines command that actually plots the points.
+arrows(0,0,0,1,col='darkblue',lwd=2)
+lines(dDomain,priorLtrs(dDomain),col='green',lwd=2)
+legend("topright",legend=c("Null","Alternative","Previous findings"),col=c('darkblue','green','black'),lwd=2)
+points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous effect sizes
+text(cohensDs, c(.25,.35), labels,cex=.75)
+
+```
+
+```{r wordsPrior}
+#Specify hypothesis, technically alternative hypothesis (up to constant of proportionality) for words
+modalEffectSize = wordPredictedCohensD
+  
+lo=0 #lower bound of support
+hi=Inf #upper bound of support
+
+#Define integrable prior - must be function of only the integrand
+altHypothesisWords=function(delta) {
+  mean= modalEffectSize
+  sigma= priorSD
+  y= dnorm(delta,mean,sigma)
+  y=y*as.integer(delta>lo)*as.integer(delta<hi) #multiply by zero if outside of support
+}
+#Normalize alternative density in case is not already
+#Calculate normalization factor - fraction to multiply prior by so it will integrate to 1
+K=1/integrate(altHypothesisWords,lower=lo,upper=hi)$value 
+
+#Thus final prior is the normalized function
+priorWords=function(delta) K*altHypothesisWords(delta)
+```
+
+
+Plot the words prior
+```{r}
+
+#delta=seq(-.2,1.2,.01)
+
+dDomain=seq(-.3,2,.01)
+
+ #Plot Alternative as a density and Null as a point arrow
+ maxAlt=max(priorWords(dDomain))
+ plot(dDomain,priorWords(dDomain),typ='n',xlab="Top bias (Cohen's d)",ylab="Density",ylim=c(0,1.4*maxAlt),main="Letter top bias prior")
+ arrows(0,0,0,1,col='darkblue',lwd=2)
+ lines(dDomain,priorWords(dDomain),col='green',lwd=2)
+ legend("topright",legend=c("Null","Alternative","Previous findings"),col=c('darkblue','green','black'),lwd=2)
+ 
+ points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous effect sizes
+ text(cohensDs, c(.25,.35), labels,cex=.75)
+
+```
+

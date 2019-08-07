@@ -1,0 +1,11 @@
+---
+title: "BayesianAnalysisVerticalActual"
+author: "Alex Holcombe"
+date: "2/27/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
