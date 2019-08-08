@@ -1,5 +1,5 @@
 ---
-title: "BayesianAnalysisForPrereg"
+title: "BayesianAnalysisVerticalForPrereg"
 author: "Alex Holcombe"
 date: "8/06/2019"
 output: html_document
@@ -8,6 +8,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+The prereg of the experiment with the incorrect vertical alignment is [here](https://osf.io/jpy58).
 
 Illustrate the Bayesian analysis to be done.
 
@@ -200,3 +202,8 @@ dDomain=seq(-.3,2,.01)
 
 ```
 
+We will also investigate two secondary research questions.  Firstly, whether any deficit for the upper or lower stream depends on whether the streams are presented in the left or right hemifield.  Evidence of different deficits depending on the hemifield could indicate different capacity limits that apply to items processed in left and right hemispheres.  Secondly, previous research that has investigated lateral biases in word recognition has tended to find better performance for words presented to the right visual field, though studies that have measured this using nonwords or letter strings have found mixed results.  We will investigate whether lateral biases depend on whether the stimuli are words or letters. 
+
+H2:  The difference in efficacy between upper and lower streams for both letters and words will depend on whether the streams are presented in the left or right visual field.
+
+H3:  Efficacy in the right visual field minus efficacy in the left visual field will be greater for words than for letters.  We will test whether the position of the stream (upper or lower) affects this, though we do not predict that it will. 
