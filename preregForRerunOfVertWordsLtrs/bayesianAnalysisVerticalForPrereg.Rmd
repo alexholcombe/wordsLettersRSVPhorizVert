@@ -31,28 +31,13 @@ P1E1reversed= .062;  P1E1r_se = .07; P1E1r_sd = P1E1r_se * sqrt(E1n)
 #To calculate sd of the bias diff, consider that the variances sum,
 #therefore first sum the variances then convert back to standard deviation
 #Although only true for *independent* random variables and these unlikely to be totally independent
-P1E1diff_sdCalculated = sqrt( (P1E1c_sd^2 + P1E1r_sd^2) )  #.257
 
 E2n<- 24
 P1E2canonical=.218; P1E2c_se =.034; P1E2c_sd= P1E2c_se * sqrt(E2n)
 P1E2inverted=.017; P1E2i_se =.049; P1E2i_sd = P1E2i_se * sqrt(E2n)
-P1E2diff_sdCalculated = sqrt( (P1E2c_sd^2 + P1E2i_sd^2) ) #.2066
 
 P1E2vertUpright=.188; P1E2vu_se=.043; P1E2vu_sd = P1E2vu_se * sqrt(E2n)
 P1E2vertInverted= -.07; P1E2vi_se=.049; P1E2vi_sd = P1E2vi_se * sqrt(E2n)
-P1E2vdiff_sdCalculated = sqrt( (P1E2vi_sd^2 + P1E2vu_sd^2) )
-
-P1E1leftBiasDiff<- P1E1canonical-P1E1reversed
-P1E2leftBiasDiff<- P1E2canonical - P1E2inverted
-P1E2vertBiasDiff<- P1E2vertUpright - P1E2vertInverted
-#reported as  .258 +/- .047 in the paper
-
-#The diff standard errors are also available from the paper directly. But still need to 
-#convert to SD to get Cohen's d.
-
-P1E1diff_se<-.07; P1E1diff_sd<- P1E1diff_se*sqrt(E2n) 
-P1E2diff_se<-.038; P1E2diff_sd<- P1E2diff_se*sqrt(E2n) 
-P1E2vdiff_se<- .047; P1E2vdiff_sd<- P1E2vdiff_se*sqrt(E2n)
 
 ```
 
@@ -80,10 +65,14 @@ For the null model, the bias is just zero (delta function).For our model, suppor
 Probably better to do it in standardized units (Cohen's d) because otherwise need to create a model of the variance separately (for the data model) so that can calculate the probability of the data given e.g. the null hypothesis.
 
 ```{r}
+cohensDsHoriz<-c(P1E1canonical/P1E1c_sd,
+                 P1E2canonical/P1E2c_sd) 
+cohensDsHorizLabels<-c("HolNguGoodE1horiz","HolNguGoodE2horiz")
+
 cohensDs<-c(HolGoodVertCohensD,
-            P1E2vertBiasDiff / P1E2vdiff_sd) 
+            P1E2vertUpright / P1E2vu_sd) 
 print(cohensDs)
-labels<-c("HolGoodVert", "HolNguGoodVert")
+cohensDslabels<-c("HolGoodVert", "HolNguGoodVert")
 meanCohensD<-cohensDs[[1]]*.7 + cohensDs[[2]]*.3  #mean(cohensDs)
 ```
 We are predicting (the mode of our prior) for the letters condition is `r meanCohensD`.
@@ -150,13 +139,16 @@ dDomain=seq(0,3,.01)
 #Plot Alternative as a density and Null as a point arrow
 maxAlt=max(priorLtrs(dDomain))
 
-plot(dDomain,priorLtrs(dDomain),typ='n',xlab="Top bias (Cohen's d)",ylab="Density",ylim=c(0,max(1,1.4*maxAlt)),main="Letter top bias prior")
+plot(dDomain,priorLtrs(dDomain),typ='n',xlab="Reading-direction bias (Cohen's d)",ylab="Density",ylim=c(0,max(1,1.4*maxAlt)),main="Letter top bias prior")
 #typ 'n' means invisible, and it's the lines command that actually plots the points.
 arrows(0,0,0,1,col='darkblue',lwd=2)
 lines(dDomain,priorLtrs(dDomain),col='green',lwd=2)
 legend("topright",legend=c("Null","Alternative","Previous findings"),col=c('darkblue','green','black'),lwd=2)
-points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous effect sizes
-text(cohensDs, c(.25,.35), labels,cex=.75)
+points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous vertical effect sizes
+text(cohensDs, c(.2,.27), cohensDslabels,cex=.75)
+
+points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)),pch=0) #plot previous horizontal arrangement effect sizes
+text(cohensDsHoriz, c(.05,.1), cohensDsHorizLabels,cex=.75, col="grey")
 
 ```
 
