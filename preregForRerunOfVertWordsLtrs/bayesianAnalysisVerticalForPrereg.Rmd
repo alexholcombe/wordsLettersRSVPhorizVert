@@ -94,6 +94,51 @@ priorSD<- sd(cohensDs)*0.6
 ```
 `r priorSD`
 
+Because I want right of the mode of the distribution to be thin-tailed (because the true effect is almost definitely not enormous, like greater than 2.5) while the left side to be heavier (because the effect might well end up being hella closer to zero), I will use two half-Gaussians with different standard deviations. 
+
+```{r, echo=FALSE}
+# doubleGaussian = function(x, mean,sdLeft,sdRight) {
+#   print(x)
+#   if (x<mean) {
+#     y = dnorm(x,mean,sdLeft)
+#   } else {
+#     y = dnorm(x,mean,sdRight)
+#   }
+#   y
+# }
+
+doubleGaussian = function(x, mean,sdLeft,sdRight) {
+  #print(length(x))  # Most plotting functions send this a million numbers rather than one
+  #A double gaussian is two half-gaussians with different sigmas. But to make them match up, I have to calculate the peak height of each and then rescale. The peak height is of course its value at the mean. I will scale each so that it peaks at 1.
+  #It will then be rescaled later to make it a proper density function that integrates to 1.
+  if (x<mean) { 
+    leftPeakHeight = dnorm(mean,mean,sdLeft)
+    dnorm(x,mean,sdLeft) / leftPeakHeight
+  } else {
+    rightPeakHeight = dnorm(mean,mean,sdRight)
+    dnorm(x,mean,sdRight) / rightPeakHeight
+  }
+}
+
+myDoubleGaussian = function(x) {
+  doubleGaussian(x,0,2,1)
+}
+
+#Test that myDoubleGaussian is working.
+
+#My doubleGaussian function is not vectorized so I can't use normal way of plotting. Maybe I should vectorize, but that would be a good deal of work.
+#https://stackoverflow.com/questions/44730774/how-to-use-custom-functions-in-mutate-dplyr
+
+library("dplyr")
+df <- data.frame(x=seq(-1,1,.01))
+df<- df %>% mutate(density=  mapply(function(x) myDoubleGaussian(x), x))
+#df<- df %>% mutate(density=x) #mutate(density=myDoubleGaussian(x))
+
+library('ggplot2')
+ggplot(df, aes(x=x,y=density)) + geom_line() + xlab("x") 
+
+
+```
 
 In summary, our informed prior for the letters will be a Gaussian distribution with our mean observed effect (as a Cohen's d), `r meanCohensD` and sigma `r priorSD`. 
 
