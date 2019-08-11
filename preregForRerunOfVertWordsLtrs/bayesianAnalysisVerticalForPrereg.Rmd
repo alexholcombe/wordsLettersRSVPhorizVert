@@ -266,6 +266,8 @@ n refers to the number of participants, and the sample standard deviation is the
 
 dt(x, df, ncp, log = FALSE) Density for the t distribution with df degrees of freedom (and optional non-centrality parameter ncp).
 
+I'M STILL WORKING ON THIS PART.
+Is it ok to model everything as if it is a one-sample design, which is what Rouder's blog post was written for?  Because this isn't a one-sample experiment of course, instead there's an efficacy for the top position and of the bottom position. But I just turn it into a difference score.  But it's not like we're doing this only to simplify  for a custom Bayesian, Kim actually did that with JASP for other reasons.
 
 ## Secondary research questions (not part of the main theory)
 
