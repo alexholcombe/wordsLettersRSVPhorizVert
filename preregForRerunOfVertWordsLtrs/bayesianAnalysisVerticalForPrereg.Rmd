@@ -1,5 +1,5 @@
 ---
-title: "Bayesian Analysis Vertical For Prereg"
+title: "Bayesian Analysis of Vertical Configuration, For Preregistration"
 author: "Alex Holcombe"
 date: "8/06/2019"
 output: html_document
@@ -7,6 +7,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+For an experiment in which in one condition, two letters are presented in vertical configuration, and in other condition, two words are presented in vertical configuration. (half of trials in left visual field and half in right visual field, but will probably collapse across the two visual fields for most of these analyses)
 
 The prereg of the experiment with the incorrect vertical alignment is [here](https://osf.io/jpy58).
 
@@ -73,8 +75,10 @@ cohensDs<-c(HolGoodVertCohensD,
 print(cohensDs)
 cohensDslabels<-c("HolGoodVert", "HolNguGoodVert")
 meanCohensD<-cohensDs[[1]]*.7 + cohensDs[[2]]*.3  #mean(cohensDs)
+
+modalEffectLtrs = meanCohensD
 ```
-We are predicting (the mode of our prior) for the letters condition is `r meanCohensD`.
+We are predicting (the mode of our prior) for the letters condition is `r modalEffectLtrs`.
 
 The words arguably have a greater left-to-right implication than individual letters, suggesting the words effect will be smaller than the letters effect. On the other hand, the words could kick reading processes more than individual letters, suggesting it could be an even greater effect. On the third hand, the letters bias is already so much bigger than conventional effects in psychology that it's not likely that it would be bigger, this third hand weighs the balance slightly toward smaller effects, so we can expect that the effect will be smaller than the usual letters effect,
 ```{r, echo=FALSE}
@@ -95,7 +99,6 @@ For the width of the prior, to be honest it is hard to know how to set a Gaussia
 sigmaLeft =.93
 sigmaRight = .5
 ```
-sigmaLeft = `r sigmaLeft` and sigmaRight = `r sigmaRight`.
 
 This is based on wanting right of the mode of the distribution to be thin-tailed (because the true effect is almost definitely not enormous, like greater than 2.5) while the left side to be heavier (because the effect might well end up being hella closer to zero), I will use two half-Gaussians with different standard deviations. 
 
@@ -129,7 +132,7 @@ myDoubleGaussian = function(x) {
 
 myDoubleGaussian(3)
 ```
-
+Plot doubleGaussian graphs to make sure it's working.
 ```{r, echo=FALSE}
 
 #My doubleGaussian function is not vectorized so I can't use normal way of plotting. Maybe I should vectorize, but that would be a good deal of work.
@@ -146,11 +149,10 @@ ggplot(df, aes(x=x,y=density)) + geom_line() + xlab("x") +theme_bw()
 
 
 ```{r }
-modalEffectSize = meanCohensD
 
-#Set up mhy prior, a double Gaussian, making it a function of just one parameter, the x value
+#Set up my prior, a double Gaussian, making it a function of just one parameter, the x value
 doubleGaussianLtrs = function(x) {
-  doubleGaussian(x,modalEffectSize,sigmaLeft,sigmaRight)
+  doubleGaussian(x,modalEffectLtrs,sigmaLeft,sigmaRight)
 }
 ```
 
@@ -177,14 +179,13 @@ K=1/integrate(altHypothesisLtrs,lower=lo,upper=hi)$value
 priorLtrs=function(delta) K*altHypothesisLtrs(delta)
 ```
 
-Plot the letters prior, a DoubleGaussian distribution with our mean observed effect (as a Cohen's d), `r modalEffectSize` and sigma left of mode=`r sigmaLeft` and sigma right of mode=`r sigmaRight`.
+Plot the letters prior, a DoubleGaussian distribution with our mean observed effect (as a Cohen's d), `r modalEffectLtrs` and sigma left of mode=`r sigmaLeft` and sigma right of mode=`r sigmaRight`.
 
 ```{r}
-
 dDomain=seq(0,3,.01) #density domain
 
 #Plot Alternative as a density and Null as a point arrow
-maxAlt = priorLtrs(modalEffectSize) #maxAlt=max(priorLtrs(dDomain))
+maxAlt = priorLtrs(modalEffectLtrs) #maxAlt=max(priorLtrs(dDomain))
 
 library("dplyr")
 df <- data.frame(x=dDomain)
@@ -264,6 +265,17 @@ text(cohensDs, c(.17,.17), cohensDslabels,cex=.75)
 points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)),pch=0) #plot previous horizontal arrangement effect sizes
 text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels,cex=.75, col="grey")
 ```
+
+When the data come in, will calculate the Cohen's d and then for each Cohen's d in the prior, calculate the probability of the data, integrating over the entire prior. That average likelihood (probability of the data under the alternative hypothesis) will be compared to probability of the data under the null hypothesis.
+
+## Probability of any particular effect size according to these priors
+
+If we take a sample of n observations from a normal distribution, then the t-distribution with n-1 degrees of freedom can be defined as the distribution of the location of the sample mean relative to the true mean, divided by the sample standard deviation, after multiplying by the standardizing term sqrt(n).
+
+n refers to the number of participants, and the sample standard deviation is the standard deviation of the participant effects.
+
+dt(x, df, ncp, log = FALSE) Density for the t distribution with df degrees of freedom (and optional non-centrality parameter ncp).
+
 
 ## Secondary research questions (not part of the main theory)
 
