@@ -152,7 +152,7 @@ sigmaRight = .5
 modalEffectSize = meanCohensD
 
 #Set up mhy prior, a double Gaussian, making it a function of just one parameter, the x value
-myDoubleGaussian = function(x) {
+doubleGaussianLtrs = function(x) {
   doubleGaussian(x,modalEffectSize,sigmaLeft,sigmaRight)
 }
 ```
@@ -165,7 +165,7 @@ hi=Inf #upper bound of support
 
 #Define integrable prior - must be function of only the integrand
 altHypothesisLtrs=function(delta) {
-  y= myDoubleGaussian(delta)
+  y= doubleGaussianLtrs(delta)
   y=y*as.integer(delta>lo)*as.integer(delta<hi) #multiply by zero if outside of support
 }
 
@@ -180,8 +180,8 @@ K=1/integrate(altHypothesisLtrs,lower=lo,upper=hi)$value
 priorLtrs=function(delta) K*altHypothesisLtrs(delta)
 ```
 
+Plot the letters prior, a DoubleGaussian distribution with our mean observed effect (as a Cohen's d), `r modalEffectSize` and sigma left of mode=`r sigmaLeft` and sigma right of mode=`r sigmaRight`.
 
-Plot the letters prior
 ```{r}
 
 dDomain=seq(0,3,.01) #density domain
@@ -212,51 +212,68 @@ text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels,cex=.75, col="grey")
 
 ```
 
-In contrast to the letters, prior for the words will be a DoubleGaussian distribution with our mean observed effect (as a Cohen's d), `r wordPredictedCohensD` and sigma `r priorSD`.
+```{r}
+sigmaLeftWords = sigmaLeft*.8
+sigmaRightWords = 1.1
+```
+In contrast to the letters, prior for the words will be  a DoubleGaussian distribution with our mean observed effect (as a Cohen's d), `r wordPredictedCohensD` and sigma left of mode=`r sigmaLeft` and sigma right of mode=`r sigmaRight`.
 
 ```{r wordsPrior}
 #Specify hypothesis, technically alternative hypothesis (up to constant of proportionality) for words
-modalEffectSize = wordPredictedCohensD
-  
+
+#Set up mhy prior, a double Gaussian, making it a function of just one parameter, the x value
+myDoubleGaussian = function(x) {
+  doubleGaussian(x,wordPredictedCohensD,sigmaLeftWords,sigmaRightWords)
+}
+
+#Specify hypothesis, technically alternative hypothesis (up to constant of proportionality) for letters
 lo=0 #lower bound of support
 hi=Inf #upper bound of support
 
 #Define integrable prior - must be function of only the integrand
-altHypothesisWords=function(delta) {
-  mean= modalEffectSize
-  sigma= priorSD
-  y= dnorm(delta,mean,sigma)
+altHypothesis=function(delta) {
+  y= myDoubleGaussian(delta)
   y=y*as.integer(delta>lo)*as.integer(delta<hi) #multiply by zero if outside of support
 }
+
 #Normalize alternative density in case is not already
 #Calculate normalization factor - fraction to multiply prior by so it will integrate to 1
-K=1/integrate(altHypothesisWords,lower=lo,upper=hi)$value 
+K=1/integrate(altHypothesis,lower=lo,upper=hi)$value 
 
 #Thus final prior is the normalized function
-priorWords=function(delta) K*altHypothesisWords(delta)
+priorWords=function(delta) K*altHypothesis(delta)
 ```
 
-
 Plot the words prior
-```{r}
+
+```{r, echo=FALSE}
 
 #delta=seq(-.2,1.2,.01)
 
 dDomain=seq(-.3,2,.01)
 
- #Plot Alternative as a density and Null as a point arrow
- maxAlt=max(priorWords(dDomain))
- plot(dDomain,priorWords(dDomain),typ='n',xlab="Top bias (Cohen's d)",ylab="Density",ylim=c(0,1.4*maxAlt),main="Letter top bias prior")
- arrows(0,0,0,1,col='darkblue',lwd=2)
- lines(dDomain,priorWords(dDomain),col='green',lwd=2)
- legend("topright",legend=c("Null","Alternative","Previous findings"),col=c('darkblue','green','black'),lwd=2)
- 
- points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous effect sizes
- text(cohensDs, c(.25,.35), labels,cex=.75)
+#Plot Alternative as a density and Null as a point arrow
+maxAlt=max(priorWords(dDomain))
+plot(dDomain,priorWords(dDomain),typ='n',xlab="Top bias (Cohen's d)",ylab="Density",ylim=c(0,1.4*maxAlt),main="Words and letters top bias prior")
+arrows(0,0,0,1,col='darkblue',lwd=2)
+lines(dDomain,priorWords(dDomain),col='darkgreen',lwd=3)
+lines(dDomain,priorLtrs(dDomain),col='green',lwd=2)
 
+legend("topright",legend=c("Null","AlternativeLtrs","AlternativeWords","Previous findings"),col=c('darkblue','green','darkgreen','black'),lwd=2)
+
+points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous vertical effect sizes
+text(cohensDs, c(.17,.17), cohensDslabels,cex=.75)
+
+points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)),pch=0) #plot previous horizontal arrangement effect sizes
+text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels,cex=.75, col="grey")
 ```
 
-We will also investigate two secondary research questions.  Firstly, whether any deficit for the upper or lower stream depends on whether the streams are presented in the left or right hemifield.  Evidence of different deficits depending on the hemifield could indicate different capacity limits that apply to items processed in left and right hemispheres.  Secondly, previous research that has investigated lateral biases in word recognition has tended to find better performance for words presented to the right visual field, though studies that have measured this using nonwords or letter strings have found mixed results.  We will investigate whether lateral biases depend on whether the stimuli are words or letters. 
+## Secondary research questions (not part of the main theory)
+
+1. Whether the top bias depends on whether the streams are presented in the left or right hemifield. 
+To the extent that there is a top bias, smaller capacity limit in one hemisphere, as suggested by so-and-so, could create a greater top bias.
+
+2. Previous research that has investigated lateral biases in word recognition has tended to find better performance for words presented to the right visual field, though studies that have measured this using nonwords or letter strings have found mixed results.  Overall performance may be better in the right visual field, especially for the words.
 
 H2:  The difference in efficacy between upper and lower streams for both letters and words will depend on whether the streams are presented in the left or right visual field.
 
