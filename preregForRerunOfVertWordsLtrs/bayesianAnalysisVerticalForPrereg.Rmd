@@ -181,23 +181,13 @@ priorLtrs=function(delta) K*altHypothesisLtrs(delta)
 
 Plot the letters prior, a DoubleGaussian distribution with our mean observed effect (as a Cohen's d), `r modalEffectLtrs` and sigma left of mode=`r sigmaLeft` and sigma right of mode=`r sigmaRight`.
 
-```{r}
+```{r, echo=FALSE}
 dDomain=seq(0,3,.01) #density domain
 
 #Plot Alternative as a density and Null as a point arrow
 maxAlt = priorLtrs(modalEffectLtrs) #maxAlt=max(priorLtrs(dDomain))
 
-library("dplyr")
-df <- data.frame(x=dDomain)
-df<- df %>% mutate(density=  mapply(function(x) myDoubleGaussian(x), x))
-#df<- df %>% mutate(density=x) #mutate(density=myDoubleGaussian(x))
-
-library('ggplot2')
-g<-ggplot(df, aes(x=x,y=density)) + geom_line() + xlab("Reading-direction bias (Cohen's d)") + theme_bw() 
-g<- g + ggtitle("Letter top bias prior")
-show(g)
-
-plot(dDomain,priorLtrs(dDomain),typ='n',xlab="Reading-direction bias (Cohen's d)",ylab="Density",ylim=c(0,max(1,1.4*maxAlt)),main=)
+plot(dDomain,priorLtrs(dDomain),typ='n',xlab="Reading-direction bias (Cohen's d) for letters",ylab="Density",ylim=c(0,max(1,1.4*maxAlt)),main=)
 #typ 'n' means invisible, and it's the lines command that actually plots the points.
 arrows(0,0,0,1,col='darkblue',lwd=2)
 lines(dDomain,priorLtrs(dDomain),col='green',lwd=2)
