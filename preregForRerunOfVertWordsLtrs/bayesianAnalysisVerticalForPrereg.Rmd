@@ -195,7 +195,7 @@ legend("topright",legend=c("Null","Alternative","Previous findings"),col=c('dark
 points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous vertical effect sizes
 text(cohensDs, c(.2,.27), cohensDslabels,cex=.75)
 
-points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)),pch=0) #plot previous horizontal arrangement effect sizes
+points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)),pch=21,col="grey",bg="grey") #plot previous horizontal arrangement effect sizes
 text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels,cex=.75, col="grey")
 
 ```
@@ -252,8 +252,8 @@ legend("topright",legend=c("Null","AlternativeLtrs","AlternativeWords","Previous
 points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous vertical effect sizes
 text(cohensDs, c(.17,.17), cohensDslabels,cex=.75)
 
-points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)),pch=0) #plot previous horizontal arrangement effect sizes
-text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels,cex=.75, col="grey")
+points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)), pch=21,col="grey",bg="grey") #plot previous horizontal arrangement effect sizes
+text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels, cex=.75, col="grey")
 ```
 
 When the data come in, will calculate the Cohen's d and then for each Cohen's d in the prior, calculate the probability of the data, integrating over the entire prior. That average likelihood (probability of the data under the alternative hypothesis) will be compared to probability of the data under the null hypothesis.
