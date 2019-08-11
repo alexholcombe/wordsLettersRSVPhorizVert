@@ -97,27 +97,25 @@ priorSD<- sd(cohensDs)*0.6
 Because I want right of the mode of the distribution to be thin-tailed (because the true effect is almost definitely not enormous, like greater than 2.5) while the left side to be heavier (because the effect might well end up being hella closer to zero), I will use two half-Gaussians with different standard deviations. 
 
 ```{r, echo=FALSE}
-# doubleGaussian = function(x, mean,sdLeft,sdRight) {
-#   print(x)
-#   if (x<mean) {
-#     y = dnorm(x,mean,sdLeft)
-#   } else {
-#     y = dnorm(x,mean,sdRight)
-#   }
-#   y
-# }
+#Create doubleGaussian ,and vectorize it because common functions like plot require it , otherwise you have to use mapply
 
-doubleGaussian = function(x, mean,sdLeft,sdRight) {
+doubleGaussian = function(xs, mean,sdLeft,sdRight) {
   #print(length(x))  # Most plotting functions send this a million numbers rather than one
   #A double gaussian is two half-gaussians with different sigmas. But to make them match up, I have to calculate the peak height of each and then rescale. The peak height is of course its value at the mean. I will scale each so that it peaks at 1.
   #It will then be rescaled later to make it a proper density function that integrates to 1.
-  if (x<mean) { 
+  leftXs <- xs[xs<=mean]
+  rightXs <- xs[xs>mean]
+  Ys<-c()
+  if (length(leftXs) >0) {
     leftPeakHeight = dnorm(mean,mean,sdLeft)
-    dnorm(x,mean,sdLeft) / leftPeakHeight
-  } else {
-    rightPeakHeight = dnorm(mean,mean,sdRight)
-    dnorm(x,mean,sdRight) / rightPeakHeight
+    Ys <- dnorm(leftXs,mean,sdLeft) / leftPeakHeight
   }
+  if (length(rightXs) >0) {
+    rightPeakHeight = dnorm(mean,mean,sdRight)
+    rightYs <- dnorm(rightXs,mean,sdRight) / rightPeakHeight
+    Ys <- c(Ys,rightYs)
+  }
+  Ys
 }
 
 myDoubleGaussian = function(x) {
@@ -126,22 +124,27 @@ myDoubleGaussian = function(x) {
 
 #Test that myDoubleGaussian is working.
 
+myDoubleGaussian(3)
+```
+
+```{r, echo=FALSE}
+
 #My doubleGaussian function is not vectorized so I can't use normal way of plotting. Maybe I should vectorize, but that would be a good deal of work.
 #https://stackoverflow.com/questions/44730774/how-to-use-custom-functions-in-mutate-dplyr
 
 library("dplyr")
 df <- data.frame(x=seq(-1,1,.01))
-df<- df %>% mutate(density=  mapply(function(x) myDoubleGaussian(x), x))
-#df<- df %>% mutate(density=x) #mutate(density=myDoubleGaussian(x))
+#df<- df %>% mutate(density=  mapply(function(x) myDoubleGaussian(x), x))
+df<- df %>% mutate(density=myDoubleGaussian(x))
 
 library('ggplot2')
-ggplot(df, aes(x=x,y=density)) + geom_line() + xlab("x") 
+ggplot(df, aes(x=x,y=density)) + geom_line() + xlab("x") +theme_bw()
 ```
 
 Set up the alternative hypothesis core function (double Gaussian with particular sd on left and right, then later it will be rescaled to make it a density), with sigma on each side being
 ```{r}
-sigmaLeft =2
-sigmaRight = 1
+sigmaLeft =.93
+sigmaRight = .5
 ```
 
 
@@ -162,9 +165,7 @@ hi=Inf #upper bound of support
 
 #Define integrable prior - must be function of only the integrand
 altHypothesisLtrs=function(delta) {
-
   y= myDoubleGaussian(delta)
-    
   y=y*as.integer(delta>lo)*as.integer(delta<hi) #multiply by zero if outside of support
 }
 
@@ -207,7 +208,7 @@ points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous vertical effect
 text(cohensDs, c(.2,.27), cohensDslabels,cex=.75)
 
 points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)),pch=0) #plot previous horizontal arrangement effect sizes
-text(cohensDsHoriz, c(.05,.1), cohensDsHorizLabels,cex=.75, col="grey")
+text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels,cex=.75, col="grey")
 
 ```
 
