@@ -1,10 +1,9 @@
 ---
-title: "BayesianAnalysisVerticalForPrereg"
+title: "Bayesian Analysis Vertical For Prereg"
 author: "Alex Holcombe"
 date: "8/06/2019"
 output: html_document
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -77,24 +76,28 @@ meanCohensD<-cohensDs[[1]]*.7 + cohensDs[[2]]*.3  #mean(cohensDs)
 ```
 We are predicting (the mode of our prior) for the letters condition is `r meanCohensD`.
 
-Because the words arguably have a greater left-to-right implication tha individual letters, we can expect that the effect will be smaller than the usual letters effect,
+The words arguably have a greater left-to-right implication than individual letters, suggesting the words effect will be smaller than the letters effect. On the other hand, the words could kick reading processes more than individual letters, suggesting it could be an even greater effect. On the third hand, the letters bias is already so much bigger than conventional effects in psychology that it's not likely that it would be bigger, this third hand weighs the balance slightly toward smaller effects, so we can expect that the effect will be smaller than the usual letters effect,
 ```{r, echo=FALSE}
-wordHandicap=.5
+wordHandicap=.84
 ```
-by a factor of `r wordHandicap`
+by a factor of `r wordHandicap`. Also it's much less certain than the letters so should make the sigmas bigger, which we'll do later.
+
 ```{r handicapWords}
 wordPredictedCohensD<- meanCohensD * wordHandicap
 ```
 
 As a result we are predicting (the mode of our prior) that the Cohen's d for the words condition upper bias is `r wordPredictedCohensD`.
 
-For the standard deviation of the prior, to be honest it is hard to know how to set the sigma (width of the prior) because how much to think of the previous estimates as estimating the same thing versus being actually different effects? Setting it to the sd of the previous results looks too small, so multiply it by 2.2 to get
-```{r, echo=FALSE}
-priorSD<- sd(cohensDs)*0.6
-```
-`r priorSD`
+For the shape of the prior, I decided on what I call a "double Gaussian" with different sd to left of mode and right of mode (later it will be rescaled to make it a density).
 
-Because I want right of the mode of the distribution to be thin-tailed (because the true effect is almost definitely not enormous, like greater than 2.5) while the left side to be heavier (because the effect might well end up being hella closer to zero), I will use two half-Gaussians with different standard deviations. 
+For the width of the prior, to be honest it is hard to know how to set a Gaussian sigma (width of the prior) because how much to think of the previous estimates as estimating the same thing versus being actually different effects? Setting it to the sd of the previous results looks too small. By trial and error with eyeball I arrived at sigma on each side of
+```{r}
+sigmaLeft =.93
+sigmaRight = .5
+```
+sigmaLeft = `r sigmaLeft` and sigmaRight = `r sigmaRight`.
+
+This is based on wanting right of the mode of the distribution to be thin-tailed (because the true effect is almost definitely not enormous, like greater than 2.5) while the left side to be heavier (because the effect might well end up being hella closer to zero), I will use two half-Gaussians with different standard deviations. 
 
 ```{r, echo=FALSE}
 #Create doubleGaussian ,and vectorize it because common functions like plot require it , otherwise you have to use mapply
@@ -139,12 +142,6 @@ df<- df %>% mutate(density=myDoubleGaussian(x))
 
 library('ggplot2')
 ggplot(df, aes(x=x,y=density)) + geom_line() + xlab("x") +theme_bw()
-```
-
-Set up the alternative hypothesis core function (double Gaussian with particular sd on left and right, then later it will be rescaled to make it a density), with sigma on each side being
-```{r}
-sigmaLeft =.93
-sigmaRight = .5
 ```
 
 
@@ -213,8 +210,8 @@ text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels,cex=.75, col="grey")
 ```
 
 ```{r}
-sigmaLeftWords = sigmaLeft*.8
-sigmaRightWords = 1.1
+sigmaLeftWords = sigmaLeft
+sigmaRightWords = 0.9
 ```
 In contrast to the letters, prior for the words will be  a DoubleGaussian distribution with our mean observed effect (as a Cohen's d), `r wordPredictedCohensD` and sigma left of mode=`r sigmaLeft` and sigma right of mode=`r sigmaRight`.
 
@@ -250,16 +247,16 @@ Plot the words prior
 
 #delta=seq(-.2,1.2,.01)
 
-dDomain=seq(-.3,2,.01)
+dDomain=seq(-.3,2.5,.01)
 
 #Plot Alternative as a density and Null as a point arrow
 maxAlt=max(priorWords(dDomain))
-plot(dDomain,priorWords(dDomain),typ='n',xlab="Top bias (Cohen's d)",ylab="Density",ylim=c(0,1.4*maxAlt),main="Words and letters top bias prior")
+plot(dDomain,priorWords(dDomain),typ='n',xlab="Top bias (Cohen's d)",ylab="Density",ylim=c(0,1),main="Words and letters top bias prior")
 arrows(0,0,0,1,col='darkblue',lwd=2)
-lines(dDomain,priorWords(dDomain),col='darkgreen',lwd=3)
+lines(dDomain,priorWords(dDomain),col='yellow',lwd=3)
 lines(dDomain,priorLtrs(dDomain),col='green',lwd=2)
 
-legend("topright",legend=c("Null","AlternativeLtrs","AlternativeWords","Previous findings"),col=c('darkblue','green','darkgreen','black'),lwd=2)
+legend("topright",legend=c("Null","AlternativeLtrs","AlternativeWords","Previous findings"),col=c('darkblue','green','yellow','black'),lwd=2)
 
 points(cohensDs, rep(.1,length(cohensDs)),pch=19) #plot previous vertical effect sizes
 text(cohensDs, c(.17,.17), cohensDslabels,cex=.75)
@@ -270,11 +267,12 @@ text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels,cex=.75, col="grey")
 
 ## Secondary research questions (not part of the main theory)
 
-1. Whether the top bias depends on whether the streams are presented in the left or right hemifield. 
+3. Whether the top bias depends on whether the streams are presented in the left or right hemifield. 
 To the extent that there is a top bias, smaller capacity limit in one hemisphere, as suggested by so-and-so, could create a greater top bias.
 
-2. Previous research that has investigated lateral biases in word recognition has tended to find better performance for words presented to the right visual field, though studies that have measured this using nonwords or letter strings have found mixed results.  Overall performance may be better in the right visual field, especially for the words.
+The difference in efficacy between upper and lower streams for both letters and words depends on whether the streams are presented in the left or right visual field. STATISTICAL TEST: Compare top bias in LVF to top bias in RVF. Bayesian t-test should do it because I'm expecting a quite small effect size so the default psychology prior should be fine.
 
-H2:  The difference in efficacy between upper and lower streams for both letters and words will depend on whether the streams are presented in the left or right visual field.
+4. Previous research that has investigated lateral biases in word recognition has tended to find better performance for words presented to the right visual field, though studies that have measured this using nonwords or letter strings have found mixed results.  Overall performance may be better in the right visual field, especially for the words.
 
-H3:  Efficacy in the right visual field minus efficacy in the left visual field will be greater for words than for letters.  We will test whether the position of the stream (upper or lower) affects this, though we do not predict that it will. 
+STATISTICAL TEST: ANOVA with Average efficacy  (of top and bottom) as d.v. and two factors: visual field and words versus letters.
+
