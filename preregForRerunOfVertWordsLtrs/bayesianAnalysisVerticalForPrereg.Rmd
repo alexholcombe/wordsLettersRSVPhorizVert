@@ -258,16 +258,85 @@ text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels, cex=.75, col="grey")
 
 When the data come in, will calculate the Cohen's d and then for each Cohen's d in the prior, calculate the probability of the data, integrating over the entire prior. That average likelihood (probability of the data under the alternative hypothesis) will be compared to probability of the data under the null hypothesis.
 
+## Latency and precision predictions
+
+Broad prediction is that the latency for top and bottom will be similar for letters and words and close to zero. Historically we have seen a small nonsignificantly higher latency in the horizontal configuration for the right visual field, for example 10 ms in HolNguGood downward condition (13 vs 23 ms), while that particular paper didn't have a latency difference for horizontal conditions. Thus a 10 ms difference is compatible with the letters condition. And not big enough to be expected if attentional shift was going on. THEREFORE DO A SLAB NULL PRIOR THAT INCLUDES 10 MS?
+
+## Correlogram predictions
+
+We consistently with letters observed zero correlation, except when we placed the letters very close to each other (unpublished honours thesis by )
+
+## Predicted: no effect of report order
+
 ## Probability of any particular effect size according to these priors
 
-If we take a sample of n observations from a normal distribution, then the t-distribution with n-1 degrees of freedom can be defined as the distribution of the location of the sample mean relative to the true mean, divided by the sample standard deviation, after multiplying by the standardizing term sqrt(n).
+Is it ok to model everything as if it is a one-sample design, which is what Rouder's blog post was written for?  Because this isn't a one-sample experiment of course, instead there's an efficacy for the top position and of the bottom position. But I just turn it into a difference score.  But it's not like we're doing this only to simplify  for a custom Bayesian, Kim actually did that with JASP for other reasons.
+
+"If we take a sample of n observations from a normal distribution, then the t-distribution with n-1 degrees of freedom can be defined as the distribution of the location of the sample mean relative to the true mean, divided by the sample standard deviation, after multiplying by the standardizing term sqrt(n)." - Wikipedia.
+
+So assuming that the top bias is normally distributed between participants, we can use the t
 
 n refers to the number of participants, and the sample standard deviation is the standard deviation of the participant effects.
 
+In R,
 dt(x, df, ncp, log = FALSE) Density for the t distribution with df degrees of freedom (and optional non-centrality parameter ncp).
 
-I'M STILL WORKING ON THIS PART.
-Is it ok to model everything as if it is a one-sample design, which is what Rouder's blog post was written for?  Because this isn't a one-sample experiment of course, instead there's an efficacy for the top position and of the bottom position. But I just turn it into a difference score.  But it's not like we're doing this only to simplify  for a custom Bayesian, Kim actually did that with JASP for other reasons.
+Make up some fake data, or better yet use HolNguGoodVert data.
+
+Read in parameter estimates
+
+```{r}
+
+estimates<- read.csv(file="../../E1/Results/backwards2E1_paramEstimates.csv", header=TRUE, sep=",")
+estimates$X<- NULL #Not sure where X came from but it's just a row number
+```
+
+Exclude Ss who failed likelihood ratio test in all four cases.
+Create new column nPassed for in how many conditions they passed (out of 4).
+
+```{r}
+library(dplyr)
+
+estimates<- estimates %>% mutate(mixModelFitsBetter = pLRtest<.05)
+                       
+condtnVariableNames <- c("subject","stream", "orientation")  
+
+e<- estimates %>%  group_by(subject) %>%
+  summarise(nPassed = sum(mixModelFitsBetter)) 
+estimates<- merge(e,estimates) 
+
+estimates<- estimates %>% mutate( exclude = (nPassed==0)  )
+```
+
+
+Assess the size of the effect to inform Bayesian test of next experiment (originally tried this with raw units, but then realized that makes the stats difficult, I forget why)
+
+```{r, echo=FALSE, message=FALSE}
+require(ggplot2)
+gg<-ggplot(estimates, aes(x=stream, y=efficacy)) + geom_point(color="grey") + stat_summary(fun.y="mean",geom="point",size=4, alpha=.5)
+show(gg)
+
+library(data.table)
+
+#The below works but drops many variables, so think about merging later
+eff<- data.table::dcast(estimates, orientation+subject+nPassed~stream,value.var="efficacy")
+eff$dv<-"efficacy"
+lat<-data.table::dcast(estimates, orientation+subject+nPassed~stream,value.var="latency") 
+lat$dv<-"latency"
+pre<-data.table::dcast(estimates, orientation+subject+nPassed~stream,value.var="precision") 
+pre$dv<-"precision"
+allP2E1<-rbind(eff,lat,pre)
+#I tried to do the above with a single command but makes an error even though StackOverflow example works
+#https://stackoverflow.com/questions/37332076/from-long-to-wide-data-with-multiple-columns/37332345
+# data.table::dcast(estimates, orientation+subject+nPassed~stream,value.var=c("efficacy","latency"))
+head(eff)
+```
+
+Print effect size
+```{r}
+leftBiasesCanonical<- filter(allP2E1,dv=="efficacy" & orientation=="Canonical")$leftBias
+
+```
 
 ## Secondary research questions (not part of the main theory)
 
