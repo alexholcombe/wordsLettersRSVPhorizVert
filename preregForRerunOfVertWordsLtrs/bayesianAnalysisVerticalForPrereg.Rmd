@@ -61,12 +61,10 @@ HolGoodVertCohensD = 1.74
 
 For Holcombe & Goodbourn, vertical upper advantage was Cohen's d of `r HolGoodVertCohensD`.
 
-### Calculating the prior on the effect size
+### Calculating the mode of the prior for the effect size for letters and words
 
-Average the results from Holcombe Nguyen & Goodbourn (backwards paper) E2 because that had the vertical configuration, with Goodbourn & Holcombe (2015) vertical configuration. The letters in the Holcombe Nguyen & Goodbourn experiment were rotated to face downwards or upwards, so weight the Goodbourn & Holcombe effect more highly, yielding a predicted value for the upper bias of
-
-
-```{r}
+Average the results from Holcombe Nguyen & Goodbourn (backwards paper) E2 because that had the vertical configuration, with Goodbourn & Holcombe (2015) vertical configuration. The letters in the Holcombe Nguyen & Goodbourn experiment were rotated to face downwards or upwards, so weight the Goodbourn & Holcombe effect more highly, yielding a *predicted value for the letter upper bias of*
+```{r, echo=FALSE}
 
 
 cohensDs<-c(HolGoodVertCohensD,
@@ -77,22 +75,9 @@ meanCohensD<-cohensDs[[1]]*.7 + cohensDs[[2]]*.3  #mean(cohensDs)
 
 modalEffectLtrs = meanCohensD
 ```
-
 `r modalEffectLtrs`
 
-We are predicting (the mode of our prior) for the letters condition is `r modalEffectLtrs`.
-
-## Do Bayesian t-test. 
-
-That is, take the likelihood of the left bias difference observed under the prior and divide it by the likelihood of the left bias difference observed under the null.
-
-http://jeffrouder.blogspot.com.au/2016/01/what-priors-should-i-use-part-i.html
-For the null model, the bias is just zero (delta function).For our model, support is zero to infinity. 
-
-Probably better to do it in standardized units (Cohen's d) because otherwise need to create a model of the variance separately (for the data model) so that can calculate the probability of the data given e.g. the null hypothesis.
-
-
-
+This value will be the mode of our prior, but of course there is plenty of uncertainty about what the true effect size might be even under this theory, so we will have a wide distribution.
 
 The words arguably have a greater left-to-right implication than individual letters, suggesting the words effect will be smaller than the letters effect. On the other hand, the words could kick reading processes more than individual letters, suggesting it could be an even greater effect. On the third hand, the letters bias is already so much bigger than conventional effects in psychology that it's not likely that it would be bigger, this third hand weighs the balance slightly toward smaller effects, so we can expect that the effect will be smaller than the usual letters effect,
 ```{r, echo=FALSE}
@@ -100,13 +85,15 @@ wordHandicap=.84
 ```
 by a factor of `r wordHandicap`. Also it's much less certain than the letters so should make the sigmas bigger, which we'll do later.
 
-```{r handicapWords}
+```{r handicapWords, echo=FALSE}
 wordPredictedCohensD<- meanCohensD * wordHandicap
 ```
 
 As a result we are predicting (the mode of our prior) that the Cohen's d for the words condition upper bias is `r wordPredictedCohensD`.
 
-For the shape of the prior, I decided on what I call a "double Gaussian" with different sd to left of mode and right of mode (later it will be rescaled to make it a density).
+## Constructing the prior distribution and density (normalized distribution)
+
+For the shape of the prior, we will use what I call a "double Gaussian" with different sd to the left of mode than to the right of the mode (later it will be rescaled to make it a density).
 
 For the width of the prior, to be honest it is hard to know how to set a Gaussian sigma (width of the prior) because how much to think of the previous estimates as estimating the same thing versus being actually different effects? Setting it to the sd of the previous results looks too small. By trial and error with eyeball I arrived at sigma on each side of
 ```{r}
@@ -272,13 +259,22 @@ text(cohensDsHoriz, c(.02,.06), cohensDsHorizLabels, cex=.75, col="grey")
 
 When the data come in, will calculate the Cohen's d and then for each Cohen's d in the prior, calculate the probability of the data, integrating over the entire prior. That average likelihood (probability of the data under the alternative hypothesis) will be compared to probability of the data under the null hypothesis.
 
+## Do Bayesian t-test. 
+
+That is, take the likelihood of the left bias difference observed under the prior and divide it by the likelihood of the left bias difference observed under the null.
+
+http://jeffrouder.blogspot.com.au/2016/01/what-priors-should-i-use-part-i.html
+For the null model, the bias is just zero (delta function).For our model, support is zero to infinity. 
+
+Probably best to do it in the standardized units (Cohen's d) I've been using because otherwise need to create a model of the variance separately (for the data model) so that can calculate the probability of the data given e.g. the null hypothesis.
+
 ## Latency and precision predictions
 
 Broad prediction is that the latency for top and bottom will be similar for letters and words and close to zero. Historically we have seen a small nonsignificantly higher latency in the horizontal configuration for the right visual field, for example 10 ms in HolNguGood downward condition (13 vs 23 ms), while that particular paper didn't have a latency difference for horizontal conditions. Thus a 10 ms difference is compatible with the letters condition. And not big enough to be expected if attentional shift was going on. THEREFORE DO A SLAB NULL PRIOR THAT INCLUDES 10 MS?
 
 ## Correlogram predictions
 
-We consistently with letters observed zero correlation, except when we placed the letters very close to each other (unpublished honours thesis by )
+We consistently with letters observed zero correlation, except when we placed the letters very close to each other (unpublished honours thesis by Xiaoqi "Cheryl" Xu)
 
 ## Predicted: no effect of report order
 
