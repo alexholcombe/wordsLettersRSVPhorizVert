@@ -8,20 +8,20 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-For an experiment in which in one condition, two letters are presented in vertical configuration, and in other condition, two words are presented in vertical configuration. (half of trials in left visual field and half in right visual field, but will probably collapse across the two visual fields for most of these analyses)
+For an experiment in which in one condition, two letters are presented in vertical configuration, and in other condition, two words are presented in vertical configuration (half of trials in left visual field and half in right visual field, but will probably collapse across the two visual fields for most of these analyses).
 
-The prereg of the experiment with the incorrect vertical alignment is [here](https://osf.io/jpy58).
+The prereg of the experiment with the incorrect (due to programming error) vertical alignment is [here](https://osf.io/jpy58).
 
-Illustrate the Bayesian analysis to be done.
 
 To inform the prior for the size of the letters top advantage, we will use the previously-published vertical results.
 
-But what about the fact that in the erroneous (vertical position wrong) experiment, the reading bias was lower than before. Well, that was the horizontal one. And it could be a fluke, or it could be again because of left-hemisphere specialization or the verbal response. Just additional reasons to be conservative.
+#### Considerations for the prior on the effect size
+
+In E1 (horizontally arrayed letters versus horizontally arrayed words), the left advantage of the letters was smaller than in all previous experiments, which is a bit worrying. It could be a fluke, or it could be because of half of Ss just done the words which givs a big right hemifield advantage, or it could be the oral response. All additional reasons to be conservative.
 
 Another difference with our previous work is that in this experiment both streams are in one or the other hemisphere.
 
-Average the results from Holcombe Nguyen & Goodbourn (backwards paper), E2 because that had the vertical configuration, with Holcombe & Goodbourn () vertical. However, the letters in the Holcombe Nguyen & Goodbourn experiment were rotated to face downwards or upwards so weight the Goodbourn & Holcombe effect more highly.
-
+### Previous effect sizes
 
 ```{r, echo=FALSE}
 #E1, E2 refers to Holcombe Nguyen Goodbourn E1, E2
@@ -40,10 +40,13 @@ P1E2inverted=.017; P1E2i_se =.049; P1E2i_sd = P1E2i_se * sqrt(E2n)
 P1E2vertUpright=.188; P1E2vu_se=.043; P1E2vu_sd = P1E2vu_se * sqrt(E2n)
 P1E2vertInverted= -.07; P1E2vi_se=.049; P1E2vi_sd = P1E2vi_se * sqrt(E2n)
 
+cohensDsHoriz<-c(P1E1canonical/P1E1c_sd,
+                 P1E2canonical/P1E2c_sd) 
+cohensDsHorizLabels<-c("HolNguGoodE1horiz","HolNguGoodE2horiz")
 ```
 
-What was it for the HolcombeNguyenGoodbourn paper? For E1 horizontal,`r P1E1canonical`canonical orientation and 
-`r P1E1reversed` Mirror-reversed. For E2, `r P1E2canonical` for canonical orientation.
+For the HolcombeNguyenGoodbourn paper? For E1 (horizontal),`r P1E1canonical` in the canonical orientation and 
+`r P1E1reversed` for mirror-reversed. For E2 (vertical) `r P1E2canonical` for canonical horizontal orientation.
 
 For E2 vertical arrangement, letters rotated to face down, `r P1E2vertUpright` and for letters facing up, `r P1E2vertInverted`.
 
@@ -58,17 +61,13 @@ HolGoodVertCohensD = 1.74
 
 For Holcombe & Goodbourn, vertical upper advantage was Cohen's d of `r HolGoodVertCohensD`.
 
-Do Bayesian t-test. That is, take the likelihood of the left bias difference observed under the prior and divide it by the likelihood of the left bias difference observed under the null.
+### Calculating the prior on the effect size
 
-http://jeffrouder.blogspot.com.au/2016/01/what-priors-should-i-use-part-i.html
-For the null model, the bias is just zero (delta function).For our model, support is zero to infinity. 
+Average the results from Holcombe Nguyen & Goodbourn (backwards paper) E2 because that had the vertical configuration, with Goodbourn & Holcombe (2015) vertical configuration. The letters in the Holcombe Nguyen & Goodbourn experiment were rotated to face downwards or upwards, so weight the Goodbourn & Holcombe effect more highly, yielding a predicted value for the upper bias of
 
-Probably better to do it in standardized units (Cohen's d) because otherwise need to create a model of the variance separately (for the data model) so that can calculate the probability of the data given e.g. the null hypothesis.
 
 ```{r}
-cohensDsHoriz<-c(P1E1canonical/P1E1c_sd,
-                 P1E2canonical/P1E2c_sd) 
-cohensDsHorizLabels<-c("HolNguGoodE1horiz","HolNguGoodE2horiz")
+
 
 cohensDs<-c(HolGoodVertCohensD,
             P1E2vertUpright / P1E2vu_sd) 
@@ -78,7 +77,22 @@ meanCohensD<-cohensDs[[1]]*.7 + cohensDs[[2]]*.3  #mean(cohensDs)
 
 modalEffectLtrs = meanCohensD
 ```
+
+`r modalEffectLtrs`
+
 We are predicting (the mode of our prior) for the letters condition is `r modalEffectLtrs`.
+
+## Do Bayesian t-test. 
+
+That is, take the likelihood of the left bias difference observed under the prior and divide it by the likelihood of the left bias difference observed under the null.
+
+http://jeffrouder.blogspot.com.au/2016/01/what-priors-should-i-use-part-i.html
+For the null model, the bias is just zero (delta function).For our model, support is zero to infinity. 
+
+Probably better to do it in standardized units (Cohen's d) because otherwise need to create a model of the variance separately (for the data model) so that can calculate the probability of the data given e.g. the null hypothesis.
+
+
+
 
 The words arguably have a greater left-to-right implication than individual letters, suggesting the words effect will be smaller than the letters effect. On the other hand, the words could kick reading processes more than individual letters, suggesting it could be an even greater effect. On the third hand, the letters bias is already so much bigger than conventional effects in psychology that it's not likely that it would be bigger, this third hand weighs the balance slightly toward smaller effects, so we can expect that the effect will be smaller than the usual letters effect,
 ```{r, echo=FALSE}
@@ -287,7 +301,7 @@ Read in parameter estimates
 
 ```{r}
 
-estimates<- read.csv(file="../../E1/Results/backwards2E1_paramEstimates.csv", header=TRUE, sep=",")
+estimates<- read.csv(file="backwards2E1_paramEstimates.csv", header=TRUE, sep=",")
 estimates$X<- NULL #Not sure where X came from but it's just a row number
 ```
 
