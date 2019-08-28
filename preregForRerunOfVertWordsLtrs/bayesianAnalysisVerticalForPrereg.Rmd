@@ -17,6 +17,15 @@ The prereg of the first attempt at the experiment with the incorrect (due to pro
 
 To inform the prior for the size of the letters top advantage, we will use the previously-published vertical results.
 
+## Dependent variables
+
+Whereas in previous papers the primary dependent variable was efficacy, a parameter estimated by mixture modeling of temporal errors (Goodbourn & Holcombe, 2015), with the slow presentation rate needed for the words, temporal errors are not common enough to do mixture modeling. Instead, we use:
+
+* "Efficacy" - efficacy (as defined by Goodbourn & Holcombe, 2015), but a rough measure modifed from Vul, Nieuwenstein, & Kanwisher (2008), of counting a response as correct if the target was reported or the item before or after the target in the stream
+* "Loose efficacy" -Van Orden’s (1987) index quantified the orthographic similarity between the participant’s response and a correct word on each trial.  A complication was that a trial was counted as correct if participants reported an item that appeared temporally close to the target, and so it was first necessary to determine which item the participant’s response was based on.  To do this, the participant’s response was compared to all other words in the stream, and it was then assumed that the participant’s response was based on whatever word in the sequence was most orthographically similar.  We added the requirement that the orthographical similarity estimate of this word must be above 0.7 in order to avoid capturing trials where participants missed the target and guessed a word that was not in the stream.  
+
+All of the Bayesian analyses described below were done with both both measures.
+
 ### Considerations for the prior on the effect size
 
 In E1 (horizontally arrayed letters versus horizontally arrayed words), the left advantage of the letters was smaller than in all previous experiments, which is a bit worrying. It could be a fluke, or it could be because of half of Ss just done the words which givs a big right hemifield advantage, or it could be the oral response. All additional reasons to be conservative.
@@ -359,13 +368,19 @@ THIS DOCUMENT PROVIDES QUANTITATIVE DETAILS ONLY FOR THE EFFICACY ANALYSIS, THE 
 
 Broad prediction is that the latency for top and bottom will be similar for letters and words and close to zero. Historically we have seen a small non-significantly higher latency in the horizontal configuration for the right visual field, for example 10 ms in HolNguGood downward condition (13 vs 23 ms), while that particular paper didn't have a latency difference for horizontal conditions. Thus a 10 ms difference is compatible with the letters condition. And not big enough to be expected if attentional shift was going on. THEREFORE DO A SLAB NULL PRIOR THAT INCLUDES 10 MS?
 
-## Correlogram predictions
+## Predicted: no correlation between the two streams' temporal errors.
 
-We consistently with letters observed zero correlation in the temporal errors of the two stimuli presented, except when we placed the letters very close to each other (unpublished honours thesis by Xiaoqi "Cheryl" Xu), so we predict similar for the two letters and the two words.
+We consistently in previously published studies observed zero correlation in the temporal errors of the two stimuli (always letters, previously) presented, except when we placed the letters very close to each other (unpublished honours thesis by Xiaoqi "Cheryl" Xu), so we predict similar for the two letters and the two words.
 
 ## Predicted: no effect of report order
 
-We have consistently observed no significant effect of report order
+We have consistently observed no significant effect of report order, but that was with typed responses and not words.
+
+## Prediction: No diff between upper and lower words for position of errors.
+
+Analysis of the spatial position of errors on the top and bottom. Our interest was whether the average letter position of errors was closer to the end of the word for responses in the bottom stream than the top stream. This could indicate that there was a letter-by-letter scanning process rather than the processing occurring at the whole-word level, because with a letter-by-letter account, there might not be time to get to the end of the lower word. So our prediction is that the data will favor the null hypothesis 
+
+We will calculate the average letter position of errors for each trial (for example, trap rather than tram is a position 4 error) and averaged these for each participant.  We did this only for those trials where participants had made responses that were orthographically similar to the target (as measured by a score of 0.7 [MAYBE WE SHOULD SET THIS HIGHER?] on the van Orden (1987) orthographic similarity index, which generally accepts answers where participants get two or more of the letters correct). We then used a one-tailed Bayesian t-test to test whether the average letter position of errors was higher for responses in the right stream than the left stream. 
 
 ## Secondary research questions (not part of the main theory)
 
