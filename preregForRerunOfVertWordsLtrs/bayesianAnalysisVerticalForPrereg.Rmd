@@ -17,6 +17,12 @@ The prereg of the first attempt at the experiment with the incorrect (due to pro
 
 To inform the prior for the size of the letters top advantage, we will use the previously-published vertical results.
 
+### Hypothesis 1: The letters will show a top bias
+
+### Hypothesis 2: The words will show a top bias
+
+More specifically, these hypotheses are contrasting the null hypothesis of no effect to the hypothesis of there being an effect in line with what was estimated in previous experiments.
+
 ## Dependent variables
 
 Whereas in previous papers the primary dependent variable was efficacy, a parameter estimated by mixture modeling of temporal errors (Goodbourn & Holcombe, 2015), with the slow presentation rate needed for the words, temporal errors are not common enough to do mixture modeling. Instead, we use:
@@ -360,9 +366,35 @@ points(cohensDsHoriz, rep(.1,length(cohensDsHoriz)), pch=21,col="grey",bg="grey"
 text(cohensDsHoriz, c(.02,.05), cohensDsHorizLabels, cex=.75, col="grey")
 ```
 
-I can't explain why the notch occurs in the alternative hypothesis, but it's small enough to be trivial.
+I can't explain why the notch occurs in the alternative hypothesis, but it's small enough to be trivial. (actually it seems gone now)
+
+## Sample size
+
+ We will sample at least 40 people (after excluded participants have been omitted).  Once we have reached 40 people, we will analyse the data periodically to determine whether our results meet the Bayesian stopping rule specified below.
+
+### Sample size rationale
+
+See above for illustration that 40 people seem to be sufficient for the expected effect sizes.
+
+Reaching a Bayes factor of 10 (or .1) would indicate that (a) the experimental hypothesis predicts the data are 10 times more likely than does the null hypothesis, or (b) the null hypothesis predicts the data are 10 times more likely to predict the observed data than the experimental hypothesis.  Either would be considered strong evidence.  We have added the time constraint (see below) because we will be recruiting from the first year subject pool, which closes at the end of semester.  
+
+### Stopping rule
+
+We will stop when:
+
+Our analysis indicates that we have reached a Bayes factor of at least 10 (in favour of either the experimental or null hypothesis) for hypotheses 1 and 2; OR 
+
+Our analysis indicates that we have reached a Bayes factor of at least 10 (in favour of either the experimental or null hypothesis) for hypothesis 1 and have tested at least 35 participants; or
+
+We reach the end of Semester 1, 2019.
 
 THIS DOCUMENT PROVIDES QUANTITATIVE DETAILS ONLY FOR THE EFFICACY ANALYSIS, THE BELOW IS JUST QUALITATIVE PLANS FOR THE OTHER MEASURES
+
+### Data exclusion
+
+We will remove the data for the relevant condition from any participant who achieves efficacy of above 90 per cent or less than 10 per cent in both left and right streams for a given condition.
+
+We will use an eye-tracker to ensure that participants maintain fixation throughout the trial.  We will omit any trials where the eye-tracker indicates an eye-movement of more than one degree from fixation was made. 
 
 ## Latency and precision predictions
 
