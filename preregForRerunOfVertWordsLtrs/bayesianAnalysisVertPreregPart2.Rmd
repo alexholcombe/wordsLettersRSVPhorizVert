@@ -22,18 +22,13 @@ The prereg of the first attempt at the experiment with the incorrect (due to pro
 
 Analysis of the spatial position of errors on the top and bottom. Our interest was whether the average letter position of errors was closer to the end of the word for responses in the bottom stream than the top stream. This could indicate that there was a letter-by-letter scanning process rather than the processing occurring at the whole-word level, because with a letter-by-letter account, there might not be time to get to the end of the lower word. So our prediction is that the data will favor the null hypothesis 
 
-We will calculate the average letter position of errors for each trial (for example, trap rather than tram is a position 4 error) and averaged these for each participant.  We did this only for those trials where participants had made responses that were orthographically similar to the target (as measured by a score of 0.7 [MAYBE WE SHOULD SET THIS HIGHER?] on the van Orden (1987) orthographic similarity index, which generally accepts answers where participants get two or more of the letters correct). We then used a one-tailed Bayesian t-test to test whether the average letter position of errors was higher for responses in the right stream than the left stream. 
-
-
 ### Dependent variables
 
-
+We will calculate the average letter position of errors for each trial (for example, trap rather than tram is a position 4 error, and trep rather than tram is a position 3 and 4 error, which averages to 3.5) and averaged these for each participant.  We did this only for those trials where participants had made responses that were orthographically similar to the target (as measured by a score of 0.7 [MAYBE WE SHOULD SET THIS HIGHER?] on the van Orden (1987) orthographic similarity index, which generally accepts answers where participants get two or more of the letters correct). We then used a one-tailed Bayesian t-test to test whether the average letter position of errors was higher for responses in the right stream than the left stream. 
 
 ### Considerations for the prior on the effect size
 
-In E1 (horizontally arrayed letters versus horizontally arrayed words), the left advantage of the letters was smaller than in all previous experiments, which is a bit worrying. It could be a fluke, or it could be because of half of Ss just done the words which givs a big right hemifield advantage, or it could be the oral response. All additional reasons to be conservative.
-
-Another difference with our previous work is that in this experiment both streams are in one or the other hemisphere.
+If it's really letter-by-letter, then we might predict the last letters of the lower word to be much worse than the last letters of the first word. But I don't have much experience with letter position errors and how easily the last letters are to guess on the basis of the first letters, which could greatly reduce what otherwise might be a large effect size. And there are likely other factors that would make the letter-by-letter idea occurring in strict sequence less likely. Which together all means that the generic psychology type prior in Morey's package wouldn't be too far off.
 
 ## Bayesian paired t-test with custom prior
 
