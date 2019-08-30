@@ -21,7 +21,7 @@ To inform the prior for the size of the letters top advantage, we will use the p
 
 ### Hypothesis 2: The words will show a top bias
 
-More specifically, these hypotheses are contrasting the null hypothesis of no effect to the hypothesis of there being an effect in line with what was estimated in previous experiments.
+More specifically, these two hypotheses contrast the null hypothesis of no effect to the hypothesis of there being an effect in line with what was estimated in previous experiments.
 
 ## Dependent variables
 
@@ -388,7 +388,7 @@ Our analysis indicates that we have reached a Bayes factor of at least 10 (in fa
 
 We reach the end of Semester 1, 2019.
 
-THIS DOCUMENT PROVIDES QUANTITATIVE DETAILS ONLY FOR THE EFFICACY ANALYSIS, THE BELOW IS JUST QUALITATIVE PLANS FOR THE OTHER MEASURES
+THE BELOW IS JUST QUALITATIVE PLANS FOR THE OTHER MEASURES BESIDES EFFICACY, THE ABOVE QUANTITATIVE DETAILS ARE ONLY FOR THE EFFICACY ANALYSIS 
 
 ### Data exclusion
 
