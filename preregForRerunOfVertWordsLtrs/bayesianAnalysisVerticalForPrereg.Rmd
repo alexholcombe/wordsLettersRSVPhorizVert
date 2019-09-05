@@ -384,7 +384,7 @@ We will stop when:
 
 Our analysis indicates that we have reached a Bayes factor of at least 10 (in favour of either the experimental or null hypothesis) for hypotheses 1 and 2; OR 
 
-Our analysis indicates that we have reached a Bayes factor of at least 10 (in favour of either the experimental or null hypothesis) for hypothesis 1 and have tested at least 65 participants; or
+Our analysis indicates that we have reached a Bayes factor of at least 10 (in favour of either the experimental or null hypothesis) for hypothesis 1 and have tested at least 65 participants; OR
 
 We reach the end of March, 2020.
 
