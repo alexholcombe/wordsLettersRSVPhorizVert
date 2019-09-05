@@ -1,7 +1,7 @@
 ---
 title: "Bayesian Analysis of Vertical Words and Letters experiment, For Preregistration"
 author: "Alex Holcombe"
-date: '`r paste("Mostly done by Aug 15, 2019. Updated on", Sys.Date())`'
+date: '`r paste("Mostly completed on Aug 15, 2019. Updated on", Sys.Date())`'
 
 output: html_document
 ---
@@ -370,7 +370,7 @@ I can't explain why the notch occurs in the alternative hypothesis, but it's sma
 
 ## Sample size
 
- We will sample at least 40 people (after excluded participants have been omitted).  Once we have reached 40 people, we will analyse the data periodically to determine whether our results meet the Bayesian stopping rule specified below.
+ We will sample at least 40 people (after excluded participants have been omitted).  Once we have reached 40 people, we will analyse the data periodically to determine whether our results have met the Bayesian stopping rule specified below.
 
 ### Sample size rationale
 
@@ -384,11 +384,11 @@ We will stop when:
 
 Our analysis indicates that we have reached a Bayes factor of at least 10 (in favour of either the experimental or null hypothesis) for hypotheses 1 and 2; OR 
 
-Our analysis indicates that we have reached a Bayes factor of at least 10 (in favour of either the experimental or null hypothesis) for hypothesis 1 and have tested at least 35 participants; or
+Our analysis indicates that we have reached a Bayes factor of at least 10 (in favour of either the experimental or null hypothesis) for hypothesis 1 and have tested at least 65 participants; or
 
-We reach the end of Semester 1, 2019.
+We reach the end of March, 2020.
 
-THE BELOW IS JUST QUALITATIVE PLANS FOR THE OTHER MEASURES BESIDES EFFICACY, THE ABOVE QUANTITATIVE DETAILS ARE ONLY FOR THE EFFICACY ANALYSIS 
+THE BELOW IS JUST QUALITATIVE PLANS FOR THE OTHER MEASURES BESIDES EFFICACY (THE ABOVE QUANTITATIVE DETAILS ARE ONLY FOR THE EFFICACY ANALYSIS)
 
 ### Data exclusion
 
